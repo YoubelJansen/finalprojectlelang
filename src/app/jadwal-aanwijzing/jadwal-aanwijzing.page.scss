@@ -1,0 +1,48 @@
+:host {
+  --ion-background-color: #f2f4f8;
+}
+
+ion-header {
+  --background: #2979ff;
+  --color: #fff;
+}
+
+ion-title {
+  font-weight: bold;
+}
+
+ion-content {
+  padding: 1rem;
+}
+
+.jadwal-card {
+  background: #ffffff;
+  border-left: 6px solid #2979ff;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  h3 {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin: 0.3rem 0;
+    color: #333;
+  }
+
+  ion-button {
+    margin-top: 0.5rem;
+    --background: #2979ff;
+    --color: white;
+  }
+}
+
+.kosong {
+  text-align: center;
+  margin-top: 2rem;
+  color: #999;
+  font-style: italic;
+}

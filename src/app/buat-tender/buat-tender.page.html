@@ -1,0 +1,31 @@
+<ion-content>
+  <div class="page-container">
+    <div class="form-card">
+      <h2 class="form-title">Buat Tender</h2>
+      <p class="form-subtitle">Lengkapi informasi untuk mengajukan tender</p>
+
+      <ion-item class="input-field">
+        <ion-label position="stacked">Nama Barang/Jasa</ion-label>
+        <ion-input [(ngModel)]="nama" placeholder="Masukkan nama"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-field">
+        <ion-label position="stacked">Spesifikasi</ion-label>
+        <ion-textarea [(ngModel)]="spesifikasi" placeholder="Tuliskan spesifikasi"></ion-textarea>
+      </ion-item>
+
+      <ion-item class="input-field">
+        <ion-label position="stacked">Kuantitas</ion-label>
+        <ion-input [(ngModel)]="kuantitas" type="number" placeholder="Masukkan jumlah"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-field">
+        <ion-label position="stacked">Alasan Kebutuhan</ion-label>
+        <ion-input [(ngModel)]="alasan" placeholder="Tuliskan alasan"></ion-input>
+      </ion-item>
+
+      <ion-button expand="block" class="submit-btn" (click)="ajukanTender()">Ajukan Tender</ion-button>
+      <ion-button expand="block" fill="clear" class="back-btn" routerLink="/halamanutama">Kembali</ion-button>
+    </div>
+  </div>
+</ion-content>

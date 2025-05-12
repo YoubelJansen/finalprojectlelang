@@ -1,0 +1,21 @@
+ion-item {
+  align-items: flex-start;
+
+  ion-label {
+    margin-right: 10px;
+  }
+
+  ion-button {
+    margin-left: 4px;
+  }
+
+  h2 {
+    font-weight: 600;
+  }
+
+  p {
+    margin-top: 4px;
+    font-size: 14px;
+    color: #555;
+  }
+}

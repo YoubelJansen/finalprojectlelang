@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center">Dashboard Vendor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="dashboard-content">
+  <div class="dashboard-grid">
+    <ion-card class="dashboard-card" (click)="navigateTo('registrasi-vendor')">
+      <ion-card-header>
+        <ion-card-title>🌐 Registrasi Vendor</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="dashboard-card" (click)="navigateTo('akses-tender')">
+      <ion-card-header>
+        <ion-card-title>📄 Akses Tender Terbuka</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="dashboard-card" (click)="navigateTo('pengajuan-penawaran')">
+      <ion-card-header>
+        <ion-card-title>🛳️ Pengajuan Penawaran</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="dashboard-card" (click)="navigateTo('jadwal-aanwijzing')">
+      <ion-card-header>
+        <ion-card-title>📅 Jadwal Aanwijzing</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="dashboard-card" (click)="navigateTo('bidding-penilaian')">
+      <ion-card-header>
+        <ion-card-title>💰 Bidding & Penilaian</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+
+    <ion-card class="dashboard-card" (click)="navigateTo('pemenang-po')">
+      <ion-card-header>
+        <ion-card-title>✅ Pemenang & PO</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+</ion-content>

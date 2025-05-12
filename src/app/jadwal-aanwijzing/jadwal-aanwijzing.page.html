@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Jadwal Aanwijzing</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="jadwalList.length === 0" class="kosong">Tidak ada jadwal aanwijzing.</div>
+
+  <div *ngFor="let item of jadwalList" class="jadwal-card">
+    <h3>{{ item.namaProyek }}</h3>
+    <p><strong>Waktu:</strong> {{ item.waktu | date:'fullDate' }} - {{ item.waktu | date:'shortTime' }}</p>
+    <p><strong>Lokasi/Link:</strong> {{ item.tempat }}</p>
+
+    <ion-button expand="block" size="small" color="primary" (click)="terimaUndangan(item)">
+      {{ item.diterima ? 'Sudah Diterima' : 'Terima Undangan' }}
+    </ion-button>
+  </div>
+</ion-content>

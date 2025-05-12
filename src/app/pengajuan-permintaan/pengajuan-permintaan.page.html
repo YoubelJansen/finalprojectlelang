@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Pengajuan Permintaan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="form-container">
+    <h2>Form Pengajuan</h2>
+    <p>Silakan isi data permintaan barang / jasa dengan lengkap.</p>
+
+    <ion-item>
+      <ion-label position="floating">Nama Item</ion-label>
+      <ion-input type="text" [(ngModel)]="form.item"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Spesifikasi</ion-label>
+      <ion-textarea [(ngModel)]="form.spesifikasi"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Kuantitas</ion-label>
+      <ion-input type="number" [(ngModel)]="form.kuantitas"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Alasan Kebutuhan</ion-label>
+      <ion-textarea [(ngModel)]="form.alasan"></ion-textarea>
+    </ion-item>
+
+    <ion-button expand="block" color="primary" (click)="submitForm()">
+      Ajukan Permintaan
+    </ion-button>
+  </div>
+</ion-content>

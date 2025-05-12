@@ -1,0 +1,62 @@
+:host {
+  --ion-background-color: #f2f4f8; // latar belakang abu terang
+  --ion-text-color: #1e1e2f;       // teks utama
+}
+
+ion-header {
+  background-color: #2979ff; // biru terang
+  color: #fff;
+
+  ion-toolbar {
+    --background: #2979ff;
+    --color: #fff;
+  }
+
+  ion-title {
+    font-weight: bold;
+  }
+}
+
+ion-content {
+  --background: #f2f4f8; // warna dasar konten
+  padding: 1rem;
+}
+
+.tender-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-left: 6px solid #2979ff;
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e1e2f;
+  }
+
+  p {
+    font-size: 0.9rem;
+    color: #444;
+    margin: 0.5rem 0 1rem;
+  }
+
+  .deadline {
+    font-size: 0.8rem;
+    color: #888;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 0.8rem;
+  }
+
+  ion-button {
+    --background: #2979ff;
+    --background-hover: #296eff;
+    --color: white;
+    text-transform: none;
+    font-weight: 500;
+    width: 100%;
+  }
+}

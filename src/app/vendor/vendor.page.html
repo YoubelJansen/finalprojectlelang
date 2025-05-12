@@ -1,0 +1,24 @@
+<ion-content>
+  <div class="page-container">
+    <div class="card">
+      <h2 class="title">Daftar Vendor</h2>
+
+      <ng-container *ngIf="vendors.length > 0; else kosong">
+        <div class="vendor-card" *ngFor="let vendor of vendors">
+          <p><strong>Nama:</strong> {{ vendor.nama }}</p>
+          <p><strong>Perusahaan:</strong> {{ vendor.perusahaan }}</p>
+          <p><strong>Email:</strong> {{ vendor.email }}</p>
+          <p><strong>No. Telp:</strong> {{ vendor.telepon }}</p>
+        </div>
+      </ng-container>
+
+      <ng-template #kosong>
+        <ion-text color="medium">
+          <p style="text-align: center;">Belum ada data vendor</p>
+        </ion-text>
+      </ng-template>
+
+      <ion-button expand="block" routerLink="/halamanutama">Kembali</ion-button>
+    </div>
+  </div>
+</ion-content>

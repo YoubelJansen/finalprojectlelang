@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Pengajuan Penawaran</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form (ngSubmit)="submitPenawaran()">
+    <div class="form-group">
+      <label>Dokumen Administrasi</label>
+      <input type="file" (change)="handleFileInput($event, 'administrasi')" accept=".pdf,.doc,.docx" />
+    </div>
+
+    <div class="form-group">
+      <label>Dokumen Teknis</label>
+      <input type="file" (change)="handleFileInput($event, 'teknis')" accept=".pdf,.doc,.docx" />
+    </div>
+
+    <div class="form-group">
+      <label>Penawaran Harga</label>
+      <input type="file" (change)="handleFileInput($event, 'harga')" accept=".pdf,.xls,.xlsx" />
+    </div>
+
+    <ion-button expand="block" type="submit" [disabled]="!isFormValid()">Kirim Penawaran</ion-button>
+  </form>
+</ion-content>
