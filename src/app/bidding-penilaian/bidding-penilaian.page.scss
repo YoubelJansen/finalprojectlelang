@@ -1,0 +1,29 @@
+ion-content {
+  --background: linear-gradient(to bottom, #0057b7, #0096c7);
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+ion-card {
+  border-radius: 15px;
+  text-align: center;
+  background-color: #fff;
+  color: #333;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+ion-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+ion-icon {
+  margin-bottom: 10px;
+  color: #007bff;
+}

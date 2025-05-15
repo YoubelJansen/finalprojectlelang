@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Proses Aanwijzing & Tender</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Sesi Aanwijzing -->
+  <h2>Sesi Aanwijzing</h2>
+  <ion-card *ngFor="let sesi of sesiAanwijzing">
+    <ion-card-header>
+      <ion-card-title>{{ sesi.namaTender }}</ion-card-title>
+      <ion-card-subtitle>{{ sesi.tanggal }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ sesi.deskripsi }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Dokumen Penawaran Vendor -->
+  <h2>Dokumen Penawaran Vendor</h2>
+  <ion-card *ngFor="let doc of dokumenVendor">
+    <ion-card-header>
+      <ion-card-title>{{ doc.namaVendor }}</ion-card-title>
+      <ion-card-subtitle>{{ doc.namaFile }}</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Status: <strong>{{ doc.statusVerifikasi }}</strong></p>
+      <ion-button color="success" size="small" (click)="verifikasiDokumen(doc.id, 'Terverifikasi')" [disabled]="doc.statusVerifikasi === 'Terverifikasi'">
+        Verifikasi
+      </ion-button>
+      <ion-button color="danger" size="small" (click)="verifikasiDokumen(doc.id, 'Ditolak')" [disabled]="doc.statusVerifikasi === 'Ditolak'">
+        Tolak
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Evaluasi Bidding -->
+  <h2>Evaluasi Bidding</h2>
+  <ion-grid>
+    <ion-row class="header-row">
+      <ion-col><strong>Vendor</strong></ion-col>
+      <ion-col><strong>Harga</strong></ion-col>
+      <ion-col><strong>Skor Teknis</strong></ion-col>
+      <ion-col><strong>Skor Akhir</strong></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let bid of daftarBidding">
+      <ion-col>{{ bid.namaVendor }}</ion-col>
+      <ion-col>Rp {{ bid.hargaPenawaran | number }}</ion-col>
+      <ion-col>{{ bid.skorTeknis }}</ion-col>
+      <ion-col><strong>{{ bid.skorAkhir }}</strong></ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

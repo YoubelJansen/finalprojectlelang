@@ -1,0 +1,33 @@
+h2 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+ion-card {
+  margin-bottom: 16px;
+}
+
+ion-grid {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+ion-row.header-row {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+ion-row {
+  border-bottom: 1px solid #ddd;
+  padding: 8px 0;
+}
+
+ion-col {
+  text-align: center;
+  font-size: 14px;
+}

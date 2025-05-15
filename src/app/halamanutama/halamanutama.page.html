@@ -1,0 +1,37 @@
+<ion-content class="ion-padding" style="--background: #f8f9fa;">
+  <div class="container">
+    <div class="card">
+      <h2 class="title">Halaman Utama</h2>
+      <p class="subtitle">Fitur Utama Sistem e-Procurement</p>
+
+      <div><div class="user-info">
+  <span>👋 Selamat datang, {{ userName }}</span>
+  <ion-button fill="outline" size="small" color="danger" (click)="logout()">Logout</ion-button>
+</div>
+</div>
+
+      <div class="grid">
+        <div class="feature-card" (click)="goTo('kelola-pengadaan')">
+          <ion-icon name="construct-outline"></ion-icon>
+          <span>Kelola Pengadaan</span>
+        </div>
+        <div class="feature-card" (click)="goTo('buat-tender')">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>Input Vendor & Realisasi</span>
+        </div>
+        <div class="feature-card" (click)="goTo('proses-aanwijzing')">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>Aanwijzing & Tender</span>
+        </div>
+        <div class="feature-card" (click)="goTo('penetapan-pemenang')">
+          <ion-icon name="trophy-outline"></ion-icon>
+          <span>Penetapan Pemenang & PO</span>
+        </div>
+        <div class="feature-card" (click)="goTo('riwayat')">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          <span>Laporan Pengadaan</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

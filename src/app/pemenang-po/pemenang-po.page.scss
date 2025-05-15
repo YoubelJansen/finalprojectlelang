@@ -1,0 +1,17 @@
+.card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-card {
+  width: 90%;
+  border-radius: 15px;
+}
+
+.status-menang {
+  color: green;
+  font-weight: bold;
+}

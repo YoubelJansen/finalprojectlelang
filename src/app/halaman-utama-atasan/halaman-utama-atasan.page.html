@@ -1,0 +1,22 @@
+<ion-content class="ion-padding halaman-utama-atasan">
+  <div class="dashboard-container">
+    <h2>Dashboard Atasan</h2>
+    <p>Apa yang ingin Anda lakukan hari ini?</p>
+
+    <div class="button-grid">
+      <ion-button fill="solid" color="light" class="dashboard-button" routerLink="/verifikasi">
+        <ion-icon name="checkmark-done-circle-outline" slot="icon-only"></ion-icon>
+        <span>Verifikasi</span>
+      </ion-button>
+
+      <ion-button fill="solid" color="light" class="dashboard-button" routerLink="/rekap">
+        <ion-icon name="bar-chart-outline" slot="icon-only"></ion-icon>
+        <span>Rekap</span>
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" color="medium" class="logout-button" routerLink="/login">
+      LOGOUT
+    </ion-button>
+  </div>
+</ion-content>

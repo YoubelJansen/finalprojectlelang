@@ -1,0 +1,22 @@
+<ion-content>
+  <div class="login-container">
+    <div class="login-card">
+      <div class="tab-buttons">
+        <ion-button fill="outline" [routerLink]="['/login']">LOGIN</ion-button>
+        <ion-button fill="solid" class="active-tab">REGISTER</ion-button>
+      </div>
+
+      <div class="logo">
+        <img src="https://images.seeklogo.com/logo-png/42/1/war-thunder-logo-png_seeklogo-429193.png" alt="logo">
+      </div>
+
+      <h2>REGISTER A NEW ACCOUNT</h2>
+      <p>Sign up to create a new account by filling fields below</p>
+
+      <ion-input [(ngModel)]="email" placeholder="E-mail Address" type="email"></ion-input>
+      <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
+
+      <ion-button expand="block" (click)="onRegister()">REGISTER</ion-button>
+    </div>
+  </div>
+</ion-content>

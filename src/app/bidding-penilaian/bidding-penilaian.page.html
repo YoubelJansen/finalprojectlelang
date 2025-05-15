@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Bidding & Penilaian</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Masukkan Harga Bidding</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-input
+        type="number"
+        label="Harga Penawaran (Rp)"
+        placeholder="Contoh: 120000000"
+        [(ngModel)]="hargaBidding">
+      </ion-input>
+
+      <ion-button expand="full" color="success" (click)="submitBidding()">
+        Kirim Bidding
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Hasil Evaluasi</ion-card-title>
+    </ion-card-header>
+    <ion-card-content *ngIf="evaluasi">
+      <p>Status: <strong>{{ evaluasi.status }}</strong></p>
+      <p>Skor: <strong>{{ evaluasi.skor }}</strong></p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-button expand="full" color="medium" (click)="kembaliKeDashboard()">
+    <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
+    Kembali ke Dashboard
+  </ion-button>
+</ion-content>

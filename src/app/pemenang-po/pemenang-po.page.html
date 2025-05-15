@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Pemenang PO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [fullscreen]="true">
+  <div class="card-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Informasi Pemenang</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Nama Vendor:</strong> PT Sukses Selalu</p>
+        <p><strong>Harga Akhir (Rp):</strong> 120.000.000</p>
+        <p><strong>Status:</strong> <span class="status-menang">MENANG</span></p>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" color="medium" (click)="kembaliKeDashboard()">
+      ← KEMBALI KE DASHBOARD
+    </ion-button>
+  </div>
+</ion-content>

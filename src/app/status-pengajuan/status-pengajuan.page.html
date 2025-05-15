@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Status Pengajuan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="status-container">
+    <h2>Riwayat Pengajuan</h2>
+    <ion-list>
+      <ion-item *ngFor="let item of daftarPengajuan">
+        <ion-label>
+          <h3>{{ item.namaItem }}</h3>
+          <p>Kuantitas: {{ item.kuantitas }} | Tanggal: {{ item.tanggal }}</p>
+        </ion-label>
+        <ion-badge [color]="getBadgeColor(item.status)">
+          {{ item.status }}
+        </ion-badge>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
