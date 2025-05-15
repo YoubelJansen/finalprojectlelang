@@ -95,7 +95,14 @@ const routes: Routes = [
     path: 'rekap',
     loadChildren: () => import('./rekap/rekap.module').then( m => m.RekapPageModule)
   },
-
+  {
+    path: 'kelola-pengadaan',
+    loadChildren: () => import('./kelola-pengadaan/kelola-pengadaan.module').then( m => m.KelolaPengadaanPageModule)
+  },
+  {
+    path: 'proses-aanwijzing',
+    loadChildren: () => import('./proses-aanwijzing/proses-aanwijzing.module').then( m => m.ProsesAanwijzingPageModule)
+  },
 
 ];
 

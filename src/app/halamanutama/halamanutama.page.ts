@@ -13,14 +13,17 @@ export class HalamanutamaPage implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
+    // Ambil nama pengguna dari localStorage (jika ada)
     this.userName = localStorage.getItem('userName') || 'Pengguna';
   }
 
   goTo(page: string) {
+    // Navigasi ke halaman fitur sesuai parameter
     this.router.navigate(['/' + page]);
   }
 
   logout() {
+    // Bersihkan semua data dan redirect ke login
     localStorage.clear();
     this.router.navigate(['/login']);
   }

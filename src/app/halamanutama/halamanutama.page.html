@@ -1,70 +1,37 @@
-<ion-content>
-  <div class="page-container">
+<ion-content class="ion-padding" style="--background: #f8f9fa;">
+  <div class="container">
     <div class="card">
-      <h2 class="title">Dashboard</h2>
-      <p class="subtitle">What would you like to do today?</p>
+      <h2 class="title">Halaman Utama</h2>
+      <p class="subtitle">Fitur Utama Sistem e-Procurement</p>
 
-      <ion-grid>
-        <ion-row>
-          <ion-col size="6">
-            <ion-card button routerLink="/tender" class="menu-card">
-              <ion-icon name="document-text-outline" size="large"></ion-icon>
-              <p>Tender</p>
-            </ion-card>
-          </ion-col>
-          <ion-col size="6">
-            <ion-card button routerLink="/vendor" class="menu-card">
-              <ion-icon name="people-outline" size="large"></ion-icon>
-              <p>Vendor</p>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col size="6">
-            <ion-card button routerLink="/riwayat" class="menu-card">
-              <ion-icon name="time-outline" size="large"></ion-icon>
-              <p>Riwayat</p>
-            </ion-card>
-          </ion-col>
-          <ion-col size="6">
-            <ion-card button routerLink="/buat-tender" class="menu-card">
-              <ion-icon name="add-circle-outline" size="large"></ion-icon>
-              <p>Buat Tender</p>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <div><div class="user-info">
+  <span>👋 Selamat datang, {{ userName }}</span>
+  <ion-button fill="outline" size="small" color="danger" (click)="logout()">Logout</ion-button>
+</div>
+</div>
 
-      <ion-button expand="block" fill="outline" color="primary" [routerLink]="['/login']">Logout</ion-button>
+      <div class="grid">
+        <div class="feature-card" (click)="goTo('kelola-pengadaan')">
+          <ion-icon name="construct-outline"></ion-icon>
+          <span>Kelola Pengadaan</span>
+        </div>
+        <div class="feature-card" (click)="goTo('buat-tender')">
+          <ion-icon name="people-outline"></ion-icon>
+          <span>Input Vendor & Realisasi</span>
+        </div>
+        <div class="feature-card" (click)="goTo('proses-aanwijzing')">
+          <ion-icon name="document-text-outline"></ion-icon>
+          <span>Aanwijzing & Tender</span>
+        </div>
+        <div class="feature-card" (click)="goTo('penetapan-pemenang')">
+          <ion-icon name="trophy-outline"></ion-icon>
+          <span>Penetapan Pemenang & PO</span>
+        </div>
+        <div class="feature-card" (click)="goTo('riwayat')">
+          <ion-icon name="bar-chart-outline"></ion-icon>
+          <span>Laporan Pengadaan</span>
+        </div>
+      </div>
     </div>
   </div>
-
-  <ion-header translucent>
-    <ion-toolbar>
-      <ion-title>Dashboard</ion-title>
-      <ion-buttons slot="end">
-        <ion-button [routerLink]="['/profile']">
-          <ion-icon slot="icon-only" name="person-circle-outline"></ion-icon>
-        </ion-button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content>
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Welcome to the Dashboard</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p>Here you can manage all your projects, tenders, and more!</p>
-      </ion-card-content>
-    </ion-card>
-  
-    <!-- Menu Profile Button on the Main Content -->
-    <ion-button expand="full" [routerLink]="['/profile']">
-      <ion-icon slot="start" name="person-circle-outline"></ion-icon>
-      Go to Profile
-    </ion-button>
-  </ion-content>
-  
 </ion-content>
