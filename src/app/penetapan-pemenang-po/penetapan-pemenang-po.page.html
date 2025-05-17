@@ -1,0 +1,24 @@
+<ion-content>
+  <div class="po-card">
+    <h2 class="title">Penetapan Pemenang</h2>
+
+    <div *ngIf="winner" class="info-section">
+      <h3>{{ winner.name }}</h3>
+      <p><strong>Skor Teknis:</strong> {{ winner.technicalScore }}</p>
+      <p><strong>Harga Penawaran:</strong> Rp {{ winner.price | number:'1.0-0' }}</p>
+    </div>
+
+    <ion-button expand="block" color="success" (click)="generatePO()" [disabled]="!winner">
+      Terbitkan PO
+    </ion-button>
+
+    <div *ngIf="poData" class="info-section issued">
+      <h3>PO Diterbitkan</h3>
+      <p><strong>No PO:</strong> {{ poData.poNumber }}</p>
+      <p><strong>Vendor:</strong> {{ poData.vendorName }}</p>
+      <p><strong>Total:</strong> Rp {{ poData.totalPrice | number:'1.0-0' }}</p>
+      <p><strong>Tanggal:</strong> {{ poData.issuedDate }} {{ poData.issuedTime }}</p>
+      <p><strong>Status:</strong> {{ poData.status }}</p>
+    </div>
+  </div>
+</ion-content>

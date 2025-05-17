@@ -1,0 +1,58 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(to bottom right, #c6e2ff, #78aaff);
+}
+
+ion-content {
+  --background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.po-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2rem;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.info-section {
+  text-align: left;
+  margin-bottom: 1.5rem;
+
+  h3 {
+    margin-bottom: 0.5rem;
+    color: #2c3e50;
+  }
+
+  p {
+    margin: 0.3rem 0;
+    color: #555;
+  }
+}
+
+.issued {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+ion-button {
+  --border-radius: 12px;
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  font-weight: bold;
+}

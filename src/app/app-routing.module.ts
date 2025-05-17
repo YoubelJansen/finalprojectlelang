@@ -103,6 +103,10 @@ const routes: Routes = [
     path: 'proses-aanwijzing',
     loadChildren: () => import('./proses-aanwijzing/proses-aanwijzing.module').then( m => m.ProsesAanwijzingPageModule)
   },
+  {
+    path: 'penetapan-pemenang-po',
+    loadChildren: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.module').then( m => m.PenetapanPemenangPoPageModule)
+  },
 
 ];
 
