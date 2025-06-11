@@ -4,14 +4,24 @@
   gap: 20px;
   justify-content: center;
   align-items: center;
+  padding: 1rem;
+  background: linear-gradient(145deg, #e0eaff, #f7f9ff);
+  min-height: 100vh;
 }
 
 ion-card {
-  width: 90%;
-  border-radius: 15px;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
 }
 
 .status-menang {
   color: green;
   font-weight: bold;
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }

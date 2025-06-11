@@ -1,54 +1,70 @@
 .halaman-utama-atasan {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  --background: linear-gradient(145deg, #e0eaff, #f7f9ff);
 
   .dashboard-container {
-    background: white;
-    padding: 24px;
+    background: #fff;
+    padding: 2rem;
     border-radius: 20px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
     text-align: center;
-    width: 100%;
-    max-width: 360px;
 
     h2 {
-      font-size: 22px;
-      margin-bottom: 6px;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #1a1a1a;
+      margin-bottom: 0.5rem;
     }
 
     p {
-      font-size: 14px;
+      font-size: 1rem;
       color: #666;
-      margin-bottom: 20px;
+      margin-bottom: 1.5rem;
     }
 
     .button-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
 
-      .dashboard-button {
-        height: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        font-size: 14px;
+    .menu-card {
+      background: #f4f7fe;
+      border-radius: 15px;
+      padding: 1rem;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s ease-in-out;
+      text-decoration: none;
 
-        ion-icon {
-          font-size: 28px;
-          margin-bottom: 6px;
-        }
+      &:hover {
+        background: #e3eefe;
+        transform: translateY(-2px);
+      }
+
+      ion-icon {
+        font-size: 24px;
+        color: #3b82f6;
+        margin-bottom: 0.5rem;
+      }
+
+      span {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #333;
       }
     }
 
     .logout-button {
-      border: 1px solid #ccc;
-      background-color: white;
-      color: #333;
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 10px;
     }
   }
 }

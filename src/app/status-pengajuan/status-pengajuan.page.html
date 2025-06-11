@@ -4,16 +4,16 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding status-page">
   <div class="status-container">
-    <h2>Riwayat Pengajuan</h2>
+    <h2>Status Permintaan Anda</h2>
     <ion-list>
       <ion-item *ngFor="let item of daftarPengajuan">
         <ion-label>
           <h3>{{ item.namaItem }}</h3>
           <p>Kuantitas: {{ item.kuantitas }} | Tanggal: {{ item.tanggal }}</p>
         </ion-label>
-        <ion-badge [color]="getBadgeColor(item.status)">
+        <ion-badge slot="end" [color]="getBadgeColor(item.status)">
           {{ item.status }}
         </ion-badge>
       </ion-item>

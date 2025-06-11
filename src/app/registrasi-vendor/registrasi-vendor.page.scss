@@ -1,0 +1,51 @@
+.halaman-registrasi-vendor {
+  --background: linear-gradient(135deg, #e6f0ff, #f2f6fc);
+}
+
+.form-container {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.form-container h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.form-container p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+ion-item {
+  --background: #f9fbff;
+  --border-radius: 12px;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e6f1;
+  padding: 0.5rem;
+}
+
+ion-label {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+ion-input {
+  color: #000;
+}
+
+.submit-button {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}

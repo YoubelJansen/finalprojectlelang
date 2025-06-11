@@ -1,24 +1,68 @@
+/* === dashboard-vendor.css === */
 .dashboard-content {
-  --background: linear-gradient(to bottom right, #003366, #005ea2);
+  --background: linear-gradient(145deg, #e0eaff, #f7f9ff); /* Gradient lembut */
   height: 100%;
-  padding: 16px;
+  padding: 1rem;
 }
 
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-  gap: 16px;
+  gap: 1rem;
+  padding: 1rem;
+  max-width: 800px; /* Lebar maksimal untuk konsistensi */
+  margin: 0 auto; /* Pusatkan grid */
 }
 
 .dashboard-card {
-  background: white;
-  color: #003366;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   text-align: center;
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s;
+  transition: all 0.3s ease;
+  border-left: 4px solid transparent; /* Untuk indikator status */
 }
 
+/* Gaya untuk item checklist */
+.dashboard-card .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.8rem;
+  font-size: 1rem;
+  color: #1a1a1a;
+}
+
+/* Icon checklist */
+.dashboard-card ion-icon {
+  font-size: 1.2rem;
+  color: #3b82f6; /* Warna biru konsisten */
+}
+
+/* Item selesai (checked) */
+.dashboard-card .completed {
+  color: #666; /* Warna subtitle */
+  text-decoration: line-through;
+  opacity: 0.8;
+}
+
+/* Item aktif */
+.dashboard-card .active {
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+/* Header card */
+.dashboard-card h3 {
+  font-size: 1.4rem;
+  color: #1a1a1a;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/* Efek hover */
 .dashboard-card:hover {
-  transform: scale(1.03);
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15);
 }

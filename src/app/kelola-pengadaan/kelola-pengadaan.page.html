@@ -1,25 +1,21 @@
-<ion-header>
-  <ion-toolbar color="light">
-    <ion-title class="ion-text-center">Kelola Pengadaan</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content class="ion-padding" [fullscreen]="true">
-  <div class="wrapper">
+<ion-content [fullscreen]="true">
+  <div class="ion-padding">
     <div class="judul-section">
       <h2>Permintaan yang Disetujui</h2>
+      <p>Pilih item di bawah untuk melihat detail.</p>
     </div>
 
     <div class="card-container">
-      <ion-card *ngFor="let item of permintaanDisetujui" class="custom-card">
-        <ion-card-header>
-          <ion-card-title class="title">{{ item.namaBarang }}</ion-card-title>
-          <ion-card-subtitle class="subtitle">{{ item.tanggal }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <p>Jumlah: {{ item.jumlah }}</p>
-          <p>Status: <strong>{{ item.status }}</strong></p>
-        </ion-card-content>
+      <ion-card *ngFor="let item of permintaanDisetujui" class="custom-card" button="true">
+        <div class="card-content-wrapper">
+          <ion-icon name="archive-outline" color="primary"></ion-icon>
+          
+          <div class="text-content">
+            <ion-card-title>{{ item.namaBarang }}</ion-card-title>
+            <ion-card-subtitle>{{ item.tanggal }}</ion-card-subtitle>
+            <p class="details">Jumlah: {{ item.jumlah }} | Status: <strong>{{ item.status }}</strong></p>
+          </div>
+        </div>
       </ion-card>
     </div>
   </div>

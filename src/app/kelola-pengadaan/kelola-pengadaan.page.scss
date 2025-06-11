@@ -1,46 +1,73 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* kelola-pengadaan.page.scss */
+
+// Mengatur warna latar belakang utama halaman menjadi abu-abu muda
+ion-content {
+  --background: #f4f5f8;
 }
 
 .judul-section {
   text-align: center;
-  margin-bottom: 20px;
+  margin-top: 20px;
+  margin-bottom: 24px;
 
   h2 {
-    font-weight: bold;
-    color: #222;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1e2023;
+    margin-bottom: 4px;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #666;
   }
 }
 
 .card-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  max-width: 600px;
+  gap: 16px; // Jarak antar kartu
 }
 
 .custom-card {
-  background: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  border-radius: 16px;
-  padding: 8px;
+  // Desain kartu utama
+  background: #ffffff;
+  border-radius: 16px; // Sudut lebih bulat
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  margin: 0; // Hapus margin default
+  padding: 16px;
+  --inner-padding-end: 16px; // Perbaikan padding internal ionic
+}
 
-  .title {
+.card-content-wrapper {
+  display: flex;
+  align-items: center; // Menjajarkan ikon dan teks di tengah secara vertikal
+  width: 100%;
+  gap: 16px; // Jarak antara ikon dan teks
+
+  ion-icon {
+    font-size: 2.5rem; // Ukuran ikon
+  }
+}
+
+.text-content {
+  flex: 1; // Agar teks mengisi sisa ruang
+
+  ion-card-title {
     font-size: 1.2rem;
     font-weight: 600;
-    color: #1a1a1a;
-  }
-
-  .subtitle {
-    font-size: 0.9rem;
-    color: #777;
-  }
-
-  ion-card-content {
-    font-size: 0.95rem;
     color: #333;
+  }
+
+  ion-card-subtitle {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 2px;
+  }
+
+  .details {
+    font-size: 0.9rem;
+    color: #555;
+    margin-top: 8px;
   }
 }

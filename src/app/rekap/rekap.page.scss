@@ -1,16 +1,50 @@
-ion-item {
-  ion-label {
-    h2 {
-      font-weight: bold;
-      margin-bottom: 4px;
+.halaman-rekap {
+  --background: linear-gradient(145deg, #e0eaff, #f7f9ff);
+
+  .rekap-container {
+    padding: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .rekap-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .rekap-info {
+    h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 0 0 0.3rem;
+      color: #333;
     }
 
     p {
-      margin: 2px 0;
+      font-size: 0.95rem;
+      margin: 0.25rem 0;
+      color: #555;
     }
 
     ion-badge {
       font-size: 13px;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    strong {
+      color: #222;
     }
   }
 }

@@ -1,29 +1,203 @@
+/* === bidding-penilaian.css === */
 ion-content {
-  --background: linear-gradient(to bottom, #0057b7, #0096c7);
+  --background: #f8fafc; /* Light background */
+  --padding-start: 1rem;
+  --padding-end: 1rem;
+  --padding-top: 1rem;
 }
 
-.card-container {
+/* Header Styles */
+.bidding-header {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding-top: 20px;
-}
-
-ion-card {
-  border-radius: 15px;
-  text-align: center;
-  background-color: #fff;
-  color: #333;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-ion-card-content {
-  display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  margin-bottom: 1.5rem;
+  
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin: 0;
+  }
+  
+  .timer {
+    background: #f1f5f9;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    ion-icon {
+      color: #ef4444;
+    }
+  }
 }
 
-ion-icon {
-  margin-bottom: 10px;
-  color: #007bff;
+/* Bid Card Styles */
+.bid-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #3b82f6;
+  
+  .bid-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    
+    .bid-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    
+    .bid-status {
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 12px;
+      
+      &.active {
+        background: #e0f2fe;
+        color: #0369a1;
+      }
+      
+      &.pending {
+        background: #fef3c7;
+        color: #92400e;
+      }
+    }
+  }
+  
+  .bid-details {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    .detail-item {
+      .label {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-bottom: 0.3rem;
+      }
+      
+      .value {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #1e293b;
+        
+        &.highlight {
+          color: #3b82f6;
+        }
+      }
+    }
+  }
+  
+  .progress-container {
+    margin-bottom: 1.5rem;
+    
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      
+      .progress-label {
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      
+      .progress-value {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #3b82f6;
+      }
+    }
+    
+    .progress-bar {
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+      
+      .progress-fill {
+        height: 100%;
+        background: #3b82f6;
+        border-radius: 4px;
+      }
+    }
+  }
+  
+  .bid-action {
+    display: flex;
+    gap: 1rem;
+    
+    ion-button {
+      flex: 1;
+      --border-radius: 12px;
+      --padding-top: 0.8rem;
+      --padding-bottom: 0.8rem;
+      font-weight: 500;
+      
+      &.primary {
+        --background: #3b82f6;
+        --color: white;
+      }
+      
+      &.secondary {
+        --background: #f1f5f9;
+        --color: #334155;
+      }
+    }
+  }
+}
+
+/* Form Bidding */
+.bid-form {
+  background: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  
+  .form-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 1.5rem;
+  }
+  
+  .input-group {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: block;
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    
+    ion-input {
+      --background: #f8fafc;
+      --padding-start: 1rem;
+      --padding-end: 1rem;
+      --padding-top: 0.8rem;
+      --padding-bottom: 0.8rem;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+    }
+  }
+  
+  .submit-btn {
+    --background: #3b82f6;
+    --border-radius: 12px;
+    --padding-top: 1rem;
+    --padding-bottom: 1rem;
+    font-weight: 500;
+    width: 100%;
+  }
 }
