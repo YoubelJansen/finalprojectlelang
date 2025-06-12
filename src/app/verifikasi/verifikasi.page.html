@@ -1,26 +1,40 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Verifikasi & Persetujuan</ion-title>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-atasan"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Verifikasi Pengajuan</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding halaman-verifikasi">
+  <ion-refresher slot="fixed" (ionRefresh)="loadRequests($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  
   <div class="verifikasi-container">
-    <h2 class="title">Daftar Pengajuan</h2>
+    <h2 class="title">Daftar Pengajuan Masuk</h2>
 
-    <div *ngFor="let pengajuan of daftarPengajuan" class="pengajuan-card">
+    <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
+      <p>Tidak ada pengajuan yang perlu diverifikasi saat ini.</p>
+    </div>
+
+    <div *ngFor="let req of requests" class="pengajuan-card">
       <div class="pengajuan-info">
-        <h3>{{ pengajuan.nama }}</h3>
-        <p>{{ pengajuan.deskripsi }}</p>
-        <p><strong>Status:</strong> {{ pengajuan.status }}</p>
+        <h3>{{ req.title }}</h3>
+        <p>Oleh: <strong>{{ req.requester.name }}</strong></p>
+        <p>Tanggal: {{ req.created_at | date:'fullDate' }}</p>
+        <p>Alasan: {{ req.reason }}</p>
       </div>
 
       <div class="action-buttons">
-        <ion-button fill="clear" color="success" (click)="setujui(pengajuan)">
-          <ion-icon name="checkmark-circle-outline"></ion-icon>
+        <ion-button fill="outline" color="danger" (click)="promptReject(req)">
+          <ion-icon slot="start" name="close-circle-outline"></ion-icon>
+          Tolak
         </ion-button>
-        <ion-button fill="clear" color="danger" (click)="tolak(pengajuan)">
-          <ion-icon name="close-circle-outline"></ion-icon>
+        <ion-button color="success" (click)="promptApprove(req)">
+          <ion-icon slot="start" name="checkmark-circle-outline"></ion-icon>
+          Setujui
         </ion-button>
       </div>
     </div>

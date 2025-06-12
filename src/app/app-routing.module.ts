@@ -85,11 +85,11 @@ const routes: Routes = [
   },
   {
     path: 'halaman-utama-atasan',
-    loadChildren: () => import('./halaman-utama-atasan/halaman-utama-atasan.module').then( m => m.HalamanUtamaAtasanPageModule)
+    loadComponent: () => import('./halaman-utama-atasan/halaman-utama-atasan.page').then( m => m.HalamanUtamaAtasanPage)
   },
   {
     path: 'verifikasi',
-    loadChildren: () => import('./verifikasi/verifikasi.module').then( m => m.VerifikasiPageModule)
+    loadComponent: () => import('./verifikasi/verifikasi.page').then( m => m.VerifikasiPage)
   },
   {
     path: 'rekap',
