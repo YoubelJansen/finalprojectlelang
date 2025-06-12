@@ -2,20 +2,25 @@
   <div class="login-container">
     <div class="login-card">
       <div class="tab-buttons">
+        <!-- Tombol Login aktif -->
         <ion-button fill="solid" class="active-tab">LOGIN</ion-button>
+        <!-- Tombol Register mengarah ke halaman registrasi -->
         <ion-button fill="outline" [routerLink]="['/register']">REGISTER</ion-button>
       </div>
 
       <div class="logo">
-        <img src="https://images.seeklogo.com/logo-png/42/1/war-thunder-logo-png_seeklogo-429193.png" alt="logo">
+        <!-- Anda bisa ganti src dengan path ke logo lokal Anda di folder assets -->
+        <img src="assets/icon/favicon.png" alt="logo">
       </div>
 
       <h2>LOG IN TO AN ACCOUNT</h2>
       <p>Sign in to your already existing account by filling fields below</p>
 
+      <!-- Menggunakan [(ngModel)] untuk terhubung ke login.page.ts -->
       <ion-input [(ngModel)]="email" placeholder="E-mail Address" type="email"></ion-input>
       <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
 
+      <!-- Tombol ini memanggil fungsi onLogin() -->
       <ion-button expand="block" (click)="onLogin()">LOGIN</ion-button>
     </div>
   </div>

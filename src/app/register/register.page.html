@@ -2,20 +2,32 @@
   <div class="login-container">
     <div class="login-card">
       <div class="tab-buttons">
+        <!-- Tombol Login mengarah ke halaman login -->
         <ion-button fill="outline" [routerLink]="['/login']">LOGIN</ion-button>
+        <!-- Tombol Register aktif -->
         <ion-button fill="solid" class="active-tab">REGISTER</ion-button>
       </div>
 
       <div class="logo">
-        <img src="https://images.seeklogo.com/logo-png/42/1/war-thunder-logo-png_seeklogo-429193.png" alt="logo">
+        <img src="assets/icon/favicon.png" alt="logo">
       </div>
 
       <h2>REGISTER A NEW ACCOUNT</h2>
       <p>Sign up to create a new account by filling fields below</p>
 
+      <!-- Semua kolom yang dibutuhkan untuk registrasi -->
+      <ion-input [(ngModel)]="name" placeholder="Full Name" type="text"></ion-input>
       <ion-input [(ngModel)]="email" placeholder="E-mail Address" type="email"></ion-input>
       <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
+      <ion-input [(ngModel)]="password_confirmation" placeholder="Confirm Password" type="password"></ion-input>
+      
+      <!-- Select untuk memilih role -->
+      <ion-select [(ngModel)]="role" placeholder="Register as">
+        <ion-select-option value="karyawan">Karyawan</ion-select-option>
+        <ion-select-option value="vendor">Vendor</ion-select-option>
+      </ion-select>
 
+      <!-- Tombol ini memanggil fungsi onRegister() -->
       <ion-button expand="block" (click)="onRegister()">REGISTER</ion-button>
     </div>
   </div>

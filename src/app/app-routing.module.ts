@@ -13,11 +13,11 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadComponent: () => import('./login/login.page').then( m => m.LoginPage)
   },
   {
     path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
   {
     path: 'halamanutama',
@@ -106,14 +106,6 @@ const routes: Routes = [
   {
     path: 'penetapan-pemenang-po',
     loadChildren: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.module').then( m => m.PenetapanPemenangPoPageModule)
-  },
-  {
-    path: 'forgot-password',
-    loadChildren: () => import('./forgot-password/forgot-password.module').then( m => m.ForgotPasswordPageModule)
-  },
-  {
-    path: 'reset-password',
-    loadChildren: () => import('./reset-password/reset-password.module').then( m => m.ResetPasswordPageModule)
   },
 
 ];

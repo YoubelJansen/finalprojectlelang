@@ -3,16 +3,17 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  background: linear-gradient(to right, #dbeafe, #93c5fd);
+  // Anda bisa mengganti warna gradasi sesuai selera
+  background: linear-gradient(to right, #e0e7ff, #c7d2fe); 
 }
 
 .login-card {
   width: 90%;
-  max-width: 350px;
-  background-color: #fff;
+  max-width: 380px; // Sedikit lebih lebar untuk form register
+  background-color: #ffffff;
   padding: 25px;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
@@ -24,34 +25,45 @@
   ion-button {
     flex: 1;
     margin: 0 4px;
-    border-radius: 20px;
-  }
-
-  .active-tab {
-    background-color: #3b82f6;
-    color: #fff;
+    --border-radius: 20px; // Gunakan --border-radius untuk Ionic
+    font-weight: 600;
   }
 }
 
 .logo img {
-  width: 80px;
-  margin: 10px 0;
+  width: 70px; // Ukuran logo disesuaikan
+  margin-bottom: 15px;
 }
 
 h2 {
   font-weight: bold;
   font-size: 1.2rem;
+  color: #1e293b;
+  margin-top: 0;
 }
 
 p {
   font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 20px;
+  color: #64748b;
+  margin-bottom: 25px;
 }
 
-ion-input {
-  margin: 10px 0;
+// Mengatur style untuk ion-input dan ion-select
+ion-input, ion-select {
+  margin-bottom: 15px;
   border-radius: 12px;
   --background: #f1f5f9;
   --padding-start: 15px;
+  --placeholder-color: #94a3b8;
+  text-align: left; // Agar placeholder tidak di tengah
+  
+  // PERBAIKAN: Membuat warna teks input menjadi hitam
+  --color: #000000; 
+}
+
+// Mengatur style khusus untuk tombol utama
+ion-button[expand="block"] {
+    height: 48px;
+    font-size: 1.1rem;
+    --border-radius: 12px;
 }
