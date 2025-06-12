@@ -73,7 +73,7 @@ const routes: Routes = [
   },
   {
     path: 'pengajuan-permintaan',
-    loadChildren: () => import('./pengajuan-permintaan/pengajuan-permintaan.module').then( m => m.PengajuanPermintaanPageModule)
+    loadComponent: () => import('./pengajuan-permintaan/pengajuan-permintaan.page').then( m => m.PengajuanPermintaanPage)
   },
   {
     path: 'status-pengajuan',
@@ -81,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: 'riwayat-permintaan',
-    loadChildren: () => import('./riwayat-permintaan/riwayat-permintaan.module').then( m => m.RiwayatPermintaanPageModule)
+    loadComponent: () => import('./riwayat-permintaan/riwayat-permintaan.page').then( m => m.RiwayatPermintaanPage)
   },
   {
     path: 'halaman-utama-atasan',

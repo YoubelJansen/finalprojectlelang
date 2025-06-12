@@ -1,36 +1,83 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Pengajuan Permintaan</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-karyawan"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Buat Pengajuan Baru</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding halaman-pengajuan">
-  <div class="form-container">
-    <h2>Form Pengajuan</h2>
-    <p>Silakan isi data permintaan barang / jasa dengan lengkap.</p>
+<ion-content class="ion-padding">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h2>Form Pengajuan</h2>
+      <p>Silakan isi data permintaan dengan lengkap.</p>
+    </div>
 
-    <ion-item>
-      <ion-label position="floating">Nama Item</ion-label>
-      <ion-input type="text" [(ngModel)]="form.item"></ion-input>
-    </ion-item>
+    <ion-input
+      label="Judul Pengajuan"
+      labelPlacement="floating"
+      fill="solid"
+      class="custom-input"
+      placeholder="Contoh: Kebutuhan ATK Bulan Juli"
+      [(ngModel)]="request.title">
+    </ion-input>
 
-    <ion-item>
-      <ion-label position="floating">Spesifikasi</ion-label>
-      <ion-textarea [(ngModel)]="form.spesifikasi"></ion-textarea>
-    </ion-item>
+    <ion-textarea
+      label="Alasan Kebutuhan"
+      labelPlacement="floating"
+      fill="solid"
+      class="custom-input"
+      placeholder="Jelaskan tujuan pengajuan ini"
+      [(ngModel)]="request.reason">
+    </ion-textarea>
 
-    <ion-item>
-      <ion-label position="floating">Kuantitas</ion-label>
-      <ion-input type="number" [(ngModel)]="form.kuantitas"></ion-input>
-    </ion-item>
+    <h3 class="items-header">Daftar Barang</h3>
 
-    <ion-item>
-      <ion-label position="floating">Alasan Kebutuhan</ion-label>
-      <ion-textarea [(ngModel)]="form.alasan"></ion-textarea>
-    </ion-item>
+    <ion-card *ngFor="let item of request.items; let i = index; let isFirst = first">
+      <ion-card-content>
+        <ion-input
+          label="Nama Barang"
+          labelPlacement="floating"
+          fill="solid"
+          class="custom-input"
+          [(ngModel)]="item.item_name">
+        </ion-input>
+        
+        <ion-textarea
+          label="Spesifikasi"
+          labelPlacement="floating"
+          fill="solid"
+          class="custom-input"
+          [(ngModel)]="item.specification">
+        </ion-textarea>
+        
+        <ion-input
+          label="Jumlah"
+          labelPlacement="floating"
+          fill="solid"
+          class="custom-input"
+          type="number"
+          [(ngModel)]="item.quantity">
+        </ion-input>
 
-    <ion-button expand="block" color="primary" (click)="submitForm()">
-      Ajukan Permintaan
+        <ion-button fill="clear" color="danger" size="small" (click)="removeItem(i)" *ngIf="!isFirst">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+          Hapus Barang
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-button expand="block" fill="outline" (click)="addItem()">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Tambah Barang Lain
     </ion-button>
   </div>
 </ion-content>
+
+<ion-footer class="ion-padding-horizontal ion-padding-bottom">
+  <ion-button expand="block" size="large" (click)="submitRequest()">
+    <ion-icon name="paper-plane-outline" slot="start"></ion-icon>
+    Kirim Pengajuan
+  </ion-button>
+</ion-footer>

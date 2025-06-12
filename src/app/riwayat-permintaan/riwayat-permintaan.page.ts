@@ -1,37 +1,62 @@
 import { Component } from '@angular/core';
+import { ProcurementService } from '../procurement.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-riwayat-permintaan',
   templateUrl: './riwayat-permintaan.page.html',
   styleUrls: ['./riwayat-permintaan.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class RiwayatPermintaanPage {
-  daftarRiwayat = [
-    {
-      namaItem: 'Meja Rapat Besar',
-      kuantitas: 1,
-      tanggal: '03-05-2025',
-      status: 'Disetujui',
-      dokumenUrl: 'assets/docs/meja-rapat.pdf'
-    },
-    {
-      namaItem: 'Printer LaserJet',
-      kuantitas: 2,
-      tanggal: '28-04-2025',
-      status: 'Ditolak',
-      dokumenUrl: 'assets/docs/printer-laserjet.pdf'
-    },
-    {
-      namaItem: 'Jasa Konsultan IT',
-      kuantitas: 1,
-      tanggal: '20-04-2025',
-      status: 'Sedang Diproses',
-      dokumenUrl: 'assets/docs/konsultan-it.pdf'
-    }
-  ];
+  requests: any[] = [];
+  isLoading: boolean = true;
 
-  lihatDokumen(url: string) {
-    window.open(url, '_blank');
+  constructor(private procurementService: ProcurementService) { }
+
+  ionViewWillEnter() {
+    this.loadRequests();
+  }
+
+  loadRequests(event?: any) {
+    this.isLoading = true;
+    this.procurementService.getRequests().subscribe(
+      (res: any) => {
+        this.requests = res;
+        this.isLoading = false;
+        if (event) event.target.complete();
+      },
+      (err: any) => {
+        console.error(err);
+        this.isLoading = false;
+        if (event) event.target.complete();
+      }
+    );
+  }
+  
+  handleRefresh(event: any) {
+    this.loadRequests(event);
+  }
+  
+  formatStatus(status: string): string {
+    return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  getStatusColor(status: string): string {
+    if (status.includes('approved')) return 'success';
+    if (status.includes('rejected')) return 'danger';
+    if (status.includes('progress')) return 'warning';
+    return 'medium';
+  }
+
+  // FUNGSI BARU UNTUK IKON
+  getStatusIcon(status: string): string {
+    if (status.includes('approved')) return 'checkmark-circle-outline';
+    if (status.includes('rejected')) return 'close-circle-outline';
+    if (status.includes('progress')) return 'hourglass-outline';
+    return 'time-outline'; // Untuk 'pending_approval'
   }
 }

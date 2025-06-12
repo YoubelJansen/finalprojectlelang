@@ -1,26 +1,56 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Riwayat Permintaan</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-karyawan"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Riwayat Pengajuan</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding riwayat-page">
-  <div class="riwayat-container">
-    <h2>Riwayat Permintaan Anda</h2>
-    <ion-list>
-      <ion-item *ngFor="let riwayat of daftarRiwayat">
-        <ion-label>
-          <h3>{{ riwayat.namaItem }}</h3>
-          <p>
-            Tanggal: {{ riwayat.tanggal }}<br />
-            Kuantitas: {{ riwayat.kuantitas }}<br />
-            Status: <strong>{{ riwayat.status }}</strong>
-          </p>
-        </ion-label>
-        <ion-button fill="clear" color="primary" slot="end" (click)="lihatDokumen(riwayat.dokumenUrl)">
-          <ion-icon slot="icon-only" name="document-text-outline"></ion-icon>
-        </ion-button>
-      </ion-item>
-    </ion-list>
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
+    <ion-icon name="file-tray-outline"></ion-icon>
+    <h3>Belum Ada Riwayat</h3>
+    <p>Setiap pengajuan yang Anda buat akan muncul di sini.</p>
   </div>
+
+  <ion-list *ngIf="requests.length > 0" lines="none">
+    <ion-card *ngFor="let req of requests" class="request-card" button>
+      <ion-item class="card-item" lines="none">
+        <div class="status-icon-wrapper" [ngClass]="req.status" slot="start">
+          <ion-icon [name]="getStatusIcon(req.status)" class="status-icon"></ion-icon>
+        </div>
+        
+        <ion-label class="item-content">
+          <div class="item-header">
+            <h3>{{ req.title }}</h3>
+            <ion-chip [color]="getStatusColor(req.status)" outline="true">
+              <ion-label>{{ formatStatus(req.status) }}</ion-label>
+            </ion-chip>
+          </div>
+          <p class="item-date">{{ req.created_at | date:'d MMMM yyyy, HH:mm' }}</p>
+          <p class="item-reason">{{ req.reason }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
+  
+  <ion-list *ngIf="isLoading" lines="none">
+    <ion-card class="request-card" *ngFor="let i of [1,2,3]">
+      <ion-item class="card-item" lines="none">
+        <div class="status-icon-wrapper skeleton" slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </div>
+        <ion-label>
+          <h3><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h3>
+          <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+          <p><ion-skeleton-text animated style="width: 80%"></ion-skeleton-text></p>
+        </ion-label>
+      </ion-item>
+    </ion-card>
+  </ion-list>
 </ion-content>
