@@ -39,7 +39,7 @@ export class PengajuanPermintaanPage {
 
   submitRequest() {
     this.procurementService.createRequest(this.request).subscribe(
-      // PERBAIKAN DI DUA BARIS INI
+      // Blok sukses (tidak berubah)
       async (res: any) => {
         const alert = await this.alertController.create({
           header: 'Sukses',
@@ -49,10 +49,24 @@ export class PengajuanPermintaanPage {
         await alert.present();
         this.navCtrl.back();
       },
+      // Blok error (DIUBAH)
       async (err: any) => {
+        let errorMessage = 'Terjadi kesalahan yang tidak diketahui.';
+
+        // Cek jika ini adalah error validasi dari Laravel (HTTP 422)
+        if (err.error && err.error.errors) {
+          // Gabungkan semua pesan error validasi menjadi satu string
+          errorMessage = Object.values(err.error.errors).flat().join('\n');
+        } 
+        // Cek untuk pesan error umum lainnya dari Laravel
+        else if (err.error && err.error.message) {
+          errorMessage = err.error.message;
+        }
+
         const alert = await this.alertController.create({
           header: 'Gagal',
-          message: 'Gagal mengirim pengajuan. Pastikan semua kolom terisi.',
+          // Tampilkan pesan error yang lebih detail dari Laravel
+          message: errorMessage,
           buttons: [{ text: 'OK' }]
         });
         await alert.present();
