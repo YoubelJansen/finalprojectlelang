@@ -1,61 +1,55 @@
-.page-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background: #e6f0ff; // sama seperti dashboard
-  padding: 20px;
+ion-content {
+  --background: #f4f5f8;
 }
 
-.form-card {
+.form-wrapper {
+  max-width: 600px;
+  margin: 16px auto;
   background: #ffffff;
-  border-radius: 20px;
   padding: 24px;
-  width: 100%;
-  max-width: 480px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.form-header {
   text-align: center;
+  margin-bottom: 24px;
+
+  h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #333;
+  }
+
+  p {
+    color: #666;
+    font-size: 0.9rem;
+  }
 }
 
-.form-title {
-  font-size: 22px;
-  font-weight: 700;
-  color: #000;
-  margin-bottom: 8px;
+// Menata gaya input dan textarea
+.custom-input, ion-textarea {
+  margin-bottom: 1rem;
+  --border-radius: 12px !important;
+  --background: #f9fafb; // Background sedikit abu-abu
+  box-shadow: none;
+  border: 1px solid #e2e8f0;
 }
 
-.form-subtitle {
-  font-size: 14px;
-  color: #333;
-  margin-bottom: 20px;
-}
-
-.input-field {
-  --background: #fff;
-  margin-bottom: 16px;
-
-  ion-label {
-    color: #000;
+// Styling untuk item pemilih tanggal
+.datetime-item {
+  --background: #f9fafb;
+  --border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  
+  ion-datetime-button {
     font-weight: 500;
   }
-
-  ion-input,
-  ion-textarea {
-    color: #000;
-  }
 }
 
-.submit-btn {
-  background-color: #3b82f6;
-  color: #fff;
-  font-weight: 600;
-  border-radius: 10px;
-  margin-top: 10px;
+.publish-button {
+    height: 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    --border-radius: 12px;
 }
-
-.back-btn {
-  color: #3b82f6;
-  margin-top: 10px;
-  font-weight: 500;
-}
-

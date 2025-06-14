@@ -1,23 +1,49 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Rekap Pengajuan Bawahan</ion-title>
+  <ion-toolbar color="warning">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-atasan"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Rekap & Riwayat</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding halaman-rekap">
-  <div class="rekap-container">
-    <h2 class="title">Data Rekapitulasi</h2>
+<ion-content class="ion-padding">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-    <div *ngFor="let laporan of dataRekap" class="rekap-card">
-      <div class="rekap-info">
-        <h3>{{ laporan.tim }}</h3>
-        <p><strong>Permintaan:</strong> {{ laporan.permintaan }}</p>
-        <p><strong>Status:</strong>
-          <ion-badge [color]="getWarnaStatus(laporan.status)">
-            {{ laporan.status }}
-          </ion-badge>
-        </p>
-      </div>
-    </div>
+  <div class="header-section">
+    <h2>Riwayat Pengajuan Tim</h2>
+    <p>Menampilkan semua pengajuan yang pernah dibuat oleh tim Anda.</p>
   </div>
+
+  <div *ngIf="!isLoading && history.length === 0" class="empty-state">
+    <ion-icon name="documents-outline"></ion-icon>
+    <h3>Riwayat Kosong</h3>
+    <p>Belum ada pengajuan yang dibuat oleh tim Anda.</p>
+  </div>
+
+  <!-- Daftar Riwayat -->
+  <ion-list *ngIf="history.length > 0">
+    <ion-card *ngFor="let req of history" class="history-card">
+      <ion-card-header>
+        <ion-card-title>{{ req.title }}</ion-card-title>
+        <ion-card-subtitle>Oleh: {{ req.requester.name }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label class="ion-text-wrap">
+            <p><strong>Alasan:</strong> {{ req.reason }}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item lines="none" class="footer-item">
+            <ion-note slot="start">{{ req.created_at | date:'d MMM y, HH:mm' }}</ion-note>
+            <!-- Menggunakan fungsi dan variabel yang benar -->
+            <ion-chip [color]="getStatusColor(req.status)" outline="true" slot="end">
+              <ion-label>{{ formatStatus(req.status) }}</ion-label>
+            </ion-chip>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

@@ -1,24 +1,69 @@
-<ion-content>
-  <div class="page-container">
-    <div class="card">
-      <h2 class="title">Daftar Vendor</h2>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-vendor"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Profil Perusahaan</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-      <ng-container *ngIf="vendors.length > 0; else kosong">
-        <div class="vendor-card" *ngFor="let vendor of vendors">
-          <p><strong>Nama:</strong> {{ vendor.nama }}</p>
-          <p><strong>Perusahaan:</strong> {{ vendor.perusahaan }}</p>
-          <p><strong>Email:</strong> {{ vendor.email }}</p>
-          <p><strong>No. Telp:</strong> {{ vendor.telepon }}</p>
-        </div>
-      </ng-container>
+<ion-content class="ion-padding">
+  <!-- Tampilkan form jika data sudah dimuat -->
+  <div *ngIf="!isLoading">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>Informasi Perusahaan</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-input label="Nama Perusahaan" label-placement="stacked" [(ngModel)]="profile.company_name" placeholder="Masukkan nama perusahaan"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-textarea label="Alamat Lengkap" label-placement="stacked" [(ngModel)]="profile.address" [autoGrow]="true" placeholder="Masukkan alamat lengkap"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-input label="No. Telepon Kantor" label-placement="stacked" [(ngModel)]="profile.phone_number" placeholder="Masukkan nomor telepon"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Website" label-placement="stacked" [(ngModel)]="profile.website" placeholder="https://..."></ion-input>
+      </ion-item>
+      
+      <ion-list-header>
+        <ion-label>Informasi Legal</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-input label="NPWP" label-placement="stacked" [(ngModel)]="profile.npwp" placeholder="Masukkan nomor NPWP"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="NIB / SIUP" label-placement="stacked" [(ngModel)]="profile.nib" placeholder="Masukkan nomor NIB/SIUP"></ion-input>
+      </ion-item>
 
-      <ng-template #kosong>
-        <ion-text color="medium">
-          <p style="text-align: center;">Belum ada data vendor</p>
-        </ion-text>
-      </ng-template>
+      <ion-list-header>
+        <ion-label>Kontak Personal (PIC)</ion-label>
+      </ion-list-header>
+      <ion-item>
+        <ion-input label="Nama Kontak" label-placement="stacked" [(ngModel)]="profile.contact_name" placeholder="Masukkan nama PIC"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email Kontak" label-placement="stacked" type="email" [(ngModel)]="profile.contact_email" placeholder="Masukkan email PIC"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="No. HP Kontak" label-placement="stacked" type="tel" [(ngModel)]="profile.contact_phone" placeholder="Masukkan No. HP PIC"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block" (click)="saveProfile()" class="ion-margin-top">
+      <ion-icon name="save-outline" slot="start"></ion-icon>
+      Simpan Perubahan
+    </ion-button>
+  </div>
 
-      <ion-button expand="block" routerLink="/halamanutama">Kembali</ion-button>
-    </div>
+  <!-- Tampilan loading skeleton -->
+  <div *ngIf="isLoading">
+    <ion-list>
+        <ion-list-header>
+            <ion-skeleton-text animated style="width: 150px"></ion-skeleton-text>
+        </ion-list-header>
+        <ion-item><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-item>
+        <ion-item><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-item>
+    </ion-list>
   </div>
 </ion-content>

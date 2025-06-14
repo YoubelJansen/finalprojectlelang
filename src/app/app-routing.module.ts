@@ -19,9 +19,9 @@ const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
-  {
+    {
     path: 'halamanutama',
-    loadChildren: () => import('./halamanutama/halamanutama.module').then( m => m.HalamanutamaPageModule)
+    loadComponent: () => import('./halamanutama/halamanutama.page').then( m => m.HalamanutamaPage)
   },
   {
     path: 'tender',
@@ -29,19 +29,19 @@ const routes: Routes = [
   },
   {
     path: 'vendor',
-    loadChildren: () => import('./vendor/vendor.module').then( m => m.VendorPageModule)
+    loadComponent: () => import('./vendor/vendor.page').then( m => m.VendorPage)
   },
   {
-    path: 'riwayat',
-    loadChildren: () => import('./riwayat/riwayat.module').then( m => m.RiwayatPageModule)
+    path: 'riwayat', // <-- DIUBAH
+    loadComponent: () => import('./riwayat/riwayat.page').then( m => m.RiwayatPage) // <-- DIUBAH SEMUA
   },
   {
     path: 'buat-tender',
-    loadChildren: () => import('./buat-tender/buat-tender.module').then( m => m.BuatTenderPageModule)
+    loadComponent: () => import('./buat-tender/buat-tender.page').then( m => m.BuatTenderPage)
   },
   {
     path: 'halaman-utama-vendor',
-    loadChildren: () => import('./halaman-utama-vendor/halaman-utama-vendor.module').then( m => m.HalamanUtamaVendorPageModule)
+    loadComponent: () => import('./halaman-utama-vendor/halaman-utama-vendor.page').then( m => m.HalamanUtamaVendorPage)
   },
   {
     path: 'akses-tender',
@@ -69,7 +69,7 @@ const routes: Routes = [
   },
   {
     path: 'halaman-utama-karyawan',
-    loadChildren: () => import('./halaman-utama-karyawan/halaman-utama-karyawan.module').then( m => m.HalamanUtamaKaryawanPageModule)
+    loadComponent: () => import('./halaman-utama-karyawan/halaman-utama-karyawan.page').then( m => m.HalamanUtamaKaryawanPage)
   },
   {
     path: 'pengajuan-permintaan',
@@ -77,7 +77,7 @@ const routes: Routes = [
   },
   {
     path: 'status-pengajuan',
-    loadChildren: () => import('./status-pengajuan/status-pengajuan.module').then( m => m.StatusPengajuanPageModule)
+    loadComponent: () => import('./status-pengajuan/status-pengajuan.page').then( m => m.StatusPengajuanPage)
   },
   {
     path: 'riwayat-permintaan',
@@ -93,11 +93,11 @@ const routes: Routes = [
   },
   {
     path: 'rekap',
-    loadChildren: () => import('./rekap/rekap.module').then( m => m.RekapPageModule)
+    loadComponent: () => import('./rekap/rekap.page').then( m => m.RekapPage)
   },
   {
     path: 'kelola-pengadaan',
-    loadChildren: () => import('./kelola-pengadaan/kelola-pengadaan.module').then( m => m.KelolaPengadaanPageModule)
+    loadComponent: () => import('./kelola-pengadaan/kelola-pengadaan.page').then( m => m.KelolaPengadaanPage)
   },
   {
     path: 'proses-aanwijzing',

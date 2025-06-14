@@ -1,36 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-
-interface PermintaanPengadaan {
-  id: number;
-  namaBarang: string;
-  jumlah: number;
-  tanggal: string;
-  status: 'Disetujui' | 'Ditolak' | 'Menunggu';
-}
+import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule, AlertController } from '@ionic/angular';
+import { AdminService } from '../admin.service';
+import { Router } from '@angular/router'; // <-- Jangan lupa import Router
 
 @Component({
   selector: 'app-kelola-pengadaan',
   templateUrl: './kelola-pengadaan.page.html',
   styleUrls: ['./kelola-pengadaan.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, DatePipe]
 })
-export class KelolaPengadaanPage implements OnInit {
+export class KelolaPengadaanPage {
 
-  semuaPermintaan: PermintaanPengadaan[] = [];
-  permintaanDisetujui: PermintaanPengadaan[] = [];
+  requests: any[] = [];
+  isLoading: boolean = true;
 
-  constructor() {}
+  constructor(
+    private adminService: AdminService,
+    private alertCtrl: AlertController,
+    private router: Router // <-- Inject Router di constructor
+  ) {}
 
-  ngOnInit() {
-    // Mock data permintaan
-    this.semuaPermintaan = [
-      { id: 1, namaBarang: 'Laptop', jumlah: 5, tanggal: '2025-05-10', status: 'Disetujui' },
-      { id: 2, namaBarang: 'Printer', jumlah: 2, tanggal: '2025-05-11', status: 'Menunggu' },
-      { id: 3, namaBarang: 'Meja Kantor', jumlah: 10, tanggal: '2025-05-09', status: 'Disetujui' },
-      { id: 4, namaBarang: 'Kabel LAN', jumlah: 50, tanggal: '2025-05-08', status: 'Ditolak' },
-    ];
+  ionViewWillEnter() {
+    this.loadRequests();
+  }
 
-    // Filter hanya yang statusnya "Disetujui"
-    this.permintaanDisetujui = this.semuaPermintaan.filter(p => p.status === 'Disetujui');
+  loadRequests(event?: any) {
+    this.isLoading = true;
+    this.adminService.getApprovedRequests().subscribe({
+      next: (res: any) => {
+        this.requests = res;
+        this.isLoading = false;
+        if (event) event.target.complete();
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.isLoading = false;
+        if (event) event.target.complete();
+      }
+    });
+  }
+
+  handleRefresh(event: any) {
+    this.loadRequests(event);
+  }
+
+  // Fungsi yang dipanggil oleh tombol di HTML
+  buatTender(request: any) {
+    // Kirim data 'request' ke halaman form tender menggunakan state
+    this.router.navigateByUrl('/buat-tender', { state: { request: request } });
   }
 }

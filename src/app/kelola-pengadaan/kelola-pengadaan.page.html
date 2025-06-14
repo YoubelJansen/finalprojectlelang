@@ -1,22 +1,60 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kelola Pengadaan</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="loadRequests($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="ion-padding">
     <div class="judul-section">
-      <h2>Permintaan yang Disetujui</h2>
-      <p>Pilih item di bawah untuk melihat detail.</p>
+      <h2>Permintaan Disetujui Atasan</h2>
+      <p>Pilih pengajuan untuk diproses menjadi tender.</p>
     </div>
 
-    <div class="card-container">
-      <ion-card *ngFor="let item of permintaanDisetujui" class="custom-card" button="true">
+    <!-- Tampilan saat tidak ada data -->
+    <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
+      <h3>Tidak Ada Data</h3>
+      <p>Belum ada pengajuan yang disetujui untuk diproses.</p>
+    </div>
+
+    <!-- Daftar Kartu Pengajuan -->
+    <div class="card-container" *ngIf="requests.length > 0">
+      <ion-card *ngFor="let req of requests" class="custom-card">
         <div class="card-content-wrapper">
           <ion-icon name="archive-outline" color="primary"></ion-icon>
-          
           <div class="text-content">
-            <ion-card-title>{{ item.namaBarang }}</ion-card-title>
-            <ion-card-subtitle>{{ item.tanggal }}</ion-card-subtitle>
-            <p class="details">Jumlah: {{ item.jumlah }} | Status: <strong>{{ item.status }}</strong></p>
+            <ion-card-title>{{ req.title }}</ion-card-title>
+            <ion-card-subtitle>Oleh: {{ req.requester.name }}</ion-card-subtitle>
+            <p class="details">Disetujui pada: {{ req.updated_at | date:'fullDate' }}</p>
           </div>
         </div>
+        <ion-button expand="block" fill="solid" class="action-button" (click)="buatTender(req)">
+          <ion-icon name="hammer-outline" slot="start"></ion-icon>
+          Proses & Buat Tender
+        </ion-button>
       </ion-card>
+    </div>
+    
+    <!-- Tampilan Loading -->
+    <div class="card-container" *ngIf="isLoading">
+        <ion-card class="custom-card" *ngFor="let i of [1,2]">
+            <div class="card-content-wrapper">
+                <ion-skeleton-text animated class="skeleton-icon"></ion-skeleton-text>
+                <div class="text-content">
+                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+                </div>
+            </div>
+            <ion-skeleton-text animated class="skeleton-button"></ion-skeleton-text>
+        </ion-card>
     </div>
   </div>
 </ion-content>

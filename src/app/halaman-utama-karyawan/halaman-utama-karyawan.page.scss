@@ -62,3 +62,16 @@
     font-weight: 500;
   }
 }
+
+// Ini akan menempatkan tombol logout di bagian bawah halaman
+ion-content {
+  display: flex;
+  flex-direction: column;
+
+  .logout-button {
+    margin-top: auto; // Mendorong tombol ke bawah
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+  }
+}

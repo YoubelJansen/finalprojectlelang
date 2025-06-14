@@ -1,22 +1,47 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-karyawan"></ion-back-button>
+    </ion-buttons>
     <ion-title>Status Pengajuan</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding status-page">
+  <ion-refresher slot="fixed" (ionRefresh)="loadRequests($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="status-container">
-    <h2>Status Permintaan Anda</h2>
-    <ion-list>
-      <ion-item *ngFor="let item of daftarPengajuan">
+    <h2 class="title">Status Permintaan Anda</h2>
+
+    <!-- Tampilan saat tidak ada data -->
+    <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
+      <p>Anda belum memiliki riwayat pengajuan untuk ditampilkan.</p>
+    </div>
+
+    <!-- Daftar Pengajuan -->
+    <ion-list *ngIf="requests.length > 0">
+      <ion-item *ngFor="let req of requests">
         <ion-label>
-          <h3>{{ item.namaItem }}</h3>
-          <p>Kuantitas: {{ item.kuantitas }} | Tanggal: {{ item.tanggal }}</p>
+          <h3>{{ req.title }}</h3>
+          <p>Tanggal: {{ req.created_at | date:'d MMMM y, HH:mm' }}</p>
         </ion-label>
-        <ion-badge slot="end" [color]="getBadgeColor(item.status)">
-          {{ item.status }}
+        <ion-badge slot="end" [color]="getStatusColor(req.status)">
+          {{ formatStatus(req.status) }}
         </ion-badge>
       </ion-item>
+    </ion-list>
+    
+    <!-- Tampilan Loading -->
+    <ion-list *ngIf="isLoading">
+        <ion-item *ngFor="let i of [1,2,3]">
+            <ion-label>
+                <h3><ion-skeleton-text animated style="width: 70%;"></ion-skeleton-text></h3>
+                <p><ion-skeleton-text animated style="width: 50%;"></ion-skeleton-text></p>
+            </ion-label>
+            <ion-skeleton-text slot="end" animated style="width: 80px; height: 24px; border-radius: 8px;"></ion-skeleton-text>
+        </ion-item>
     </ion-list>
   </div>
 </ion-content>

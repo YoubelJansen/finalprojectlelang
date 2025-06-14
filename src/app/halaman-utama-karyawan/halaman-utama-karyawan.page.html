@@ -3,6 +3,14 @@
     <h2 class="title">Dashboard Karyawan</h2>
     <p class="subtitle">Apa yang ingin Anda lakukan hari ini?</p>
 
+      <!-- Tambahkan kode ini di dalam <ion-content> di halaman utama karyawan -->
+  <!-- ... (setelah tombol-tombol menu Anda) ... -->
+
+  <ion-button expand="block" color="medium" (click)="logout()" class="logout-button">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Logout
+  </ion-button>
+  
     <div class="card-grid">
       <div class="menu-card" routerLink="/pengajuan-permintaan">
         <ion-icon name="document-outline"></ion-icon>

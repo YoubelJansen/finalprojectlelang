@@ -1,45 +1,58 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Dashboard Vendor</ion-title>
+    <ion-title>Vendor Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="dashboard-content">
-  <div class="dashboard-grid">
-    <ion-card class="dashboard-card" (click)="navigateTo('registrasi-vendor')">
-      <ion-card-header>
-        <ion-card-title>🌐 Registrasi Vendor</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+<ion-content class="ion-padding">
+  <div class="dashboard-header">
+    <div class="header-text">
+      <h1>Portal Vendor</h1>
+      <p>Selamat datang di portal e-Procurement.</p>
+    </div>
+    <div class="user-info">
+      <span>👋 Halo, <strong>{{ userName }}</strong></span>
+      <ion-button fill="clear" size="small" color="danger" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
 
-    <ion-card class="dashboard-card" (click)="navigateTo('akses-tender')">
-      <ion-card-header>
-        <ion-card-title>📄 Akses Tender Terbuka</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+  <div class="menu-grid">
+    <!-- Kartu 1: Profil Perusahaan -->
+    <div class="menu-card" (click)="goTo('vendor')">
+      <div class="card-icon" style="--card-color: #3b82f6;">
+        <ion-icon name="business-outline"></ion-icon>
+      </div>
+      <div class="card-title">Profil Perusahaan</div>
+      <p class="card-subtitle">Lengkapi & perbarui data Anda</p>
+    </div>
 
-    <ion-card class="dashboard-card" (click)="navigateTo('pengajuan-penawaran')">
-      <ion-card-header>
-        <ion-card-title>🛳️ Pengajuan Penawaran</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+    <!-- Kartu 2: Akses Tender Terbuka -->
+    <div class="menu-card" (click)="goTo('akses-tender')">
+      <div class="card-icon" style="--card-color: #16a34a;">
+        <ion-icon name="search-outline"></ion-icon>
+      </div>
+      <div class="card-title">Akses Tender</div>
+      <p class="card-subtitle">Lihat semua tender yang terbuka</p>
+    </div>
 
-    <ion-card class="dashboard-card" (click)="navigateTo('jadwal-aanwijzing')">
-      <ion-card-header>
-        <ion-card-title>📅 Jadwal Aanwijzing</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+    <!-- Kartu 3: Jadwal Aanwijzing -->
+    <div class="menu-card" (click)="goTo('jadwal-aanwijzing')">
+      <div class="card-icon" style="--card-color: #7c3aed;">
+        <ion-icon name="calendar-outline"></ion-icon>
+      </div>
+      <div class="card-title">Jadwal Aanwijzing</div>
+      <p class="card-subtitle">Lihat jadwal sesi penjelasan</p>
+    </div>
 
-    <ion-card class="dashboard-card" (click)="navigateTo('bidding-penilaian')">
-      <ion-card-header>
-        <ion-card-title>💰 Bidding & Penilaian</ion-card-title>
-      </ion-card-header>
-    </ion-card>
-
-    <ion-card class="dashboard-card" (click)="navigateTo('pemenang-po')">
-      <ion-card-header>
-        <ion-card-title>✅ Pemenang & PO</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+    <!-- Kartu 4: Pemenang & PO -->
+    <div class="menu-card" (click)="goTo('pemenang-po')">
+      <div class="card-icon" style="--card-color: #0891b2;">
+        <ion-icon name="ribbon-outline"></ion-icon>
+      </div>
+      <div class="card-title">Pemenang & PO</div>
+      <p class="card-subtitle">Lihat notifikasi & Purchase Order</p>
+    </div>
   </div>
 </ion-content>

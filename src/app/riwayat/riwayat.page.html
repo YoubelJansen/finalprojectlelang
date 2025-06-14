@@ -1,27 +1,21 @@
-<ion-content>
-  <div class="login-container">
-    <div class="login-card">
-      <h2>Riwayat Tender</h2>
-      <p>Catatan semua tender yang telah diajukan</p>
-
-      <ng-container *ngIf="tenderList.length > 0; else kosong">
-        <div class="tender-card" *ngFor="let tender of tenderList; let i = index">
-          <p><strong>{{ tender.nama }}</strong></p>
-          <p><strong>Spesifikasi:</strong> {{ tender.spesifikasi }}</p>
-          <p><strong>Kuantitas:</strong> {{ tender.kuantitas }}</p>
-          <p><strong>Alasan:</strong> {{ tender.alasan }}</p>
-          <p><strong>Tanggal:</strong> {{ tender.tanggal }}</p>
-          <ion-button fill="clear" color="danger" size="small" (click)="hapusTender(i)">Hapus</ion-button>
-        </div>
-      </ng-container>
-
-      <ng-template #kosong>
-        <ion-text color="medium">
-          <p style="text-align: center;">Belum ada riwayat tender</p>
-        </ion-text>
-      </ng-template>
-
-      <ion-button expand="block" routerLink="/halamanutama">Kembali</ion-button>
-    </div>
-  </div>
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-buttons slot="start"><ion-back-button defaultHref="/halamanutama"></ion-back-button></ion-buttons>
+    <ion-title>Riwayat Tender</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-card *ngFor="let tender of tenders">
+      <ion-card-header>
+        <ion-card-title>{{ tender.title }}</ion-card-title>
+        <ion-card-subtitle>No: {{ tender.tender_number }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ tender.description }}</p>
+        <ion-chip color="primary">{{ tender.status | titlecase }}</ion-chip>
+        <ion-note slot="end">Deadline: {{ tender.submission_deadline | date:'medium' }}</ion-note>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

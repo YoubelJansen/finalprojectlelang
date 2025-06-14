@@ -1,43 +1,54 @@
 import { Component } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { ProcurementService } from '../procurement.service';
 
 @Component({
   selector: 'app-status-pengajuan',
   templateUrl: './status-pengajuan.page.html',
   styleUrls: ['./status-pengajuan.page.scss'],
-  standalone: false,
+  standalone: true, // <-- Ubah menjadi standalone
+  imports: [IonicModule, CommonModule, FormsModule, DatePipe]
 })
 export class StatusPengajuanPage {
-  daftarPengajuan = [
-    {
-      namaItem: 'Laptop Lenovo ThinkPad',
-      kuantitas: 2,
-      tanggal: '10-05-2025',
-      status: 'Disetujui'
-    },
-    {
-      namaItem: 'Kursi Ergonomis',
-      kuantitas: 5,
-      tanggal: '09-05-2025',
-      status: 'Sedang Diproses'
-    },
-    {
-      namaItem: 'Jasa Outsourcing',
-      kuantitas: 1,
-      tanggal: '08-05-2025',
-      status: 'Ditolak'
-    }
-  ];
+  requests: any[] = [];
+  isLoading: boolean = true;
 
-  getBadgeColor(status: string): string {
-    switch (status) {
-      case 'Disetujui':
-        return 'success';
-      case 'Ditolak':
-        return 'danger';
-      case 'Sedang Diproses':
-        return 'warning';
-      default:
-        return 'medium';
-    }
+  constructor(private procurementService: ProcurementService) { }
+
+  ionViewWillEnter() {
+    this.loadRequests();
+  }
+
+  loadRequests(event?: any) {
+    this.isLoading = true;
+    this.procurementService.getRequests().subscribe({
+      next: (res: any) => {
+        this.requests = res;
+        this.isLoading = false;
+        if (event) event.target.complete();
+      },
+      error: (err: any) => {
+        console.error(err);
+        this.isLoading = false;
+        if (event) event.target.complete();
+      }
+    });
+  }
+
+  handleRefresh(event: any) {
+    this.loadRequests(event);
+  }
+
+  formatStatus(status: string): string {
+    return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+
+  getStatusColor(status: string): string {
+    if (status.includes('approved')) return 'success';
+    if (status.includes('rejected')) return 'danger';
+    if (status.includes('progress')) return 'warning';
+    return 'medium';
   }
 }

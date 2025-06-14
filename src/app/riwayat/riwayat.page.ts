@@ -1,34 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { AdminService } from '../admin.service';
 
 @Component({
-  selector: 'app-riwayat',
-  templateUrl: './riwayat.page.html',
-  styleUrls: ['./riwayat.page.scss'],
-  standalone: false,
+  selector: 'app-riwayat', // <-- DIUBAH
+  templateUrl: './riwayat.page.html', // <-- DIUBAH
+  styleUrls: ['./riwayat.page.scss'], // <-- DIUBAH
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, DatePipe]
 })
-export class RiwayatPage {
-  tenderList: any[] = [];
+export class RiwayatPage implements OnInit { // <-- NAMA CLASS DIUBAH
+  tenders: any[] = [];
+
+  constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.loadTenders();
-  }
-
-  loadTenders() {
-    const data = localStorage.getItem('tenders');
-    if (data) {
-      const entries = data.split('|');
-      this.tenderList = entries.map(entry => {
-        const [nama, spesifikasi, kuantitas, alasan, tanggal] = entry.split('~');
-        return { nama, spesifikasi, kuantitas, alasan, tanggal };
-      });
-    }
-  }
-
-  hapusTender(index: number) {
-    this.tenderList.splice(index, 1);
-    const updatedData = this.tenderList.map(t =>
-      `${t.nama}~${t.spesifikasi}~${t.kuantitas}~${t.alasan}~${t.tanggal}`
-    ).join('|');
-    localStorage.setItem('tenders', updatedData);
+    this.adminService.getTenders().subscribe((res: any) => {
+      this.tenders = res;
+    });
   }
 }

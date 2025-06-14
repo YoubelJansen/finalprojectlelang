@@ -31,4 +31,12 @@ export class SupervisorService {
   rejectRequest(requestId: number, data: { notes: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/requests/${requestId}/reject`, data, { headers: this.getAuthHeaders() });
   }
+    // src/app/supervisor.service.ts
+
+  // ... (tambahkan di bawah method rejectRequest)
+
+  // Mengambil seluruh riwayat pengajuan dari bawahan
+  getHistory(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/history`, { headers: this.getAuthHeaders() });
+  }
 }
