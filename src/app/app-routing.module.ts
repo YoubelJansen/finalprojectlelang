@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'akses-tender',
-    loadChildren: () => import('./akses-tender/akses-tender.module').then( m => m.AksesTenderPageModule)
+    loadComponent: () => import('./akses-tender/akses-tender.page').then( m => m.AksesTenderPage)
   },
   {
     path: 'bidding-penilaian',
@@ -61,7 +61,7 @@ const routes: Routes = [
   },
   {
     path: 'pengajuan-penawaran',
-    loadChildren: () => import('./pengajuan-penawaran/pengajuan-penawaran.module').then( m => m.PengajuanPenawaranPageModule)
+    loadComponent: () => import('./pengajuan-penawaran/pengajuan-penawaran.page').then( m => m.PengajuanPenawaranPage)
   },
   {
     path: 'registrasi-vendor',

@@ -1,26 +1,33 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/vendor"></ion-back-button>
+    </ion-buttons>
     <ion-title>Pengajuan Penawaran</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <form (ngSubmit)="submitPenawaran()">
-    <div class="form-group">
-      <label>Dokumen Administrasi</label>
-      <input type="file" (change)="handleFileInput($event, 'administrasi')" accept=".pdf,.doc,.docx" />
+<ion-content class="ion-padding">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h3>Tender: {{ tenderTitle }}</h3>
+      <p>Langkah 2 dari 3: Unggah Dokumen Pendukung</p>
     </div>
 
-    <div class="form-group">
-      <label>Dokumen Teknis</label>
-      <input type="file" (change)="handleFileInput($event, 'teknis')" accept=".pdf,.doc,.docx" />
-    </div>
+    <ion-list>
+        <ion-item>
+            <ion-label>Dokumen Administrasi</ion-label>
+            <input type="file" (change)="handleFileInput($event, 'administrasi')"/>
+        </ion-item>
+        <ion-item>
+            <ion-label>Dokumen Teknis</ion-label>
+            <input type="file" (change)="handleFileInput($event, 'teknis')"/>
+        </ion-item>
+    </ion-list>
 
-    <div class="form-group">
-      <label>Penawaran Harga</label>
-      <input type="file" (change)="handleFileInput($event, 'harga')" accept=".pdf,.xls,.xlsx" />
-    </div>
-
-    <ion-button expand="block" type="submit" [disabled]="!isFormValid()">Kirim Penawaran</ion-button>
-  </form>
+    <ion-button expand="block" (click)="goToNextStep()" class="ion-margin-top" [disabled]="!bidData.administrative_document || !bidData.technical_document">
+      Lanjut ke Penawaran Harga
+      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+    </ion-button>
+  </div>
 </ion-content>

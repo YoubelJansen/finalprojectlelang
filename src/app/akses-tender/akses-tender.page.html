@@ -1,24 +1,50 @@
 <ion-header>
   <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-vendor"></ion-back-button>
+    </ion-buttons>
     <ion-title>Akses Tender Terbuka</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-md="6" *ngFor="let tender of tenders">
-        <ion-card color="light" class="custom-card">
-          <ion-card-header>
-            <ion-card-title class="judul-tender">{{ tender.nama }}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <p class="deskripsi">{{ tender.deskripsi }}</p>
-            <p class="deadline">🗓️ Deadline: {{ tender.batas_akhir | date }}</p>
-            <ion-button expand="block" color="primary">Ajukan Penawaran</ion-button>
-          </ion-card-content>
-        </ion-card>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-refresher slot="fixed" (ionRefresh)="loadTenders($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="header-section">
+    <h2>Daftar Tender Tersedia</h2>
+    <p>Pilih salah satu tender di bawah untuk melihat detail dan mengajukan penawaran.</p>
+  </div>
+
+  <!-- Tampilan saat tidak ada tender -->
+  <div *ngIf="!isLoading && tenders.length === 0" class="empty-state">
+    <ion-icon name="file-tray-outline"></ion-icon>
+    <h3>Tidak Ada Tender</h3>
+    <p>Saat ini belum ada tender yang dibuka.</p>
+  </div>
+
+  <!-- Daftar Kartu Tender -->
+  <ion-list *ngIf="tenders.length > 0">
+    <ion-card *ngFor="let tender of tenders" class="tender-card" button>
+      <ion-card-header>
+        <ion-card-subtitle>No. Tender: {{ tender.tender_number }}</ion-card-subtitle>
+        <ion-card-title>{{ tender.title }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p class="description">{{ tender.description }}</p>
+        <div class="footer">
+          <ion-chip color="success" outline="true">
+            <ion-icon name="time-outline"></ion-icon>
+            <ion-label>Deadline: {{ tender.submission_deadline | date:'d MMM y' }}</ion-label>
+          </ion-chip>
+          <!-- Tombol ini akan kita fungsikan di tahap selanjutnya -->
+          <ion-button size="small" (click)="ajukanPenawaran(tender)">
+            Ajukan Penawaran
+            <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

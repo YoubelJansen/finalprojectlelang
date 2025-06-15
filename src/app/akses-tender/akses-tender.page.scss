@@ -1,62 +1,66 @@
-:host {
-  --ion-background-color: #f2f4f8; // latar belakang abu terang
-  --ion-text-color: #1e1e2f;       // teks utama
-}
-
-ion-header {
-  background-color: #2979ff; // biru terang
-  color: #fff;
-
-  ion-toolbar {
-    --background: #2979ff;
-    --color: #fff;
-  }
-
-  ion-title {
-    font-weight: bold;
-  }
-}
-
 ion-content {
-  --background: #f2f4f8; // warna dasar konten
-  padding: 1rem;
+  --background: #f8fafc;
+}
+
+.header-section {
+  margin-bottom: 1.5rem;
+  h2 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #1e293b;
+  }
+  p {
+    color: #64748b;
+  }
 }
 
 .tender-card {
-  background-color: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  margin-bottom: 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
-  border-left: 6px solid #2979ff;
+  margin: 0 0 1rem 0;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  --background: #ffffff;
+  border-left: 5px solid var(--ion-color-primary);
+}
 
-  h2 {
-    font-size: 1.1rem;
+ion-card-header {
+  padding-bottom: 8px;
+  ion-card-title {
     font-weight: 600;
-    color: #1e1e2f;
+    font-size: 1.2rem;
   }
-
-  p {
-    font-size: 0.9rem;
-    color: #444;
-    margin: 0.5rem 0 1rem;
-  }
-
-  .deadline {
+  ion-card-subtitle {
     font-size: 0.8rem;
-    color: #888;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    margin-bottom: 0.8rem;
   }
+}
 
-  ion-button {
-    --background: #2979ff;
-    --background-hover: #296eff;
-    --color: white;
-    text-transform: none;
-    font-weight: 500;
-    width: 100%;
+ion-card-content {
+  .description {
+    color: #475569;
+    margin-bottom: 1rem;
+    padding-top: 0;
   }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+
+    ion-chip {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+.empty-state {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: var(--ion-color-medium);
+    text-align: center;
+    ion-icon { font-size: 5rem; }
+    h3 { margin-top: 1rem; font-weight: 600; }
+    p { max-width: 250px; }
 }

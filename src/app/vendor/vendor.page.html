@@ -8,49 +8,46 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <!-- Tampilkan form jika data sudah dimuat -->
+  <!-- Tampilan form jika data sudah dimuat -->
   <div *ngIf="!isLoading">
-    <ion-list>
-      <ion-list-header>
-        <ion-label>Informasi Perusahaan</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-input label="Nama Perusahaan" label-placement="stacked" [(ngModel)]="profile.company_name" placeholder="Masukkan nama perusahaan"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-textarea label="Alamat Lengkap" label-placement="stacked" [(ngModel)]="profile.address" [autoGrow]="true" placeholder="Masukkan alamat lengkap"></ion-textarea>
-      </ion-item>
-      <ion-item>
-        <ion-input label="No. Telepon Kantor" label-placement="stacked" [(ngModel)]="profile.phone_number" placeholder="Masukkan nomor telepon"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Website" label-placement="stacked" [(ngModel)]="profile.website" placeholder="https://..."></ion-input>
-      </ion-item>
-      
-      <ion-list-header>
-        <ion-label>Informasi Legal</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-input label="NPWP" label-placement="stacked" [(ngModel)]="profile.npwp" placeholder="Masukkan nomor NPWP"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="NIB / SIUP" label-placement="stacked" [(ngModel)]="profile.nib" placeholder="Masukkan nomor NIB/SIUP"></ion-input>
-      </ion-item>
+    
+    <!-- Kartu untuk Informasi Perusahaan -->
+    <ion-card class="profile-card">
+      <ion-card-header>
+        <ion-card-title>Informasi Perusahaan</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-input label="Nama Perusahaan" label-placement="floating" fill="solid" class="custom-input" [(ngModel)]="profile.company_name" placeholder="Masukkan nama perusahaan"></ion-input>
+        <ion-textarea label="Alamat Lengkap" label-placement="floating" fill="solid" class="custom-input" [(ngModel)]="profile.address" [autoGrow]="true" placeholder="Masukkan alamat lengkap"></ion-textarea>
+        <ion-input label="No. Telepon Kantor" label-placement="floating" fill="solid" class="custom-input" [(ngModel)]="profile.phone_number" placeholder="Masukkan nomor telepon"></ion-input>
+        <ion-input label="Website" label-placement="floating" fill="solid" class="custom-input" [(ngModel)]="profile.website" placeholder="https://..."></ion-input>
+      </ion-card-content>
+    </ion-card>
 
-      <ion-list-header>
-        <ion-label>Kontak Personal (PIC)</ion-label>
-      </ion-list-header>
-      <ion-item>
-        <ion-input label="Nama Kontak" label-placement="stacked" [(ngModel)]="profile.contact_name" placeholder="Masukkan nama PIC"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="Email Kontak" label-placement="stacked" type="email" [(ngModel)]="profile.contact_email" placeholder="Masukkan email PIC"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input label="No. HP Kontak" label-placement="stacked" type="tel" [(ngModel)]="profile.contact_phone" placeholder="Masukkan No. HP PIC"></ion-input>
-      </ion-item>
-    </ion-list>
-    <ion-button expand="block" (click)="saveProfile()" class="ion-margin-top">
+    <!-- Kartu untuk Informasi Legal -->
+    <ion-card class="profile-card">
+        <ion-card-header>
+          <ion-card-title>Informasi Legal</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-input label="NPWP" label-placement="stacked" fill="solid" class="custom-input" [(ngModel)]="profile.npwp" placeholder="Masukkan nomor NPWP"></ion-input>
+          <ion-input label="NIB / SIUP" label-placement="stacked" fill="solid" class="custom-input" [(ngModel)]="profile.nib" placeholder="Masukkan nomor NIB/SIUP"></ion-input>
+        </ion-card-content>
+      </ion-card>
+
+    <!-- Kartu untuk Kontak Personal (PIC) -->
+    <ion-card class="profile-card">
+        <ion-card-header>
+          <ion-card-title>Kontak Personal (PIC)</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-input label="Nama Kontak" label-placement="stacked" fill="solid" class="custom-input" [(ngModel)]="profile.contact_name" placeholder="Masukkan nama PIC"></ion-input>
+          <ion-input label="Email Kontak" label-placement="stacked" fill="solid" class="custom-input" type="email" [(ngModel)]="profile.contact_email" placeholder="Masukkan email PIC"></ion-input>
+          <ion-input label="No. HP Kontak" label-placement="stacked" fill="solid" class="custom-input" type="tel" [(ngModel)]="profile.contact_phone" placeholder="Masukkan No. HP PIC"></ion-input>
+        </ion-card-content>
+      </ion-card>
+
+    <ion-button expand="block" (click)="saveProfile()" class="ion-margin-top save-button">
       <ion-icon name="save-outline" slot="start"></ion-icon>
       Simpan Perubahan
     </ion-button>
@@ -58,12 +55,14 @@
 
   <!-- Tampilan loading skeleton -->
   <div *ngIf="isLoading">
-    <ion-list>
-        <ion-list-header>
-            <ion-skeleton-text animated style="width: 150px"></ion-skeleton-text>
-        </ion-list-header>
-        <ion-item><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-item>
-        <ion-item><ion-skeleton-text animated style="width: 100%"></ion-skeleton-text></ion-item>
-    </ion-list>
+    <ion-card class="profile-card" *ngFor="let i of [1,2,3]">
+        <ion-card-header>
+            <ion-skeleton-text animated style="width: 40%; height: 24px;"></ion-skeleton-text>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-skeleton-text animated class="skeleton-input"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-input"></ion-skeleton-text>
+        </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>

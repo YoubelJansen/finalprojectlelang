@@ -1,75 +1,51 @@
 ion-content {
-  --background: #f8fafc;
+  --background: #f4f5f8; // Latar belakang abu-abu sangat muda
 }
 
-.page-header {
-  text-align: center;
-  margin: 1rem 0 1.5rem 0;
+.profile-card {
+  --background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+  margin: 0 0 1.5rem 0; // Memberi jarak antar kartu
+}
 
-  h2 {
-    font-weight: 700;
-    font-size: 1.6rem;
+ion-card-header {
+  ion-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
     color: #1e293b;
   }
-  
-  p {
-    color: #64748b;
+}
+
+// Menata gaya input dan textarea agar seragam
+.custom-input {
+  margin-bottom: 1rem;
+  --border-radius: 10px !important;
+  --background: #f8fafc; // Background sedikit abu-abu untuk kontras
+  box-shadow: none;
+  border: 1px solid #e2e8f0;
+
+  // Menghilangkan garis bawah default dari input di dalam card
+  &::part(native) {
+    border-bottom: none !important;
   }
 }
 
-.vendor-card {
-  margin: 0 0 1rem 0;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-  --background: #ffffff;
+// Mengatur agar input terakhir dalam card tidak punya margin bawah
+.custom-input:last-of-type {
+    margin-bottom: 0;
 }
 
-.card-item {
-  --background: transparent;
-  --padding-start: 16px;
-  --inner-padding-end: 16px;
+.save-button {
+    height: 48px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    --border-radius: 12px;
 }
 
-.initial-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background-color: var(--ion-color-primary);
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  font-weight: 600;
-}
-
-ion-label h3 {
-  font-weight: 600;
-  color: #334155;
-}
-
-ion-label p {
-  color: #64748b;
-  font-size: 0.9rem;
-}
-
-.empty-state {
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: var(--ion-color-medium);
-    text-align: center;
-
-    ion-icon {
-        font-size: 5rem;
-    }
-    h3 {
-      margin-top: 1rem;
-      font-weight: 600;
-    }
-    p {
-      max-width: 250px;
-    }
+// Styling untuk skeleton loading
+.skeleton-input {
+    height: 52px;
+    border-radius: 10px;
+    margin-bottom: 1rem;
 }
