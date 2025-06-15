@@ -1,33 +1,45 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/vendor"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Pengajuan Penawaran</ion-title>
-  </ion-toolbar>
-</ion-header>
+        <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/vendor"></ion-back-button>
+            </ion-buttons>
+            <ion-title>Pengajuan Penawaran</ion-title>
+        </ion-toolbar>
+    </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="form-wrapper">
-    <div class="form-header">
-      <h3>Tender: {{ tenderTitle }}</h3>
-      <p>Langkah 2 dari 3: Unggah Dokumen Pendukung</p>
-    </div>
+    <ion-content class="ion-padding">
+        <div class="form-wrapper">
+            <div class="form-header">
+                <h3>Tender: {{ tenderTitle }}</h3>
+                <p>Langkah 2 dari 3: Unggah Dokumen Penawaran (PDF)</p>
+                <p class="instruction">Silakan unggah dokumen PDF yang diperlukan untuk tender ini.</p>
+            </div>
 
-    <ion-list>
-        <ion-item>
-            <ion-label>Dokumen Administrasi</ion-label>
-            <input type="file" (change)="handleFileInput($event, 'administrasi')"/>
-        </ion-item>
-        <ion-item>
-            <ion-label>Dokumen Teknis</ion-label>
-            <input type="file" (change)="handleFileInput($event, 'teknis')"/>
-        </ion-item>
-    </ion-list>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Dokumen Administrasi (PDF)</ion-label>
+                    <div class="file-input-container" (click)="adminDocInput.click()">
+                        <ion-icon name="cloud-upload-outline"></ion-icon>
+                        <span *ngIf="!bidData.administrative_document">Pilih File PDF</span>
+                        <span *ngIf="bidData.administrative_document" class="file-name">{{ bidData.administrative_document.name }}</span>
+                    </div>
+                    <input #adminDocInput type="file" accept=".pdf" (change)="handleFileInput($event, 'administrasi')" hidden="true" />
+                </ion-item>
 
-    <ion-button expand="block" (click)="goToNextStep()" class="ion-margin-top" [disabled]="!bidData.administrative_document || !bidData.technical_document">
-      Lanjut ke Penawaran Harga
-      <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
-    </ion-button>
-  </div>
-</ion-content>
+                <ion-item>
+                    <ion-label>Dokumen Teknis (PDF)</ion-label>
+                    <div class="file-input-container" (click)="techDocInput.click()">
+                        <ion-icon name="cloud-upload-outline"></ion-icon>
+                        <span *ngIf="!bidData.technical_document">Pilih File PDF</span>
+                        <span *ngIf="bidData.technical_document" class="file-name">{{ bidData.technical_document.name }}</span>
+                    </div>
+                    <input #techDocInput type="file" accept=".pdf" (change)="handleFileInput($event, 'teknis')" hidden="true" />
+                </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" (click)="goToNextStep()" class="ion-margin-top" [disabled]="!bidData.administrative_document || !bidData.technical_document">
+                Lanjut ke Penawaran Harga
+                <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+        </div>
+    </ion-content>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule, AlertController, NavController } from '@ionic/angular';
-import { VendorService } from '../vendor.service'; // Sesuaikan path jika berbeda
+import { VendorService } from '../vendor.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class VendorPage implements OnInit {
   profile: any = {};
   isLoading = true;
-  tenderData: any = null; // Variabel untuk menyimpan data tender
+  tenderData: any = null;
 
   constructor(
     private vendorService: VendorService,
@@ -23,7 +23,6 @@ export class VendorPage implements OnInit {
     private router: Router,
     private navCtrl: NavController
   ) {
-    // Tangkap data 'tender' yang dikirim dari halaman sebelumnya
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { tender: any };
     if (state && state.tender) {
@@ -46,31 +45,32 @@ export class VendorPage implements OnInit {
       },
       error: (err: any) => {
         this.isLoading = false;
-        // Tampilkan error jika gagal memuat profil
         this.presentErrorAlert('Gagal memuat profil. Pastikan Anda sudah login sebagai Vendor.');
       }
     });
   }
 
   saveProfile() {
-    // Hapus properti yang tidak perlu dikirim saat update
     const { id, user_id, created_at, updated_at, ...profileData } = this.profile;
     
     this.vendorService.updateProfile(profileData).subscribe({
       next: async (res: any) => {
         await this.presentSuccessAlert();
-
-        // Cek jika kita sedang dalam alur penawaran tender
         if (this.tenderData) {
-          // Jika ya, arahkan ke halaman 'pengajuan-penawaran' sambil membawa data tender
           this.router.navigateByUrl('/pengajuan-penawaran', { state: { tender: this.tenderData } });
         } else {
-          // Jika tidak (hanya edit profil biasa), kembali ke halaman sebelumnya
           this.navCtrl.back();
         }
       },
-      error: (err: any) => {
-        this.presentErrorAlert('Gagal menyimpan profil. Pastikan semua kolom terisi dengan benar.');
+      // BLOK INI AKAN MENANGANI & MENAMPILKAN ERROR DARI LARAVEL
+      error: async (err: any) => {
+        let errorMessage = 'Terjadi kesalahan. Periksa kembali data Anda.';
+        // Cek jika ini adalah error validasi dari Laravel (HTTP 422)
+        if (err.error && err.error.errors) {
+          // Gabungkan semua pesan error validasi menjadi satu string
+          errorMessage = Object.values(err.error.errors).flat().join('\n');
+        }
+        this.presentErrorAlert(errorMessage);
       }
     });
   }

@@ -15,8 +15,13 @@ export class PengajuanPenawaranPage implements OnInit {
   tenderData: any;
   tenderTitle: string = 'Memuat...';
 
-  // Objek untuk menampung data penawaran yang akan kita bangun
-  bidData = {
+  // PERBAIKAN DI SINI: Beri tipe data yang jelas untuk setiap properti
+  bidData: {
+    tender_id: number | null;
+    administrative_document: File | null;
+    technical_document: File | null;
+    price_offer: number | null;
+  } = {
     tender_id: null,
     administrative_document: null,
     technical_document: null,
@@ -43,8 +48,9 @@ export class PengajuanPenawaranPage implements OnInit {
   }
 
   handleFileInput(event: any, docType: 'administrasi' | 'teknis') {
-    const file = event.target.files[0];
-    if (file) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file = fileList[0];
       if (docType === 'administrasi') {
         this.bidData.administrative_document = file;
       } else {
