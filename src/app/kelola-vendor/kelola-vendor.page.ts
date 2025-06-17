@@ -6,16 +6,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-kelola-vendor', // Disesuaikan dengan nama file
-  templateUrl: './kelola-vendor.page.html', // Disesuaikan dengan nama file
-  styleUrls: ['./kelola-vendor.page.scss'], // Disesuaikan dengan nama file
+  selector: 'app-kelola-vendor',
+  templateUrl: './kelola-vendor.page.html',
+  styleUrls: ['./kelola-vendor.page.scss'],
   standalone: true,
   imports: [IonicModule, CommonModule, FormsModule]
 })
-// Nama kelas disesuaikan dengan nama file
 export class KelolaVendorPage implements OnInit {
   tenderId: number | null = null;
-  tender: any = null; 
+  tender: any = null;
+  aanwijzingData = {
+    schedule_time: '',
+    meeting_link: '',
+    description: ''
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -32,28 +36,47 @@ export class KelolaVendorPage implements OnInit {
   }
 
   async loadTenderDetails() {
-    const loading = await this.loadingCtrl.create({ message: 'Memuat data tender...' });
+    const loading = await this.loadingCtrl.create({ message: 'Memuat data...' });
     await loading.present();
 
     this.adminService.getTenderDetails(this.tenderId!).subscribe({
       next: (res: any) => {
         this.tender = res;
+        if (res.aanwijzing) {
+          const date = new Date(res.aanwijzing.schedule_time);
+          const timezoneOffset = date.getTimezoneOffset() * 60000;
+          const localISOTime = new Date(date.getTime() - timezoneOffset).toISOString().slice(0, 16);
+          
+          this.aanwijzingData = {
+            schedule_time: localISOTime,
+            meeting_link: res.aanwijzing.meeting_link,
+            description: res.aanwijzing.description
+          };
+        }
         loading.dismiss();
       },
       error: (err: any) => {
         loading.dismiss();
-        this.presentAlert('Gagal', 'Gagal memuat detail tender. Mohon coba lagi.');
+        this.presentAlert('Gagal', 'Gagal memuat detail tender.');
       }
     });
   }
 
-  openDocument(path: string | null) {
-    if (!path) {
-      this.presentAlert('Informasi', 'Vendor ini belum mengunggah dokumen tersebut.');
+  async saveAanwijzing() {
+    if (!this.aanwijzingData.schedule_time || !this.aanwijzingData.meeting_link) {
+      this.presentAlert('Input Tidak Lengkap', 'Mohon isi tanggal, waktu, dan link meeting.');
       return;
     }
-    const baseUrl = 'http://127.0.0.1:8000/storage/';
-    window.open(baseUrl + path, '_blank');
+
+    this.adminService.scheduleAanwijzing(this.tenderId!, this.aanwijzingData).subscribe({
+      next: async (res: any) => {
+        await this.presentAlert('Sukses', 'Jadwal Aanwijzing berhasil disimpan!');
+        this.loadTenderDetails();
+      },
+      error: (err: any) => {
+        this.presentAlert('Gagal', err.error?.message || 'Gagal menyimpan jadwal.');
+      }
+    });
   }
 
   async presentAlert(header: string, message: string) {

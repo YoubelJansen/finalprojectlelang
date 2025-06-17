@@ -1,27 +1,35 @@
 <ion-content>
-  <div class="login-container">
-    <div class="login-card">
-      <div class="tab-buttons">
-        <!-- Tombol Login aktif -->
-        <ion-button fill="solid" class="active-tab">LOGIN</ion-button>
-        <!-- Tombol Register mengarah ke halaman registrasi -->
-        <ion-button fill="outline" [routerLink]="['/register']">REGISTER</ion-button>
-      </div>
-
-      <div class="logo">
-        <!-- Anda bisa ganti src dengan path ke logo lokal Anda di folder assets -->
-        <img src="assets/icon/favicon.png" alt="logo">
-      </div>
-
-      <h2>LOG IN TO AN ACCOUNT</h2>
-      <p>Sign in to your already existing account by filling fields below</p>
-
-      <!-- Menggunakan [(ngModel)] untuk terhubung ke login.page.ts -->
-      <ion-input [(ngModel)]="email" placeholder="E-mail Address" type="email"></ion-input>
-      <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
-
-      <!-- Tombol ini memanggil fungsi onLogin() -->
-      <ion-button expand="block" (click)="onLogin()">LOGIN</ion-button>
+  <div class="container">
+    <div class="header-segment">
+      <ion-segment value="login">
+        <ion-segment-button value="login">
+          <ion-label>LOGIN</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="register" (click)="goToRegister()">
+          <ion-label>REGISTER</ion-label>
+        </ion-segment-button>
+      </ion-segment>
     </div>
+
+    <div class="form-title">
+      <ion-icon name="log-in-outline" color="primary"></ion-icon>
+      <h2>LOG IN TO AN ACCOUNT</h2>
+      <p>Sign in to your already existing account</p>
+    </div>
+
+    <div class="form-inputs">
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <!-- PERBAIKAN: Menggunakan credentials.email -->
+        <ion-input [(ngModel)]="credentials.email" type="email" placeholder="E-mail Address"></ion-input>
+      </ion-item>
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <!-- PERBAIKAN: Menggunakan credentials.password -->
+        <ion-input [(ngModel)]="credentials.password" type="password" placeholder="Password"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button class="main-button" expand="block" (click)="onLogin()">LOGIN</ion-button>
   </div>
 </ion-content>

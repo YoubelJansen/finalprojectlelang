@@ -32,8 +32,8 @@ const routes: Routes = [
     loadComponent: () => import('./vendor/vendor.page').then( m => m.VendorPage)
   },
   {
-    path: 'riwayat', // <-- DIUBAH
-    loadComponent: () => import('./riwayat/riwayat.page').then( m => m.RiwayatPage) // <-- DIUBAH SEMUA
+    path: 'riwayat',
+    loadComponent: () => import('./riwayat/riwayat.page').then( m => m.RiwayatPage)
   },
   {
     path: 'buat-tender',
@@ -53,7 +53,7 @@ const routes: Routes = [
   },
   {
     path: 'jadwal-aanwijzing',
-    loadChildren: () => import('./jadwal-aanwijzing/jadwal-aanwijzing.module').then( m => m.JadwalAanwijzingPageModule)
+    loadComponent: () => import('./jadwal-aanwijzing/jadwal-aanwijzing.page').then( m => m.JadwalAanwijzingPage)
   },
   {
     path: 'pemenang-po',

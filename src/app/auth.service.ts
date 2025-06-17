@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -10,46 +9,28 @@ import { Router } from '@angular/router';
 export class AuthService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient) { }
 
-  register(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, data).pipe(
-      tap(response => this.handleAuthSuccess(response))
-    );
-  }
-
+  // Fungsi untuk login
   login(credentials: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, credentials).pipe(
-      tap(response => this.handleAuthSuccess(response))
-    );
+    return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
+  // Fungsi untuk register
+  register(data: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, data);
+  }
+
+  // Fungsi untuk logout
   logout() {
-    // Idealnya, panggil API logout di sini. Untuk sekarang, kita bersihkan sisi klien.
+    // Di sini seharusnya memanggil API logout, tapi untuk sementara kita bersihkan local storage
     localStorage.removeItem('auth_token');
     localStorage.removeItem('user');
-    this.router.navigateByUrl('/login', { replaceUrl: true });
   }
 
-  // --- FUNGSI BARU UNTUK MENGATASI ERROR ---
-  /**
-   * Mengambil data pengguna yang tersimpan di localStorage.
-   * @returns Objek user atau null jika tidak ada.
-   */
+  // Fungsi untuk mengambil data user
   getUser(): any | null {
     const userString = localStorage.getItem('user');
-    if (userString) {
-      // Ubah string JSON kembali menjadi objek
-      return JSON.parse(userString);
-    }
-    return null;
-  }
-
-  private handleAuthSuccess(response: any) {
-    if (response.access_token && response.user) {
-      localStorage.setItem('auth_token', response.access_token);
-      // Simpan data user sebagai string JSON
-      localStorage.setItem('user', JSON.stringify(response.user));
-    }
+    return userString ? JSON.parse(userString) : null;
   }
 }

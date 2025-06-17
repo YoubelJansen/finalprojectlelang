@@ -18,8 +18,11 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class LoginPage {
-  email: string = '';
-  password: string = '';
+  // Menggunakan satu objek untuk menampung kredensial, lebih rapi
+  credentials = {
+    email: '',
+    password: ''
+  };
 
   constructor(
     private router: Router,
@@ -27,39 +30,43 @@ export class LoginPage {
     private alertController: AlertController
   ) {}
 
+  /**
+   * Fungsi yang dipanggil saat tombol Login ditekan.
+   */
   onLogin() {
-    const credentials = {
-      email: this.email,
-      password: this.password
-    };
-
-    this.authService.login(credentials).subscribe(
-      (res: any) => {
-        // Panggil fungsi navigasi berdasarkan peran dari respons
+    this.authService.login(this.credentials).subscribe({
+      next: (res: any) => {
+        // Simpan token & data user ke localStorage
+        localStorage.setItem('auth_token', res.access_token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        // Panggil fungsi navigasi berdasarkan peran dari respons server
         this.navigateByRole(res.user.role);
       },
-      (err: any) => {
-        // Jika gagal, tampilkan pesan error
+      error: (err: any) => {
+        // Tampilkan pesan error dari server untuk informasi yang lebih akurat
         this.presentAlert('Login Gagal', err.error?.message || 'Email atau password yang Anda masukkan salah.');
       }
-    );
+    });
   }
 
+  /**
+   * Fungsi untuk pindah ke halaman registrasi.
+   */
   goToRegister() {
     this.router.navigate(['/register']);
   }
  
+  /**
+   * Mengarahkan pengguna ke halaman yang sesuai berdasarkan perannya.
+   */
   navigateByRole(role: string) {
-    // Tentukan halaman utama untuk setiap peran
     switch (role) {
         case 'admin':
             this.router.navigate(['/halamanutama']); 
             break;
-        // PERBAIKAN DI SINI: Samakan dengan nama role di database
         case 'supervisor': 
             this.router.navigate(['/halaman-utama-atasan']);
             break;
-        // PERBAIKAN DI SINI: Samakan dengan nama role di database
         case 'employee':
             this.router.navigate(['/halaman-utama-karyawan']);
             break;
@@ -72,6 +79,9 @@ export class LoginPage {
     }
   }
 
+  /**
+   * Fungsi helper untuk menampilkan popup alert.
+   */
   async presentAlert(header: string, message: string) {
     const alert = await this.alertController.create({
       header,

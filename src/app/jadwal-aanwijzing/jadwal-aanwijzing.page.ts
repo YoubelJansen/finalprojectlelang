@@ -1,51 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { VendorService } from '../vendor.service'; // Pastikan path ini benar
 
 @Component({
   selector: 'app-jadwal-aanwijzing',
   templateUrl: './jadwal-aanwijzing.page.html',
   styleUrls: ['./jadwal-aanwijzing.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule]
 })
-export class JadwalAanwijzingPage {
-  jadwalList: any[] = [];
+export class JadwalAanwijzingPage implements OnInit {
+  schedules: any[] = [];
+  isLoading = true; // State untuk menampilkan loading spinner
 
-  constructor() {}
+  constructor(private vendorService: VendorService) { }
 
   ngOnInit() {
-    this.loadJadwal();
+    this.loadSchedules();
   }
 
-  loadJadwal() {
-    const dummyJadwal = [
-      {
-        id: 1,
-        namaProyek: 'Pembangunan Gedung Kantor',
-        waktu: new Date('2025-05-20T10:00:00'),
-        tempat: 'Zoom Meeting / Kantor Pusat',
-        diterima: false,
+  /**
+   * Mengambil data jadwal dari server.
+   */
+  loadSchedules() {
+    this.isLoading = true;
+    
+    this.vendorService.getJadwalAanwijzing().subscribe({
+      next: (res: any) => {
+        this.schedules = res;
+        this.isLoading = false;
       },
-      {
-        id: 2,
-        namaProyek: 'Pengadaan Kendaraan Operasional',
-        waktu: new Date('2025-05-25T14:00:00'),
-        tempat: 'Google Meet / Ruang Meeting A',
-        diterima: false,
+      error: (err: any) => {
+        console.error('Gagal memuat jadwal:', err);
+        this.isLoading = false;
+        // Di sini Anda bisa menambahkan popup alert jika gagal
       }
-    ];
-
-    // Jika belum ada data di localStorage, simpan dummy-nya dulu
-    if (!localStorage.getItem('jadwalAanwijzing')) {
-      localStorage.setItem('jadwalAanwijzing', JSON.stringify(dummyJadwal));
-    }
-
-    this.jadwalList = JSON.parse(localStorage.getItem('jadwalAanwijzing') || '[]');
-  }
-
-  terimaUndangan(item: any) {
-    item.diterima = true;
-    const index = this.jadwalList.findIndex(j => j.id === item.id);
-    this.jadwalList[index] = item;
-    localStorage.setItem('jadwalAanwijzing', JSON.stringify(this.jadwalList));
-    alert('Undangan telah diterima!');
+    });
   }
 }

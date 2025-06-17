@@ -1,0 +1,19 @@
+:host {
+  --ion-background-color: #f4f5f8;
+}
+
+.tender-info-card, .bid-card {
+  margin-bottom: 16px;
+}
+
+.instruction {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 16px;
+}
+
+ion-list-header {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 16px;
+}

@@ -1,51 +1,40 @@
 <ion-header>
-  <ion-toolbar color="dark">
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/kelola-pengadaan"></ion-back-button>
+      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
     </ion-buttons>
     <ion-title>Buat Tender Baru</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="form-wrapper">
-    <div class="form-header">
-      <!-- Menampilkan judul pengajuan yang dipilih -->
-      <h3>Pengajuan: {{ requestTitle }}</h3>
-      <p>Lengkapi detail di bawah untuk mempublikasikan tender ini.</p>
-    </div>
+  <div *ngIf="request">
+    <ion-card class="info-card">
+      <ion-card-header>
+        <ion-card-subtitle>Berdasarkan Pengajuan:</ion-card-subtitle>
+        <ion-card-title>{{ request.title }}</ion-card-title>
+      </ion-card-header>
+    </ion-card>
 
-    <!-- Form untuk membuat tender -->
-    <ion-textarea
-      label="Deskripsi Tender"
-      labelPlacement="floating"
-      fill="solid"
-      class="custom-input"
-      [(ngModel)]="tender.description"
-      placeholder="Jelaskan detail kebutuhan teknis, syarat, dll."
-      [autoGrow]="true">
-    </ion-textarea>
+    <ion-list-header>Detail Tender</ion-list-header>
+    <p class="ion-padding-start ion-padding-end instruction">Lengkapi detail di bawah untuk mempublikasikan tender ini.</p>
 
-    <ion-item class="datetime-item">
-      <ion-label>Batas Akhir Penawaran</ion-label>
-      <ion-datetime-button datetime="deadline"></ion-datetime-button>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <!-- PERBAIKAN: Pastikan ngModel terikat ke tender.title -->
+        <ion-input label="Judul Tender" label-placement="floating" [(ngModel)]="tender.title"></ion-input>
+      </ion-item>
+      <ion-item>
+        <!-- PERBAIKAN: Pastikan ngModel terikat ke tender.description -->
+        <ion-textarea label="Deskripsi Tender" label-placement="floating" [(ngModel)]="tender.description" [autoGrow]="true"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <!-- PERBAIKAN: Pastikan ngModel terikat ke tender.submission_deadline -->
+        <ion-input type="datetime-local" label="Deadline Pengajuan" label-placement="floating" [(ngModel)]="tender.submission_deadline"></ion-input>
+      </ion-item>
+    </ion-list>
 
-    <!-- Modal untuk memilih tanggal & waktu -->
-    <ion-modal [keepContentsMounted]="true">
-      <ng-template>
-        <ion-datetime
-          id="deadline"
-          [(ngModel)]="tender.submission_deadline"
-          presentation="date-time"
-          showDefaultButtons="true"
-          doneText="Pilih"
-          cancelText="Batal">
-        </ion-datetime>
-      </ng-template>
-    </ion-modal>
-
-    <ion-button expand="block" (click)="publishTender()" class="ion-margin-top publish-button">
+    <ion-button expand="block" (click)="publishTender()" class="ion-margin-top">
       <ion-icon name="paper-plane-outline" slot="start"></ion-icon>
       Publikasikan Tender
     </ion-button>
