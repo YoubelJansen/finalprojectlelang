@@ -1,24 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
+import { AdminService } from '../admin.service'; // Pastikan path ini benar
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
-import { AdminService } from '../admin.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
-  selector: 'app-riwayat', // <-- DIUBAH
-  templateUrl: './riwayat.page.html', // <-- DIUBAH
-  styleUrls: ['./riwayat.page.scss'], // <-- DIUBAH
+  selector: 'app-riwayat',
+  templateUrl: './riwayat.page.html',
+  styleUrls: ['./riwayat.page.scss'],
   standalone: true,
-  imports: [IonicModule, CommonModule, FormsModule, DatePipe]
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
-export class RiwayatPage implements OnInit { // <-- NAMA CLASS DIUBAH
+export class RiwayatPage implements OnInit {
   tenders: any[] = [];
+  isLoading = true;
 
   constructor(private adminService: AdminService) { }
 
   ngOnInit() {
-    this.adminService.getTenders().subscribe((res: any) => {
-      this.tenders = res;
+    this.loadTenders();
+  }
+
+  ionViewWillEnter() {
+    // Muat ulang data setiap kali halaman ini dibuka untuk mendapatkan data terbaru
+    this.loadTenders();
+  }
+
+  loadTenders() {
+    this.isLoading = true;
+    this.adminService.getTenders().subscribe({
+      next: (res) => {
+        this.tenders = res;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Gagal memuat riwayat tender:', err);
+        this.isLoading = false;
+      }
     });
   }
 }

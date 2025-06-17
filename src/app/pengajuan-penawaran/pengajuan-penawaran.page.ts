@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, IonicModule } from '@ionic/angular';
+import { NavController, IonicModule, AlertController, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { VendorService } from '../vendor.service';
 
 @Component({
   selector: 'app-pengajuan-penawaran',
@@ -14,23 +15,24 @@ import { FormsModule } from '@angular/forms';
 export class PengajuanPenawaranPage implements OnInit {
   tenderData: any;
   tenderTitle: string = 'Memuat...';
+  isLoading = false;
 
-  // PERBAIKAN DI SINI: Beri tipe data yang jelas untuk setiap properti
   bidData: {
     tender_id: number | null;
     administrative_document: File | null;
     technical_document: File | null;
-    price_offer: number | null;
   } = {
     tender_id: null,
     administrative_document: null,
     technical_document: null,
-    price_offer: null
   };
 
   constructor(
     private router: Router,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private vendorService: VendorService,
+    private alertCtrl: AlertController,
+    private loadingCtrl: LoadingController
   ) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { tender: any };
@@ -48,9 +50,8 @@ export class PengajuanPenawaranPage implements OnInit {
   }
 
   handleFileInput(event: any, docType: 'administrasi' | 'teknis') {
-    const fileList: FileList = event.target.files;
-    if (fileList.length > 0) {
-      const file = fileList[0];
+    const file = event.target.files[0];
+    if (file) {
       if (docType === 'administrasi') {
         this.bidData.administrative_document = file;
       } else {
@@ -59,8 +60,36 @@ export class PengajuanPenawaranPage implements OnInit {
     }
   }
 
-  goToNextStep() {
-    // Arahkan ke halaman bidding sambil membawa data tender & dokumen
-    this.router.navigateByUrl('/bidding-penilaian', { state: { bid: this.bidData } });
+  async submitAndProceed() {
+    this.isLoading = true;
+    const loading = await this.loadingCtrl.create({ message: 'Mengunggah dokumen...' });
+    await loading.present();
+
+    this.vendorService.submitDocuments(this.bidData).subscribe({
+      next: (res) => {
+        loading.dismiss();
+        this.isLoading = false;
+        this.router.navigate(['/bidding-penilaian', this.bidData.tender_id]);
+      },
+      error: async (err) => {
+        loading.dismiss();
+        this.isLoading = false;
+        const alert = await this.alertCtrl.create({
+          header: 'Unggah Gagal',
+          message: err.error?.message || 'Terjadi kesalahan saat mengunggah dokumen.',
+          buttons: ['OK']
+        });
+        await alert.present();
+      }
+    });
+  }
+
+  // Fungsi helper untuk menampilkan ukuran file
+  getFileSize(size: number): string {
+    if (size === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(size) / Math.log(k));
+    return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   }
 }

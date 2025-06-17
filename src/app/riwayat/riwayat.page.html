@@ -1,21 +1,42 @@
 <ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start"><ion-back-button defaultHref="/halamanutama"></ion-back-button></ion-buttons>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
+    </ion-buttons>
     <ion-title>Riwayat Tender</ion-title>
   </ion-toolbar>
 </ion-header>
+
 <ion-content class="ion-padding">
-  <ion-list>
-    <ion-card *ngFor="let tender of tenders">
-      <ion-card-header>
-        <ion-card-title>{{ tender.title }}</ion-card-title>
-        <ion-card-subtitle>No: {{ tender.tender_number }}</ion-card-subtitle>
-      </ion-card-header>
-      <ion-card-content>
-        <p>{{ tender.description }}</p>
-        <ion-chip color="primary">{{ tender.status | titlecase }}</ion-chip>
-        <ion-note slot="end">Deadline: {{ tender.submission_deadline | date:'medium' }}</ion-note>
-      </ion-card-content>
-    </ion-card>
-  </ion-list>
+  <ion-list-header>Daftar Semua Tender</ion-list-header>
+  <p class="ion-padding-start ion-padding-end">Pilih salah satu tender untuk melihat detail dan mengelola vendor peserta.</p>
+
+  <!-- Tampilkan loading spinner -->
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- Tampilkan daftar tender -->
+  <div *ngIf="!isLoading">
+    <ion-list *ngIf="tenders.length > 0; else noTenders" class="ion-no-padding">
+      <!-- Ulangi untuk setiap tender -->
+      <!-- PENTING: Saat item ini diklik, ia akan mengarah ke /kelola-vendor/[id] -->
+      <ion-item *ngFor="let tender of tenders" [routerLink]="['/kelola-vendor', tender.id]" detail="true" button>
+        <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h2>{{ tender.title }}</h2>
+          <p>Deadline: {{ tender.submission_deadline | date:'mediumDate' }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+
+    <!-- Tampilan jika tidak ada tender -->
+    <ng-template #noTenders>
+      <div class="empty-state">
+        <ion-icon name="file-tray-outline"></ion-icon>
+        <h3>Belum Ada Tender</h3>
+        <p>Tender yang Anda buat akan muncul di sini.</p>
+      </div>
+    </ng-template>
+  </div>
 </ion-content>

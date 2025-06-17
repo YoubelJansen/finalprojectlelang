@@ -1,0 +1,73 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/admin/dashboard"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kelola Vendor</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Tampilkan loading spinner jika data belum siap -->
+  <div *ngIf="!tender" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Memuat detail tender...</p>
+  </div>
+
+  <div *ngIf="tender">
+    <!-- Informasi Utama Tender -->
+    <ion-card class="tender-info-card">
+      <ion-card-header>
+        <ion-card-title>{{ tender.title }}</ion-card-title>
+        <ion-card-subtitle>Deadline: {{ tender.submission_deadline | date:'fullDate' }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>{{ tender.description }}</ion-card-content>
+    </ion-card>
+
+    <!-- Judul Daftar Vendor -->
+    <ion-list-header>
+      <ion-label>Vendor Peserta & Penawaran</ion-label>
+    </ion-list-header>
+
+    <!-- Daftar Vendor yang Telah Mengajukan Penawaran -->
+    <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
+      <ion-card *ngFor="let bid of tender.bids" class="bid-card">
+        <ion-item lines="full">
+          <ion-icon name="business-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ bid.vendor.company_name }}</h2>
+            <p>Kontak: {{ bid.vendor.user.name }} ({{ bid.vendor.user.email }})</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-card-content>
+          <div class="bid-details">
+            <div class="price-section">
+              <p class="price-label">Harga Penawaran</p>
+              <h3 class="price-value">{{ bid.price_offer ? 'Rp ' + (bid.price_offer | number) : 'Belum Ditentukan' }}</h3>
+            </div>
+            <div class="document-buttons">
+              <ion-button fill="clear" size="small" (click)="openDocument(bid.administrative_document_path)">
+                <ion-icon slot="start" name="document-attach-outline"></ion-icon>
+                Dok. Administrasi
+              </ion-button>
+              <ion-button fill="clear" size="small" (click)="openDocument(bid.technical_document_path)">
+                <ion-icon slot="start" name="build-outline"></ion-icon>
+                Dok. Teknis
+              </ion-button>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Tampilan jika belum ada vendor yang menawar -->
+    <ng-template #noBids>
+      <div class="empty-state">
+        <ion-icon name="people-circle-outline"></ion-icon>
+        <h3>Belum Ada Peserta</h3>
+        <p>Vendor yang mengajukan penawaran akan muncul di sini.</p>
+      </div>
+    </ng-template>
+  </div>
+</ion-content>

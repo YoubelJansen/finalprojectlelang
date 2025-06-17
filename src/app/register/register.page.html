@@ -1,34 +1,51 @@
 <ion-content>
-  <div class="login-container">
-    <div class="login-card">
-      <div class="tab-buttons">
-        <!-- Tombol Login mengarah ke halaman login -->
-        <ion-button fill="outline" [routerLink]="['/login']">LOGIN</ion-button>
-        <!-- Tombol Register aktif -->
-        <ion-button fill="solid" class="active-tab">REGISTER</ion-button>
-      </div>
-
-      <div class="logo">
-        <img src="assets/icon/favicon.png" alt="logo">
-      </div>
-
-      <h2>REGISTER A NEW ACCOUNT</h2>
-      <p>Sign up to create a new account by filling fields below</p>
-
-      <!-- Semua kolom yang dibutuhkan untuk registrasi -->
-      <ion-input [(ngModel)]="name" placeholder="Full Name" type="text"></ion-input>
-      <ion-input [(ngModel)]="email" placeholder="E-mail Address" type="email"></ion-input>
-      <ion-input [(ngModel)]="password" placeholder="Password" type="password"></ion-input>
-      <ion-input [(ngModel)]="password_confirmation" placeholder="Confirm Password" type="password"></ion-input>
-      
-      <!-- Select untuk memilih role -->
-      <ion-select [(ngModel)]="role" placeholder="Register as">
-        <ion-select-option value="karyawan">Karyawan</ion-select-option>
-        <ion-select-option value="vendor">Vendor</ion-select-option>
-      </ion-select>
-
-      <!-- Tombol ini memanggil fungsi onRegister() -->
-      <ion-button expand="block" (click)="onRegister()">REGISTER</ion-button>
+  <div class="container">
+    <div class="header-segment">
+      <ion-segment value="register">
+        <ion-segment-button value="login" (click)="goToLogin()">
+          <ion-label>LOGIN</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="register">
+          <ion-label>REGISTER</ion-label>
+        </ion-segment-button>
+      </ion-segment>
     </div>
+
+    <div class="form-title">
+      <ion-icon name="person-add-outline" color="primary"></ion-icon>
+      <h2>REGISTER A NEW ACCOUNT</h2>
+      <p>Sign up by filling the fields below</p>
+    </div>
+
+    <div class="form-inputs">
+        <!-- Pilihan Peran -->
+        <ion-segment [(ngModel)]="regData.role" value="employee" class="role-segment">
+            <ion-segment-button value="employee">
+                <ion-label>Karyawan</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value="vendor">
+                <ion-label>Vendor</ion-label>
+            </ion-segment-button>
+        </ion-segment>
+
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="regData.name" placeholder="Nama Lengkap / Perusahaan"></ion-input>
+      </ion-item>
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="regData.email" type="email" placeholder="E-mail Address"></ion-input>
+      </ion-item>
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="regData.password" type="password" placeholder="Password"></ion-input>
+      </ion-item>
+      <ion-item class="input-item" lines="none">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input [(ngModel)]="regData.password_confirmation" type="password" placeholder="Confirm Password"></ion-input>
+      </ion-item>
+    </div>
+
+    <ion-button class="main-button" expand="block" (click)="register()">REGISTER</ion-button>
   </div>
 </ion-content>

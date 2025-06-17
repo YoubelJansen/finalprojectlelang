@@ -1,40 +1,75 @@
-<ion-header>
-  <ion-toolbar color="primary">
-    <ion-title>Bidding & Penilaian</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-vendor"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Pengajuan Penawaran</ion-title>
+  </ion-toolbar>
+
+  <!-- Progress Stepper untuk menunjukkan alur -->
+  <ion-toolbar>
+    <div class="progress-stepper">
+      <div class="step complete">
+        <div class="step-icon"><ion-icon name="document-text-outline"></ion-icon></div>
+        <div class="step-label">Pilih Tender</div>
+      </div>
+      <div class="step-line complete"></div>
+      <div class="step complete">
+        <div class="step-icon"><ion-icon name="cloud-upload-outline"></ion-icon></div>
+        <div class="step-label">Unggah Dokumen</div>
+      </div>
+      <div class="step-line complete"></div>
+      <div class="step active">
+        <div class="step-icon"><ion-icon name="cash-outline"></ion-icon></div>
+        <div class="step-label">Penawaran Harga</div>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Masukkan Harga Bidding</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-input
-        type="number"
-        label="Harga Penawaran (Rp)"
-        placeholder="Contoh: 120000000"
-        [(ngModel)]="hargaBidding">
+  <div class="content-wrapper">
+    <div class="form-header">
+      <h2>Masukkan Harga Penawaran Anda</h2>
+      <p>Tender: <strong>{{ tender?.title || 'Memuat...' }}</strong></p>
+      <p class="instruction">Ini adalah langkah terakhir. Pastikan harga yang Anda masukkan sudah benar.</p>
+    </div>
+
+    <!-- Input Harga -->
+    <ion-item class="input-item" lines="none">
+      <ion-icon name="wallet-outline" slot="start" color="medium"></ion-icon>
+      <ion-input 
+        [(ngModel)]="priceOffer" 
+        type="number" 
+        label="Harga Penawaran (Rp)" 
+        label-placement="floating"
+        placeholder="Contoh: 150000000"
+        [disabled]="isLoading">
       </ion-input>
+    </ion-item>
 
-      <ion-button expand="full" color="success" (click)="submitBidding()">
-        Kirim Bidding
-      </ion-button>
-    </ion-card-content>
-  </ion-card>
+    <!-- Informasi Bid Sebelumnya, jika ada -->
+    <ion-card *ngIf="myBid && myBid.price_offer" class="info-card">
+      <ion-card-header>
+        <ion-card-title>Penawaran Terkirim</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        Anda sudah mengajukan harga sebesar <strong>Rp {{ myBid.price_offer | number }}</strong>. Anda dapat memperbaruinya jika perlu.
+      </ion-card-content>
+    </ion-card>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Hasil Evaluasi</ion-card-title>
-    </ion-card-header>
-    <ion-card-content *ngIf="evaluasi">
-      <p>Status: <strong>{{ evaluasi.status }}</strong></p>
-      <p>Skor: <strong>{{ evaluasi.skor }}</strong></p>
-    </ion-card-content>
-  </ion-card>
-
-  <ion-button expand="full" color="medium" (click)="kembaliKeDashboard()">
-    <ion-icon name="arrow-back-outline" slot="start"></ion-icon>
-    Kembali ke Dashboard
-  </ion-button>
+  </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button 
+      expand="block" 
+      class="ion-margin submit-button" 
+      (click)="submitPrice()" 
+      [disabled]="!priceOffer || isLoading">
+      <ion-spinner *ngIf="isLoading" name="crescent"></ion-spinner>
+      <span *ngIf="!isLoading">Kirim Penawaran Harga</span>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

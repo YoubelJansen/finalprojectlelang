@@ -1,6 +1,11 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar color="light">
     <ion-title>Admin Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="danger" (click)="logout()">
+        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -12,9 +17,6 @@
     </div>
     <div class="user-info">
       <span>👋 Selamat datang, <strong>{{ userName }}</strong></span>
-      <ion-button fill="clear" size="small" color="danger" (click)="logout()">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-      </ion-button>
     </div>
   </div>
 
@@ -28,16 +30,16 @@
       <p class="card-subtitle">Proses pengajuan yang disetujui</p>
     </div>
 
-    <!-- Kartu 2: Kelola Vendor (sebelumnya Input Vendor) -->
-    <div class="menu-card" (click)="goTo('kelola-vendor')">
-      <div class="card-icon" style="--card-color: #16a34a;">
-        <ion-icon name="people-outline"></ion-icon>
+    <!-- Kartu 2: Riwayat Tender -->
+    <div class="menu-card" (click)="goTo('riwayat')">
+      <div class="card-icon" style="--card-color: #0891b2;">
+        <ion-icon name="time-outline"></ion-icon>
       </div>
-      <div class="card-title">Kelola Vendor</div>
-      <p class="card-subtitle">Lihat & kelola data vendor</p>
+      <div class="card-title">Riwayat Tender</div>
+      <p class="card-subtitle">Semua tender yang pernah dibuat</p>
     </div>
 
-    <!-- Kartu 3: Aanwijzing & Tender (DIKEMBALIKAN) -->
+    <!-- Kartu 3: Aanwijzing & Tender (Menuju halaman daftar tender) -->
     <div class="menu-card" (click)="goTo('proses-aanwijzing')">
       <div class="card-icon" style="--card-color: #f97316;">
         <ion-icon name="megaphone-outline"></ion-icon>
@@ -64,13 +66,13 @@
       <p class="card-subtitle">Analisis & rekap data</p>
     </div>
 
-     <!-- Kartu 6: Riwayat Tender (sebagai tambahan) -->
-     <div class="menu-card" (click)="goTo('riwayat')">
-        <div class="card-icon" style="--card-color: #0891b2;">
-          <ion-icon name="time-outline"></ion-icon>
-        </div>
-        <div class="card-title">Riwayat Tender</div>
-        <p class="card-subtitle">Semua tender yang pernah dibuat</p>
+     <!-- Kartu 6: Kelola Vendor (Menuju halaman daftar vendor) -->
+     <div class="menu-card" (click)="goTo('kelola-vendor')"> <!-- Nama diubah untuk kejelasan -->
+      <div class="card-icon" style="--card-color: #16a34a;">
+        <ion-icon name="people-outline"></ion-icon>
       </div>
+      <div class="card-title">Kelola Vendor</div>
+      <p class="card-subtitle">Lihat & kelola data vendor</p>
+    </div>
   </div>
 </ion-content>

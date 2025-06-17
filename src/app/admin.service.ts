@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment'; // Menggunakan environment untuk URL API
 
 @Injectable({
   providedIn: 'root'
 })
 export class AdminService {
-  private apiUrl = 'http://127.0.0.1:8000/api/admin';
+  // Menggunakan apiUrl dari environment file, ini praktik terbaik
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
+  /**
+   * Helper function untuk mendapatkan header otentikasi.
+   * Ini menghindari pengulangan kode.
+   */
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
     return new HttpHeaders({
@@ -17,35 +23,43 @@ export class AdminService {
     });
   }
 
-  /**
-   * Mengambil daftar pengajuan yang sudah disetujui atasan dari API.
-   */
+  // --- FUNGSI-FUNGSI YANG SUDAH ADA ---
+
   getApprovedRequests(): Observable<any> {
-    // BENAR: Menggunakan this.apiUrl
-    return this.http.get(`${this.apiUrl}/approved-requests`, { headers: this.getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/admin/approved-requests`, { headers: this.getAuthHeaders() });
   }
 
-  /**
-   * Mengirim data untuk membuat tender baru ke API.
-   */
   createTender(tenderData: any): Observable<any> {
-    // BENAR: Menggunakan this.apiUrl
-    return this.http.post(`${this.apiUrl}/tenders`, tenderData, { headers: this.getAuthHeaders() });
+    return this.http.post(`${this.apiUrl}/admin/tenders`, tenderData, { headers: this.getAuthHeaders() });
   }
 
-  /**
-   * Mengambil riwayat tender yang sudah dibuat dari API.
-   */
   getTenders(): Observable<any> {
-    // BENAR: Menggunakan this.apiUrl
-    return this.http.get(`${this.apiUrl}/tenders`, { headers: this.getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/admin/tenders`, { headers: this.getAuthHeaders() });
+  }
+
+  getVendors(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/admin/vendors`, { headers: this.getAuthHeaders() });
+  }
+
+
+  // --- FUNGSI-FUNGSI BARU ---
+
+  /**
+   * Mengambil detail lengkap sebuah tender, termasuk semua bids.
+   * @param tenderId ID dari tender yang ingin dilihat.
+   */
+  getTenderDetails(tenderId: number): Observable<any> {
+    // Panggil endpoint API yang sudah kita buat di Laravel
+    return this.http.get(`${this.apiUrl}/admin/tenders/${tenderId}/details`, { headers: this.getAuthHeaders() });
   }
 
   /**
-   * Mengambil daftar semua vendor terdaftar dari API.
+   * Menyimpan atau memperbarui jadwal Aanwijzing untuk sebuah tender.
+   * @param tenderId ID dari tender.
+   * @param data Data jadwal (waktu, link, deskripsi).
    */
-  getVendors(): Observable<any> {
-    // BENAR: Menggunakan this.apiUrl
-    return this.http.get(`${this.apiUrl}/vendors`, { headers: this.getAuthHeaders() });
+  scheduleAanwijzing(tenderId: number, data: any): Observable<any> {
+    // Panggil endpoint API yang sudah kita buat di Laravel
+    return this.http.post(`${this.apiUrl}/admin/tenders/${tenderId}/aanwijzing`, data, { headers: this.getAuthHeaders() });
   }
 }

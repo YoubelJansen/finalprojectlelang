@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // <-- Tambahkan RouterModule
-import { AuthService } from '../auth.service';
+import { Router, RouterModule } from '@angular/router';
 import { AlertController, IonicModule } from '@ionic/angular';
+import { AuthService } from '../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -9,63 +9,65 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
-  standalone: true, // <-- KEMBALIKAN JADI TRUE
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RouterModule, // <-- TAMBAHKAN INI (untuk routerLink)
-  ],
+  standalone: true,
+  imports: [IonicModule, CommonModule, FormsModule, RouterModule]
 })
 export class RegisterPage {
-  // ... (Sisa kode dari constructor sampai akhir tidak berubah, sudah benar) ...
-  name: string = '';
-  email: string = '';
-  password: string = '';
-  password_confirmation: string = '';
-  role: string = 'karyawan';
+  // Objek untuk menampung data dari form, dengan 'employee' sebagai peran default
+  regData = { 
+    role: 'employee', 
+    name: '', 
+    email: '', 
+    password: '', 
+    password_confirmation: '' 
+  };
 
   constructor(
-    private router: Router,
-    private authService: AuthService,
-    private alertController: AlertController
-  ) {}
+    private authService: AuthService, 
+    private router: Router, 
+    private alertCtrl: AlertController
+  ) { }
 
-  onRegister() {
-    if (this.password !== this.password_confirmation) {
-      this.presentAlert('Error', 'Password dan Konfirmasi Password tidak cocok.');
+  /**
+   * Fungsi yang dipanggil saat tombol REGISTER ditekan.
+   */
+  async register() {
+    // Validasi sederhana untuk memastikan password dan konfirmasi password cocok
+    if (this.regData.password !== this.regData.password_confirmation) {
+      this.presentAlert('Registrasi Gagal', 'Password dan Konfirmasi Password tidak cocok.');
       return;
     }
-    
-    const userData = {
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      password_confirmation: this.password_confirmation,
-      role: this.role
-    };
 
-    this.authService.register(userData).subscribe(
-      (res: any) => {
-        this.presentAlert('Sukses', 'Registrasi berhasil! Silakan login.');
-        this.router.navigate(['/login']);
+    // Panggil service untuk mengirim data registrasi ke backend
+    this.authService.register(this.regData).subscribe({
+      next: (res) => {
+        // Jika registrasi sukses, simpan token & data user, lalu arahkan ke halaman yang sesuai
+        localStorage.setItem('auth_token', res.access_token);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        this.router.navigateByUrl(res.redirectUrl, { replaceUrl: true });
       },
-      (err: any) => {
-        const errors = err.error;
-        let message = 'Terjadi kesalahan.';
-        if (errors && typeof errors === 'object') {
-            message = Object.values(errors).flat().join('\n');
-        }
-        this.presentAlert('Error Registrasi', message);
+      error: (err) => {
+        // Jika gagal, tampilkan pesan error dari server
+        this.presentAlert('Registrasi Gagal', err.error?.message || 'Terjadi kesalahan pada server.');
       }
-    );
+    });
   }
-  
+
+  /**
+   * Fungsi untuk navigasi ke halaman login saat segmen 'LOGIN' diklik.
+   */
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  /**
+   * Fungsi helper untuk menampilkan popup alert.
+   */
   async presentAlert(header: string, message: string) {
-    const alert = await this.alertController.create({
+    const alert = await this.alertCtrl.create({
       header,
       message,
-      buttons: [{ text: 'OK' }],
+      buttons: ['OK'],
     });
     await alert.present();
   }

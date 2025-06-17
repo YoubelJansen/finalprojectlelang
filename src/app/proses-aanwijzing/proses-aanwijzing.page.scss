@@ -1,33 +1,49 @@
-h2 {
-  font-size: 18px;
-  font-weight: 600;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  color: #333;
+:host {
+  --ion-background-color: #f4f5f8;
 }
 
-ion-card {
+.schedule-card {
   margin-bottom: 16px;
+  --background: #ffffff;
+  border-left: 4px solid var(--ion-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-ion-grid {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  margin-top: 10px;
+.schedule-card ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  
+  h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #333;
+  }
 }
 
-ion-row.header-row {
-  background-color: #f0f0f0;
-  font-weight: bold;
+.join-button {
+  margin-top: 16px;
 }
 
-ion-row {
-  border-bottom: 1px solid #ddd;
-  padding: 8px 0;
-}
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  color: #999;
 
-ion-col {
-  text-align: center;
-  font-size: 14px;
+  ion-icon {
+    font-size: 80px;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
 }

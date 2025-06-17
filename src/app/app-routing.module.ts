@@ -19,7 +19,7 @@ const routes: Routes = [
     path: 'register',
     loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
-    {
+  {
     path: 'halamanutama',
     loadComponent: () => import('./halamanutama/halamanutama.page').then( m => m.HalamanutamaPage)
   },
@@ -48,8 +48,8 @@ const routes: Routes = [
     loadComponent: () => import('./akses-tender/akses-tender.page').then( m => m.AksesTenderPage)
   },
   {
-    path: 'bidding-penilaian',
-    loadChildren: () => import('./bidding-penilaian/bidding-penilaian.module').then( m => m.BiddingPenilaianPageModule)
+    path: 'bidding-penilaian/:id',
+    loadComponent: () => import('./bidding-penilaian/bidding-penilaian.page').then( m => m.BiddingPenilaianPage)
   },
   {
     path: 'jadwal-aanwijzing',
@@ -100,12 +100,16 @@ const routes: Routes = [
     loadComponent: () => import('./kelola-pengadaan/kelola-pengadaan.page').then( m => m.KelolaPengadaanPage)
   },
   {
-    path: 'proses-aanwijzing',
-    loadChildren: () => import('./proses-aanwijzing/proses-aanwijzing.module').then( m => m.ProsesAanwijzingPageModule)
+    path: 'proses-aanwijzing', // Pastikan path ini sesuai
+    loadComponent: () => import('./proses-aanwijzing/proses-aanwijzing.page').then( m => m.ProsesAanwijzingPage)
   },
   {
     path: 'penetapan-pemenang-po',
     loadChildren: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.module').then( m => m.PenetapanPemenangPoPageModule)
+  },
+  {
+    path: 'kelola-vendor/:id',
+    loadComponent: () => import('./kelola-vendor/kelola-vendor.page').then( m => m.KelolaVendorPage)
   },
 
 ];

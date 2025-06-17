@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router, RouterModule } from '@angular/router'; // <-- Tambahkan RouterModule
+import { Router, RouterModule } from '@angular/router'; 
 import { AuthService } from '../auth.service';
 import { AlertController, IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
@@ -9,16 +9,15 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
-  standalone: true, // <-- KEMBALIKAN JADI TRUE
+  standalone: true, 
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    RouterModule, // <-- TAMBAHKAN INI (untuk routerLink)
+    RouterModule, 
   ],
 })
 export class LoginPage {
-  // ... (Sisa kode dari constructor sampai akhir tidak berubah, sudah benar) ...
   email: string = '';
   password: string = '';
 
@@ -36,24 +35,32 @@ export class LoginPage {
 
     this.authService.login(credentials).subscribe(
       (res: any) => {
+        // Panggil fungsi navigasi berdasarkan peran dari respons
         this.navigateByRole(res.user.role);
       },
       (err: any) => {
-        this.presentAlert('Login Gagal', 'Email atau password yang Anda masukkan salah.');
+        // Jika gagal, tampilkan pesan error
+        this.presentAlert('Login Gagal', err.error?.message || 'Email atau password yang Anda masukkan salah.');
       }
     );
   }
-  
-navigateByRole(role: string) {
-    // Tentukan halaman utama untuk setiap role
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
+ 
+  navigateByRole(role: string) {
+    // Tentukan halaman utama untuk setiap peran
     switch (role) {
         case 'admin':
-            this.router.navigate(['/halamanutama']); // <-- DIUBAH KE SINI
+            this.router.navigate(['/halamanutama']); 
             break;
-        case 'atasan':
+        // PERBAIKAN DI SINI: Samakan dengan nama role di database
+        case 'supervisor': 
             this.router.navigate(['/halaman-utama-atasan']);
             break;
-        case 'karyawan':
+        // PERBAIKAN DI SINI: Samakan dengan nama role di database
+        case 'employee':
             this.router.navigate(['/halaman-utama-karyawan']);
             break;
         case 'vendor':
