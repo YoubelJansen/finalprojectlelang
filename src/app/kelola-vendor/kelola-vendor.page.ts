@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AdminService } from '../admin.service'; // Pastikan path service Anda benar
 import { AlertController, IonicModule, LoadingController } from '@ionic/angular';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common'; // Tambahkan CurrencyPipe
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -77,6 +77,16 @@ export class KelolaVendorPage implements OnInit {
         this.presentAlert('Gagal', err.error?.message || 'Gagal menyimpan jadwal.');
       }
     });
+  }
+
+  // --- FUNGSI UNTUK MEMBUKA DOKUMEN ---
+  openDocument(path: string | null) {
+    if (!path) {
+      this.presentAlert('Informasi', 'Vendor ini belum mengunggah dokumen tersebut.');
+      return;
+    }
+    const baseUrl = 'http://127.0.0.1:8000/storage/'; // Pastikan URL ini benar
+    window.open(baseUrl + path, '_blank');
   }
 
   async presentAlert(header: string, message: string) {

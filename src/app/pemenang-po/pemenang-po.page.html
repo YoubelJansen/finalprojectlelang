@@ -1,24 +1,25 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Pemenang PO</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-vendor"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Hasil Tender</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content class="ion-padding" [fullscreen]="true">
-  <div class="card-container">
-    <ion-card>
+  <div *ngIf="results.length > 0; else noResults">
+    <ion-card *ngFor="let result of results" [ngClass]="{'winner': result.status === 'Menang', 'loser': result.status === 'Kalah'}">
       <ion-card-header>
-        <ion-card-title>Informasi Pemenang</ion-card-title>
+        <ion-card-subtitle>Tender: {{ result.tender.title }}</ion-card-subtitle>
+        <ion-card-title>Status: <span [ngClass]="{'status-menang': result.status === 'Menang'}">{{ result.status }}</span></ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        <p><strong>Nama Vendor:</strong> PT Sukses Selalu</p>
-        <p><strong>Harga Akhir (Rp):</strong> 120.000.000</p>
-        <p><strong>Status:</strong> <span class="status-menang">MENANG</span></p>
+      <ion-card-content *ngIf="result.status === 'Menang'">
+        Selamat! Anda telah memenangkan tender ini. PO akan segera dikirimkan.
+      </ion-card-content>
+      <ion-card-content *ngIf="result.status === 'Kalah'">
+        Terima kasih atas partisipasi Anda. Mohon maaf, Anda belum berhasil pada tender kali ini.
       </ion-card-content>
     </ion-card>
-
-    <ion-button expand="block" color="medium" (click)="kembaliKeDashboard()">
-      ← KEMBALI KE DASHBOARD
-    </ion-button>
   </div>
+  <ng-template #noResults><p>Belum ada hasil tender yang bisa ditampilkan.</p></ng-template>
 </ion-content>

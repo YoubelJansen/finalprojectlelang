@@ -1,17 +1,24 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+// pemenang-po.page.ts
+import { Component, OnInit } from '@angular/core';
+import { VendorService } from '../vendor.service'; // Pastikan path ini benar
+import { IonicModule } from '@ionic/angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-pemenang-po',
   templateUrl: './pemenang-po.page.html',
   styleUrls: ['./pemenang-po.page.scss'],
-  standalone: false,
+  standalone: true,
+  imports: [IonicModule, CommonModule]
 })
-export class PemenangPoPage {
+export class PemenangPoPage implements OnInit {
+  results: any[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private vendorService: VendorService) { }
 
-  kembaliKeDashboard() {
-    this.router.navigate(['/halaman-utama-vendor']);
+  ngOnInit() {
+    this.vendorService.getResults().subscribe(res => {
+      this.results = res;
+    });
   }
 }

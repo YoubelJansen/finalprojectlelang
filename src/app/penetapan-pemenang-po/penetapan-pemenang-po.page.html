@@ -1,24 +1,40 @@
-<ion-content>
-  <div class="po-card">
-    <h2 class="title">Penetapan Pemenang</h2>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/riwayat"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Penetapan Pemenang</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div *ngIf="winner" class="info-section">
-      <h3>{{ winner.name }}</h3>
-      <p><strong>Skor Teknis:</strong> {{ winner.technicalScore }}</p>
-      <p><strong>Harga Penawaran:</strong> Rp {{ winner.price | number:'1.0-0' }}</p>
+<ion-content class="ion-padding">
+  <div *ngIf="tender; else loading">
+    <ion-list-header>Pilih Pemenang untuk Tender: {{ tender.title }}</ion-list-header>
+    <p class="ion-padding-start ion-padding-end instruction">Tinjau penawaran di bawah dan pilih satu vendor sebagai pemenang. Tindakan ini tidak dapat diurungkan.</p>
+
+    <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
+      <ion-card *ngFor="let bid of tender.bids" [class.winner-card]="tender.status === 'Selesai' && bid.status === 'Menang'">
+        <ion-item lines="full">
+          <ion-icon name="business-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h2>{{ bid.vendor.company_name }}</h2>
+            <p>Harga Penawaran: <strong>Rp {{ bid.price_offer | number }}</strong></p>
+          </ion-label>
+        </ion-item>
+        <ion-footer>
+          <!-- Tombol hanya muncul jika tender belum selesai -->
+          <ion-button *ngIf="tender.status !== 'Selesai'" expand="block" fill="solid" color="success" (click)="confirmSetWinner(bid)">
+            <ion-icon name="trophy-outline" slot="start"></ion-icon>
+            Pilih sebagai Pemenang
+          </ion-button>
+          <!-- Badge jika pemenang sudah ditentukan -->
+          <div *ngIf="bid.status === 'Menang'" class="winner-badge">
+            <ion-icon name="checkmark-circle"></ion-icon> PEMENANG
+          </div>
+        </ion-footer>
+      </ion-card>
     </div>
-
-    <ion-button expand="block" color="success" (click)="generatePO()" [disabled]="!winner">
-      Terbitkan PO
-    </ion-button>
-
-    <div *ngIf="poData" class="info-section issued">
-      <h3>PO Diterbitkan</h3>
-      <p><strong>No PO:</strong> {{ poData.poNumber }}</p>
-      <p><strong>Vendor:</strong> {{ poData.vendorName }}</p>
-      <p><strong>Total:</strong> Rp {{ poData.totalPrice | number:'1.0-0' }}</p>
-      <p><strong>Tanggal:</strong> {{ poData.issuedDate }} {{ poData.issuedTime }}</p>
-      <p><strong>Status:</strong> {{ poData.status }}</p>
-    </div>
+    <ng-template #noBids><p>Belum ada penawaran untuk tender ini.</p></ng-template>
   </div>
+  <ng-template #loading><div class="ion-text-center ion-padding"><ion-spinner></ion-spinner></div></ng-template>
 </ion-content>

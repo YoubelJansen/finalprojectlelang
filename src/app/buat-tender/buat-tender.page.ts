@@ -13,12 +13,11 @@ import { CommonModule } from '@angular/common';
   imports: [IonicModule, FormsModule, CommonModule, RouterModule]
 })
 export class BuatTenderPage implements OnInit {
-  request: any; // Data pengajuan dari halaman sebelumnya
-  
-  // PERBAIKAN: Inisialisasi objek tender dengan properti yang jelas
+  request: any;
+  requestTitle = 'Memuat...';
   tender = {
     procurement_request_id: null,
-    title: '', // <-- Variabel untuk judul tender
+    title: '',
     description: '',
     submission_deadline: new Date().toISOString()
   };
@@ -33,10 +32,8 @@ export class BuatTenderPage implements OnInit {
     const state = navigation?.extras.state as { request: any };
     if (state && state.request) {
       this.request = state.request;
-      // Otomatis isi data dari pengajuan
+      this.requestTitle = this.request.title;
       this.tender.procurement_request_id = this.request.id;
-      this.tender.title = `Tender untuk: ${this.request.title}`; // Contoh pengisian otomatis
-      this.tender.description = this.request.reason; // Contoh pengisian otomatis
     }
   }
 
@@ -46,30 +43,49 @@ export class BuatTenderPage implements OnInit {
     }
   }
 
-  publishTender() {
-    // Objek tender sekarang sudah berisi data dari form
-    this.adminService.createTender(this.tender).subscribe({
+  private formatDateToMySQL(datetime: string): string {
+    const date = new Date(datetime);
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const year = date.getFullYear();
+    const month = pad(date.getMonth() + 1);
+    const day = pad(date.getDate());
+    const hours = pad(date.getHours());
+    const minutes = pad(date.getMinutes());
+    const seconds = pad(date.getSeconds());
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+  async publishTender() {
+    if (!this.tender.title || !this.tender.description || !this.tender.submission_deadline) {
+      const alert = await this.alertCtrl.create({
+        header: 'Gagal',
+        message: 'Harap lengkapi semua field sebelum mempublikasikan tender.',
+        buttons: ['OK']
+      });
+      await alert.present();
+      return;
+    }
+
+    const tenderPayload = {
+      ...this.tender,
+      submission_deadline: this.formatDateToMySQL(this.tender.submission_deadline)
+    };
+
+    this.adminService.createTender(tenderPayload).subscribe({
       next: async (res: any) => {
         const alert = await this.alertCtrl.create({
           header: 'Sukses',
           message: 'Tender berhasil dipublikasikan!',
-          buttons: [{
-            text: 'OK',
-            handler: () => {
-              // Arahkan ke halaman riwayat setelah berhasil
-              this.router.navigateByUrl('/riwayat', { replaceUrl: true });
-            }
-          }]
+          buttons: [{ text: 'OK' }]
         });
         await alert.present();
+        this.router.navigateByUrl('/riwayat', { replaceUrl: true });
       },
       error: async (err: any) => {
-        // Menampilkan pesan error yang lebih spesifik dari server
-        const message = err.error?.errors ? Object.values(err.error.errors).join(', ') : (err.error?.message || 'Terjadi kesalahan.');
         const alert = await this.alertCtrl.create({
           header: 'Gagal',
-          message: message,
-          buttons: ['OK']
+          message: err.error.message || 'Terjadi kesalahan saat mempublikasikan tender.',
+          buttons: [{ text: 'OK' }]
         });
         await alert.present();
       }

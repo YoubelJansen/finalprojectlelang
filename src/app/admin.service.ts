@@ -1,25 +1,16 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AdminService {
   private apiUrl = environment.apiUrl;
-
   constructor(private http: HttpClient) { }
-
-  /**
-   * Helper function untuk mendapatkan header otentikasi.
-   * Ini adalah bagian terpenting untuk menghindari pengulangan kode dan memastikan token selalu terkirim.
-   */
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
-    return new HttpHeaders({
-      'Authorization': `Bearer ${token}`
-    });
+    return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
   }
 
   // --- FUNGSI-FUNGSI YANG ANDA BUTUHKAN ---
@@ -58,5 +49,12 @@ export class AdminService {
    */
   scheduleAanwijzing(tenderId: number, data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/admin/tenders/${tenderId}/aanwijzing`, data, { headers: this.getAuthHeaders() });
+  }
+
+  /**
+   * FUNGSI BARU: Menetapkan pemenang tender
+   */
+  setWinner(tenderId: number, bidId: number): Observable<any> {
+    return this.http.post(`${this.apiUrl}/admin/tenders/${tenderId}/set-winner`, { bid_id: bidId }, { headers: this.getAuthHeaders() });
   }
 }

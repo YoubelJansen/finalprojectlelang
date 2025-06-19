@@ -28,8 +28,8 @@ const routes: Routes = [
     loadChildren: () => import('./tender/tender.module').then( m => m.TenderPageModule)
   },
   {
-    path: 'vendor',
-    loadComponent: () => import('./vendor/vendor.page').then( m => m.VendorPage)
+    path: 'vendor', // Contoh untuk halaman profil vendor
+    loadComponent: () => import('./vendor/vendor.page').then(m => m.VendorPage)
   },
   {
     path: 'riwayat',
@@ -56,8 +56,8 @@ const routes: Routes = [
     loadComponent: () => import('./jadwal-aanwijzing/jadwal-aanwijzing.page').then( m => m.JadwalAanwijzingPage)
   },
   {
-    path: 'pemenang-po',
-    loadChildren: () => import('./pemenang-po/pemenang-po.module').then( m => m.PemenangPoPageModule)
+    path: 'pemenang-po', // Halaman vendor tidak butuh ID
+    loadComponent: () => import('./pemenang-po/pemenang-po.page').then( m => m.PemenangPoPage)
   },
   {
     path: 'pengajuan-penawaran',
@@ -104,8 +104,8 @@ const routes: Routes = [
     loadComponent: () => import('./proses-aanwijzing/proses-aanwijzing.page').then( m => m.ProsesAanwijzingPage)
   },
   {
-    path: 'penetapan-pemenang-po',
-    loadChildren: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.module').then( m => m.PenetapanPemenangPoPageModule)
+    path: 'penetapan-pemenang-po/:id', // Halaman admin butuh ID tender
+    loadComponent: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.page').then( m => m.PenetapanPemenangPoPage)
   },
   {
     path: 'kelola-vendor/:id',

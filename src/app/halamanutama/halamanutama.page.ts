@@ -28,17 +28,29 @@ export class HalamanutamaPage implements OnInit {
 
   /**
    * Navigasi ke halaman yang sesuai.
-   * Catatan: 'kelola-vendor' akan memerlukan halaman daftar terlebih dahulu.
-   * Untuk saat ini, kita akan buat logika dasarnya.
    */
   goTo(page: string) {
-    // Navigasi sederhana berdasarkan string.
-    // Halaman "Riwayat Tender" akan menjadi tempat untuk memilih tender spesifik
-    // yang kemudian akan mengarah ke '/kelola-vendor/:id'
-    this.router.navigate(['/' + page]);
+    // --- PERBAIKAN DI SINI ---
+    // Jika menu yang diklik memerlukan pemilihan tender terlebih dahulu,
+    // kita arahkan ke halaman 'riwayat'.
+    const pagesThatNeedTenderSelection = [
+      'kelola-vendor', 
+      'proses-aanwijzing', 
+      'penetapan-pemenang-po'
+    ];
+
+    if (pagesThatNeedTenderSelection.includes(page)) {
+      // Arahkan ke halaman daftar tender
+      this.router.navigate(['/riwayat']);
+    } else {
+      // Untuk menu lainnya, arahkan seperti biasa.
+      this.router.navigate(['/' + page]);
+    }
   }
 
   logout() {
     this.authService.logout();
+    // Setelah logout, arahkan kembali ke halaman login
+    this.router.navigate(['/login']);
   }
 }
