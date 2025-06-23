@@ -111,6 +111,10 @@ const routes: Routes = [
     path: 'kelola-vendor/:id',
     loadComponent: () => import('./kelola-vendor/kelola-vendor.page').then( m => m.KelolaVendorPage)
   },
+  {
+    path: 'pilih-tender',
+    loadComponent: () => import('./pilih-tender/pilih-tender.page').then( m => m.PilihTenderPage)
+  },
 
 ];
 

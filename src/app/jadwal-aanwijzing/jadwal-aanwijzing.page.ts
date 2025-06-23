@@ -39,4 +39,5 @@ export class JadwalAanwijzingPage implements OnInit {
       }
     });
   }
+  
 }

@@ -19,9 +19,8 @@
   <!-- Tampilkan daftar tender -->
   <div *ngIf="!isLoading">
     <ion-list *ngIf="tenders.length > 0; else noTenders" class="ion-no-padding">
-      <!-- Ulangi untuk setiap tender -->
-      <!-- PENTING: Saat item ini diklik, ia akan mengarah ke /kelola-vendor/[id] -->
-      <ion-item *ngFor="let tender of tenders" [routerLink]="['/kelola-vendor', tender.id]" detail="true" button>
+      <!-- PERUBAHAN FINAL: Menggunakan (click) untuk memanggil fungsi goToKelolaTender -->
+      <ion-item *ngFor="let tender of tenders" (click)="goToKelolaTender(tender)" detail="true" button>
         <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
         <ion-label>
           <h2>{{ tender.title }}</h2>

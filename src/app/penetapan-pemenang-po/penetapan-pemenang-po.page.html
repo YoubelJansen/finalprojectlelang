@@ -8,14 +8,22 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div *ngIf="tender; else loading">
+  <!-- 1. Tampilkan spinner saat isLoading bernilai true -->
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Memuat data tender...</p>
+  </div>
+
+  <!-- 2. Tampilkan konten utama HANYA JIKA tidak loading DAN data tender ada -->
+  <div *ngIf="!isLoading && tender">
     <ion-list-header>Pilih Pemenang untuk Tender: {{ tender.title }}</ion-list-header>
     <p class="ion-padding-start ion-padding-end instruction">Tinjau penawaran di bawah dan pilih satu vendor sebagai pemenang. Tindakan ini tidak dapat diurungkan.</p>
 
+    <!-- Cek jika ada penawaran (bids) -->
     <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
       <ion-card *ngFor="let bid of tender.bids" [class.winner-card]="tender.status === 'Selesai' && bid.status === 'Menang'">
         <ion-item lines="full">
-          <ion-icon name="business-outline" slot="start"></ion-icon>
+          <ion-icon name="business-outline" slot="start" color="primary"></ion-icon>
           <ion-label>
             <h2>{{ bid.vendor.company_name }}</h2>
             <p>Harga Penawaran: <strong>Rp {{ bid.price_offer | number }}</strong></p>
@@ -29,12 +37,25 @@
           </ion-button>
           <!-- Badge jika pemenang sudah ditentukan -->
           <div *ngIf="bid.status === 'Menang'" class="winner-badge">
-            <ion-icon name="checkmark-circle"></ion-icon> PEMENANG
+            <ion-icon name="checkmark-circle" color="success"></ion-icon> PEMENANG
           </div>
         </ion-footer>
       </ion-card>
     </div>
-    <ng-template #noBids><p>Belum ada penawaran untuk tender ini.</p></ng-template>
+    
+    <!-- Template #noBids: Tampilkan ini jika tidak ada penawaran -->
+    <ng-template #noBids>
+        <div class="ion-text-center ion-padding">
+            <ion-icon name="file-tray-outline" size="large" color="medium"></ion-icon>
+            <p>Belum ada penawaran yang masuk untuk tender ini.</p>
+        </div>
+    </ng-template>
   </div>
-  <ng-template #loading><div class="ion-text-center ion-padding"><ion-spinner></ion-spinner></div></ng-template>
+
+  <!-- 3. Tampilkan pesan error HANYA JIKA tidak loading DAN data tender tidak ada (null) -->
+  <div *ngIf="!isLoading && !tender" class="ion-text-center ion-padding">
+      <ion-icon name="alert-circle-outline" size="large" color="warning"></ion-icon>
+      <p>Gagal memuat data tender atau tender tidak ditemukan.</p>
+      <ion-button fill="outline" (click)="loadTenderDetails()">Coba Lagi</ion-button>
+  </div>
 </ion-content>

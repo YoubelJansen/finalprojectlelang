@@ -1,60 +1,58 @@
-
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
+import { environment } from 'src/environments/environment';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class AdminService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = `${environment.apiUrl}/admin`; 
+
   constructor(private http: HttpClient) { }
+
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('auth_token');
-    return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Accept': 'application/json'
+    });
   }
 
-  // --- FUNGSI-FUNGSI YANG ANDA BUTUHKAN ---
-
-  /**
-   * Mengambil daftar pengajuan yang sudah disetujui atasan.
-   */
-  getApprovedRequests(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/approved-requests`, { headers: this.getAuthHeaders() });
-  }
-
-  /**
-   * Mengirim data untuk membuat tender baru ke API.
-   * Fungsi ini sekarang PASTI menyertakan token.
-   */
-  createTender(tenderData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/tenders`, tenderData, { headers: this.getAuthHeaders() });
-  }
-
-  /**
-   * Mengambil riwayat semua tender.
-   */
-  getTenders(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/tenders`, { headers: this.getAuthHeaders() });
-  }
-
-  /**
-   * Mengambil detail lengkap satu tender.
-   */
+  // --- FUNGSI LAMA (Sudah Benar) ---
   getTenderDetails(tenderId: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/admin/tenders/${tenderId}/details`, { headers: this.getAuthHeaders() });
+    return this.http.get(`${this.apiUrl}/tenders/${tenderId}/details`, { headers: this.getAuthHeaders() });
   }
 
-  /**
-   * Menyimpan jadwal Aanwijzing.
-   */
-  scheduleAanwijzing(tenderId: number, data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/tenders/${tenderId}/aanwijzing`, data, { headers: this.getAuthHeaders() });
-  }
-
-  /**
-   * FUNGSI BARU: Menetapkan pemenang tender
-   */
   setWinner(tenderId: number, bidId: number): Observable<any> {
-    return this.http.post(`${this.apiUrl}/admin/tenders/${tenderId}/set-winner`, { bid_id: bidId }, { headers: this.getAuthHeaders() });
+    const body = { bid_id: bidId };
+    return this.http.post(`${this.apiUrl}/tenders/${tenderId}/set-winner`, body, { headers: this.getAuthHeaders() });
+  }
+
+  getTenders(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/tenders`, { headers: this.getAuthHeaders() });
+  }
+
+  getApprovedRequests(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/approved-requests`, { headers: this.getAuthHeaders() });
+  }
+
+  createTender(tenderData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tenders`, tenderData, { headers: this.getAuthHeaders() });
+  }
+
+  scheduleAanwijzing(tenderId: number, aanwijzingData: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/tenders/${tenderId}/aanwijzing`, aanwijzingData, { headers: this.getAuthHeaders() });
+  }
+
+  // --- FUNGSI BARU UNTUK HALAMAN PILIH-TENDER ---
+  /**
+   * Mengambil daftar tender yang siap untuk penetapan pemenang.
+   * Fungsi ini akan dipanggil oleh halaman 'pilih-tender'.
+   */
+  getTendersForSelection(): Observable<any> {
+    // Memanggil endpoint yang sama dengan getTenders(). 
+    // Penyaringan status ('Berlangsung', 'Evaluasi') akan dilakukan di frontend.
+    return this.http.get(`${this.apiUrl}/tenders`, { headers: this.getAuthHeaders() });
   }
 }

@@ -1,98 +1,98 @@
 <ion-header>
-  <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Kelola Tender & Vendor</ion-title>
-  </ion-toolbar>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Kelola Tender & Vendor</ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div *ngIf="tender; else loading">
-    <!-- Informasi Tender -->
-    <ion-card class="tender-info-card">
-      <ion-card-header>
-        <ion-card-title>{{ tender.title }}</ion-card-title>
-        <ion-card-subtitle>Deadline: {{ tender.submission_deadline | date:'fullDate' }}</ion-card-subtitle>
-      </ion-card-header>
-    </ion-card>
+  <div *ngIf="tender; else loading">
+    <!-- Informasi Tender -->
+    <ion-card class="tender-info-card">
+      <ion-card-header>
+        <ion-card-title>{{ tender.title }}</ion-card-title>
+        <ion-card-subtitle>Deadline: {{ tender.submission_deadline | date:'fullDate' }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
 
-    <!-- Jadwal Aanwijzing -->
-    <ion-list-header>Jadwalkan Proses Aanwijzing</ion-list-header>
-    <ion-card>
-      <ion-card-content>
-        <p class="instruction">Isi form di bawah untuk mengundang semua vendor peserta.</p>
-        <ion-item>
-          <ion-input type="datetime-local" label="Tanggal & Waktu Meeting" label-placement="floating" [(ngModel)]="aanwijzingData.schedule_time"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input type="url" label="Sertakan Link Zoom / GMeet" label-placement="floating" [(ngModel)]="aanwijzingData.meeting_link"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-textarea label="Deskripsi / Agenda (Opsional)" label-placement="floating" [(ngModel)]="aanwijzingData.description"></ion-textarea>
-        </ion-item>
-        <ion-button expand="block" class="ion-margin-top" (click)="saveAanwijzing()">
-          <ion-icon slot="start" name="save-outline"></ion-icon>
-          Simpan & Kirim Undangan
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
+    <!-- Jadwal Aanwijzing -->
+    <ion-list-header>Jadwalkan Proses Aanwijzing</ion-list-header>
+    <ion-card>
+      <ion-card-content>
+        <p class="instruction">Isi form di bawah untuk mengundang semua vendor peserta.</p>
+        <ion-item>
+          <ion-input type="datetime-local" label="Tanggal & Waktu Meeting" label-placement="floating" [(ngModel)]="aanwijzingData.schedule_time"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input type="url" label="Sertakan Link Zoom / GMeet" label-placement="floating" [(ngModel)]="aanwijzingData.meeting_link"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-textarea label="Deskripsi / Agenda (Opsional)" label-placement="floating" [(ngModel)]="aanwijzingData.description"></ion-textarea>
+        </ion-item>
+        <ion-button expand="block" class="ion-margin-top" (click)="saveAanwijzing()">
+          <ion-icon slot="start" name="save-outline"></ion-icon>
+          Simpan & Kirim Undangan
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
 
-    <!-- Daftar Vendor Peserta -->
-    <ion-list-header>Daftar Vendor Peserta</ion-list-header>
-    <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
-      <ion-card *ngFor="let bid of tender.bids" class="bid-card">
-        <!-- Info Vendor -->
-        <ion-item lines="full">
-          <ion-icon name="business-outline" slot="start" color="primary"></ion-icon>
-          <ion-label>
-            <h2>{{ bid.vendor.company_name }}</h2>
-            <p>Kontak: {{ bid.vendor.user.name }} ({{ bid.vendor.user.email }})</p>
-          </ion-label>
-        </ion-item>
+    <!-- Daftar Vendor Peserta -->
+    <ion-list-header>Daftar Vendor Peserta</ion-list-header>
+    <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
+      <ion-card *ngFor="let bid of tender.bids" class="bid-card">
+        <!-- Info Vendor -->
+        <ion-item lines="full">
+          <ion-icon name="business-outline" slot="start" color="primary"></ion-icon>
+          <ion-label>
+            <h2>{{ bid.vendor.company_name }}</h2>
+            <p>Kontak: {{ bid.vendor.user.name }} ({{ bid.vendor.user.email }})</p>
+          </ion-label>
+        </ion-item>
 
-        <!-- Detail Penawaran -->
-        <ion-card-content>
-          <!-- Harga Penawaran -->
-          <ion-item lines="none">
-            <ion-icon slot="start" name="cash-outline"></ion-icon>
-            <ion-label>
-              <h3>Harga Penawaran</h3>
-              <p>{{ bid.price_offer ? ('Rp ' + (bid.price_offer | number)) : 'Belum Ditentukan' }}</p>
-            </ion-label>
-          </ion-item>
+        <!-- Detail Penawaran -->
+        <ion-card-content>
+          <!-- Harga Penawaran -->
+          <ion-item lines="none">
+            <ion-icon slot="start" name="cash-outline"></ion-icon>
+            <ion-label>
+              <h3>Harga Penawaran</h3>
+              <p>{{ bid.price_offer ? ('Rp ' + (bid.price_offer | number)) : 'Belum Ditentukan' }}</p>
+            </ion-label>
+          </ion-item>
 
-          <!-- Dokumen Penawaran -->
-          <ion-item lines="none" *ngIf="bid.administrative_document_path">
-            <ion-icon slot="start" name="document-attach-outline"></ion-icon>
-            <ion-label>
-              <h3>Dokumen Administrasi</h3>
-              <a [href]="bid.administrative_document_path" target="_blank">Lihat Dokumen</a>
-            </ion-label>
-          </ion-item>
+          <!-- Dokumen Penawaran -->
+          <ion-item lines="none" *ngIf="bid.administrative_document_path">
+            <ion-icon slot="start" name="document-attach-outline"></ion-icon>
+            <ion-label>
+              <h3>Dokumen Administrasi</h3>
+              <a [href]="bid.administrative_document_path" target="_blank">Lihat Dokumen</a>
+            </ion-label>
+          </ion-item>
 
-          <ion-item lines="none" *ngIf="bid.technical_document_path">
-            <ion-icon slot="start" name="construct-outline"></ion-icon>
-            <ion-label>
-              <h3>Dokumen Teknis</h3>
-              <a [href]="bid.technical_document_path" target="_blank">Lihat Dokumen</a>
-            </ion-label>
-          </ion-item>
-        </ion-card-content>
-      </ion-card>
-    </div>
+          <ion-item lines="none" *ngIf="bid.technical_document_path">
+            <ion-icon slot="start" name="construct-outline"></ion-icon>
+            <ion-label>
+              <h3>Dokumen Teknis</h3>
+              <a [href]="bid.technical_document_path" target="_blank">Lihat Dokumen</a>
+            </ion-label>
+          </ion-item>
+        </ion-card-content>
+      </ion-card>
+    </div>
 
-    <!-- Jika Tidak Ada Bid -->
-    <ng-template #noBids>
-      <ion-item lines="none"><p>Belum ada vendor yang mengajukan penawaran untuk tender ini.</p></ion-item>
-    </ng-template>
-  </div>
+    <!-- Jika Tidak Ada Bid -->
+    <ng-template #noBids>
+      <ion-item lines="none"><p>Belum ada vendor yang mengajukan penawaran untuk tender ini.</p></ion-item>
+    </ng-template>
+  </div>
 
-  <!-- Loading Spinner -->
-  <ng-template #loading>
-    <div class="ion-text-center ion-padding">
-      <ion-spinner name="crescent"></ion-spinner>
-      <p>Memuat detail tender...</p>
-    </div>
-  </ng-template>
+  <!-- Loading Spinner -->
+  <ng-template #loading>
+    <div class="ion-text-center ion-padding">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Memuat detail tender...</p>
+    </div>
+  </ng-template>
 </ion-content>

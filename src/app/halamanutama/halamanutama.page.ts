@@ -28,29 +28,29 @@ export class HalamanutamaPage implements OnInit {
 
   /**
    * Navigasi ke halaman yang sesuai.
+   * Logika kompleks tidak lagi diperlukan karena kita sudah punya halaman perantara.
    */
   goTo(page: string) {
-    // --- PERBAIKAN DI SINI ---
-    // Jika menu yang diklik memerlukan pemilihan tender terlebih dahulu,
-    // kita arahkan ke halaman 'riwayat'.
-    const pagesThatNeedTenderSelection = [
-      'kelola-vendor', 
-      'proses-aanwijzing', 
-      'penetapan-pemenang-po'
-    ];
-
-    if (pagesThatNeedTenderSelection.includes(page)) {
-      // Arahkan ke halaman daftar tender
-      this.router.navigate(['/riwayat']);
-    } else {
-      // Untuk menu lainnya, arahkan seperti biasa.
-      this.router.navigate(['/' + page]);
-    }
+    // Langsung navigasi ke halaman yang namanya dikirim dari HTML.
+    this.router.navigate(['/' + page]);
   }
 
+  /**
+   * Fungsi untuk logout yang lebih andal.
+   */
   logout() {
-    this.authService.logout();
-    // Setelah logout, arahkan kembali ke halaman login
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe({
+      next: () => {
+        // Arahkan ke halaman login HANYA setelah server mengkonfirmasi logout
+        this.router.navigate(['/login']);
+      },
+      error: (err: any) => {
+        console.error('Proses logout gagal di server:', err);
+        // Jika API gagal, tetap paksa logout di sisi klien
+        localStorage.removeItem('auth_token');
+        localStorage.removeItem('user');
+        this.router.navigate(['/login']);
+      }
+    });
   }
 }
