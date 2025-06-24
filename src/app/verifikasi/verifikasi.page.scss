@@ -1,101 +1,85 @@
+/* Mengatur variabel global untuk halaman ini */
 :host {
-  --ion-background-color: #FAF5EE; // Warna Cream
-  --primary-green: #1D503A;
+  --ion-background-color: #f4f5f7; // Warna latar belakang abu-abu muda
 }
 
-ion-toolbar {
-  --background: var(--primary-green);
-  --color: white;
-}
-
-.page-container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 16px;
-}
-
-.request-card {
-  --background: #ffffff;
-  border-radius: 16px;
-  margin: 0 0 1.5rem 0;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  
-  ion-card-header {
-    padding-bottom: 8px;
-  }
-  
-  ion-card-title {
-    font-size: 1.3rem;
+.halaman-verifikasi {
+  // Menggunakan flexbox untuk menengahkan konten jika hanya ada sedikit
+  .main-title {
+    font-size: 1.8rem;
     font-weight: 700;
     color: #333;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 24px;
   }
-  
-  ion-card-subtitle {
-    color: #777;
-    font-size: 0.9rem;
+
+  /* Styling untuk setiap kartu verifikasi */
+  .verification-card {
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // Memberi jarak antara konten dan tombol
   }
-  
-  .reason-text {
-    font-style: italic;
+
+  /* Konten di dalam kartu (ikon dan judul) */
+  .card-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .card-icon {
+    font-size: 24px;
     color: #555;
-    margin-bottom: 1rem;
-    padding: 0 16px;
+    margin-right: 14px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0; // Reset margin default dari paragraf
+    flex: 1;
+  }
+
+  /* Kontainer untuk tombol aksi */
+  .action-buttons {
+    display: flex;
+    gap: 12px; // Jarak antar tombol
+  }
+
+  /* Styling umum untuk kedua tombol */
+  .action-buttons ion-button {
+    flex: 1; // Membuat kedua tombol memiliki lebar yang sama
+    --border-radius: 8px;
+    --box-shadow: none; // Menghilangkan bayangan default tombol ionic
+    height: 44px;
+    font-weight: 600;
+    text-transform: none; // Agar tidak huruf kapital semua
+    --color: #ffffff; // Warna teks putih
   }
   
-  .items-list {
-    padding: 0 16px;
-    margin-bottom: 1rem;
-    
-    h4 {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--primary-green);
-      margin: 0 0 8px 0;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 0;
-      color: #444;
-    }
+  /* Tombol Tolak (Merah) */
+  .reject-button {
+    --background: #e74c3c; // Merah
+    --background-activated: #c0392b; // Warna saat ditekan
   }
 
-  ion-footer {
-    border-top: 1px solid #f0f0f0;
-
-    ion-button {
-      --border-radius: 0;
-      height: 50px;
-      margin: 0;
-      font-weight: 600;
-      text-transform: none;
-    }
-
-    .approve-button {
-      --background: var(--ion-color-success);
-      --color: white;
-    }
+  /* Tombol Setujui (Hijau) */
+  .approve-button {
+    --background: #27ae60; // Hijau
+    --background-activated: #229954; // Warna saat ditekan
   }
-}
 
-.empty-state {
-  margin-top: 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--ion-color-medium);
-  text-align: center;
-  ion-icon { font-size: 5rem; }
-  h3 { margin-top: 1rem; font-weight: 600; }
-  p { max-width: 250px; }
-}
-
-.fade-in-up {
-  animation: fadeInUp 0.5s ease-out forwards;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
+  /* Tampilan ketika tidak ada data */
+  .empty-state {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
+  }
 }
