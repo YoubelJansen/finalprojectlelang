@@ -1,59 +1,101 @@
-.halaman-verifikasi {
-  --background: linear-gradient(145deg, #e0eaff, #f7f9ff);
+:host {
+  --ion-background-color: #FAF5EE; // Warna Cream
+  --primary-green: #1D503A;
+}
 
-  .verifikasi-container {
-    padding: 1rem;
-    max-width: 500px;
-    margin: 0 auto;
+ion-toolbar {
+  --background: var(--primary-green);
+  --color: white;
+}
+
+.page-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.request-card {
+  --background: #ffffff;
+  border-radius: 16px;
+  margin: 0 0 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  
+  ion-card-header {
+    padding-bottom: 8px;
   }
-
-  .title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #1a1a1a;
-    text-align: center;
-    margin-bottom: 1.5rem;
+  
+  ion-card-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
   }
-
-  .pengajuan-card {
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-    padding: 1rem;
+  
+  ion-card-subtitle {
+    color: #777;
+    font-size: 0.9rem;
+  }
+  
+  .reason-text {
+    font-style: italic;
+    color: #555;
     margin-bottom: 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    padding: 0 16px;
   }
-
-  .pengajuan-info {
-    h3 {
-      font-size: 1.1rem;
+  
+  .items-list {
+    padding: 0 16px;
+    margin-bottom: 1rem;
+    
+    h4 {
+      font-size: 0.9rem;
       font-weight: 600;
-      margin: 0 0 0.3rem;
-      color: #333;
+      color: var(--primary-green);
+      margin: 0 0 8px 0;
     }
 
-    p {
-      font-size: 0.95rem;
-      margin: 0.25rem 0;
-      color: #555;
-    }
-
-    strong {
-      color: #111;
+    ul {
+      padding-left: 20px;
+      margin: 0;
+      color: #444;
     }
   }
 
-  .action-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
+  ion-footer {
+    border-top: 1px solid #f0f0f0;
 
     ion-button {
-      --padding-start: 0;
-      --padding-end: 0;
-      --icon-size: 22px;
+      --border-radius: 0;
+      height: 50px;
+      margin: 0;
+      font-weight: 600;
+      text-transform: none;
+    }
+
+    .approve-button {
+      --background: var(--ion-color-success);
+      --color: white;
     }
   }
+}
+
+.empty-state {
+  margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--ion-color-medium);
+  text-align: center;
+  ion-icon { font-size: 5rem; }
+  h3 { margin-top: 1rem; font-weight: 600; }
+  p { max-width: 250px; }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }

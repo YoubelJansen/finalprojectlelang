@@ -1,31 +1,74 @@
-<ion-content class="ion-padding halaman-utama-karyawan">
-  <div class="dashboard-container">
-    <h2 class="title">Dashboard Karyawan</h2>
-    <p class="subtitle">Apa yang ingin Anda lakukan hari ini?</p>
-
-      <!-- Tambahkan kode ini di dalam <ion-content> di halaman utama karyawan -->
-  <!-- ... (setelah tombol-tombol menu Anda) ... -->
-
-  <ion-button expand="block" color="medium" (click)="logout()" class="logout-button">
-    <ion-icon name="log-out-outline" slot="start"></ion-icon>
-    Logout
-  </ion-button>
-  
-    <div class="card-grid">
-      <div class="menu-card" routerLink="/pengajuan-permintaan">
-        <ion-icon name="document-outline"></ion-icon>
-        <span>Pengajuan Permintaan</span>
+<ion-content [fullscreen]="true">
+  <div class="page-wrapper">
+    <!-- KOLOM 1: SIDEBAR (Hanya muncul di layar lebar) -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <ion-icon name="layers-outline"></ion-icon>
+        <h1>e-Lelangku</h1>
       </div>
-
-      <div class="menu-card" routerLink="/status-pengajuan">
-        <ion-icon name="sync-outline"></ion-icon>
-        <span>Status Pengajuan</span>
-      </div>
-
-      <div class="menu-card" routerLink="/riwayat-permintaan">
-        <ion-icon name="time-outline"></ion-icon>
-        <span>Riwayat Permintaan</span>
+      <ion-list class="nav-list" lines="none">
+        <ion-item button detail="false" class="nav-item active">
+          <ion-icon slot="start" name="grid-outline"></ion-icon>
+          <ion-label>Dashboard</ion-label>
+        </ion-item>
+        <ion-item button detail="false" class="nav-item" (click)="goTo('/pengajuan-permintaan')">
+          <ion-icon slot="start" name="create-outline"></ion-icon>
+          <ion-label>Pengajuan Baru</ion-label>
+        </ion-item>
+        <ion-item button detail="false" class="nav-item" (click)="goTo('/status-pengajuan')">
+          <ion-icon slot="start" name="sync-outline"></ion-icon>
+          <ion-label>Status Pengajuan</ion-label>
+        </ion-item>
+        <ion-item button detail="false" class="nav-item" (click)="goTo('/riwayat-permintaan')">
+          <ion-icon slot="start" name="time-outline"></ion-icon>
+          <ion-label>Riwayat</ion-label>
+        </ion-item>
+      </ion-list>
+      <div class="sidebar-footer">
+        <ion-button expand="block" fill="clear" color="light" (click)="logout()">
+          Logout
+          <ion-icon slot="end" name="log-out-outline"></ion-icon>
+        </ion-button>
       </div>
     </div>
+
+    <!-- KOLOM 2: KONTEN UTAMA -->
+    <div class="main-content">
+      <header class="main-header">
+        <h2>Selamat Datang, <strong>{{ userName }}</strong>!</h2>
+        <p>Apa yang ingin Anda lakukan hari ini?</p>
+      </header>
+
+      <!-- Kartu Menu (Untuk tampilan mobile & web) -->
+      <div class="card-grid">
+        <div class="menu-card" (click)="goTo('/pengajuan-permintaan')">
+          <div class="card-icon" style="--card-color: #3b82f6;">
+            <ion-icon name="create-outline"></ion-icon>
+          </div>
+          <div class="card-title">Pengajuan Permintaan</div>
+          <p class="card-subtitle">Buat permintaan pengadaan baru</p>
+        </div>
+        <div class="menu-card" (click)="goTo('/status-pengajuan')">
+          <div class="card-icon" style="--card-color: #f97316;">
+            <ion-icon name="sync-outline"></ion-icon>
+          </div>
+          <div class="card-title">Status Pengajuan</div>
+          <p class="card-subtitle">Lacak status pengajuan Anda</p>
+        </div>
+        <div class="menu-card" (click)="goTo('/riwayat-permintaan')">
+          <div class="card-icon" style="--card-color: #16a34a;">
+            <ion-icon name="time-outline"></ion-icon>
+          </div>
+          <div class="card-title">Riwayat Permintaan</div>
+          <p class="card-subtitle">Lihat semua permintaan Anda</p>
+        </div>
+      </div>
+      
+      <!-- Tombol Logout (Hanya muncul di mobile) -->
+      <ion-button expand="block" color="danger" (click)="logout()" class="mobile-logout-button">
+        Logout
+      </ion-button>
+    </div>
+
   </div>
 </ion-content>

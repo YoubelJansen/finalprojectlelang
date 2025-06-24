@@ -1,21 +1,29 @@
-<ion-content class="ion-padding halaman-utama-atasan">
-  <div class="dashboard-container">
-    <h2>Dashboard Atasan</h2>
-    <p>Apa yang ingin Anda lakukan hari ini?</p>
-
-    <div class="button-grid">
-      <div class="menu-card" routerLink="/verifikasi">
-        <ion-icon name="checkmark-done-circle-outline"></ion-icon>
-        <span>Verifikasi</span>
+<ion-content [fullscreen]="true">
+  <div class="page-container">
+    
+    <div class="menu-card-wrapper fade-in-up">
+      <div class="card-header">
+        <h2>Dashboard Atasan</h2>
+        <p>Selamat datang, {{ userName }}</p>
       </div>
 
-      <div class="menu-card" routerLink="/rekap">
-        <ion-icon name="bar-chart-outline"></ion-icon>
-        <span>Rekap</span>
+      <div class="button-stack">
+        <ion-button class="menu-button" fill="outline" expand="block" (click)="goTo('/verifikasi')">
+          <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+          Verifikasi
+        </ion-button>
+        
+        <ion-button class="menu-button" fill="outline" expand="block" (click)="goTo('/rekap')">
+          <ion-icon slot="start" name="analytics-outline"></ion-icon>
+          Rekap
+        </ion-button>
       </div>
+
+      <ion-button class="logout-button" expand="block" (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
     </div>
 
-    <ion-button expand="block" color="medium" class="logout-button" routerLink="/login">
-
-<ion-button expand="block" color="medium" class="logout-button" (click)="logout()">
-
+  </div>
+</ion-content>
