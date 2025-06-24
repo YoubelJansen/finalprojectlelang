@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AdminService } from '../admin.service'; // Pastikan path service Anda benar
+import { AdminService } from '../admin.service';
 import { AlertController, IonicModule, LoadingController } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { switchMap, of } from 'rxjs'; // Import operator RxJS
+import { switchMap, of } from 'rxjs';
 
 @Component({
   selector: 'app-kelola-vendor',
@@ -15,7 +15,7 @@ import { switchMap, of } from 'rxjs'; // Import operator RxJS
 })
 export class KelolaVendorPage implements OnInit {
   tender: any = null;
-  isLoading = true; // State untuk loading spinner
+  isLoading = true;
   aanwijzingData = {
     schedule_time: '',
     meeting_link: '',
@@ -34,7 +34,6 @@ export class KelolaVendorPage implements OnInit {
   }
 
   ionViewWillEnter() {
-    // Memuat ulang data setiap kali halaman kembali aktif
     this.loadTenderDetails();
   }
 
@@ -47,32 +46,17 @@ export class KelolaVendorPage implements OnInit {
       switchMap(params => {
         const id = params.get('id');
         if (id) {
-          // Jika ada ID, panggil service
           return this.adminService.getTenderDetails(+id);
         }
-        // Jika tidak ada ID, kembalikan null untuk ditangani di subscribe
         return of(null);
       })
     ).subscribe({
       next: (res: any) => {
         if (res) {
           this.tender = res;
-          // Pengecekan keamanan: hanya proses jika ada jadwal aanwijzing
           if (res.aanwijzing) {
-            // Logika konversi waktu Anda sudah benar untuk input datetime-local
-            const date = new Date(res.aanwijzing.schedule_time);
-            const timezoneOffset = date.getTimezoneOffset() * 60000;
-            const localISOTime = new Date(date.getTime() - timezoneOffset).toISOString().slice(0, 16);
-            
-            this.aanwijzingData = {
-              schedule_time: localISOTime,
-              meeting_link: res.aanwijzing.meeting_link,
-              description: res.aanwijzing.description
-            };
+            this.aanwijzingData = { ...res.aanwijzing };
           }
-        } else {
-          // Handle jika tidak ada ID di URL
-          this.presentAlert('Error', 'Tender ID tidak ditemukan.');
         }
         loading.dismiss();
         this.isLoading = false;
@@ -91,20 +75,52 @@ export class KelolaVendorPage implements OnInit {
       return;
     }
     
-    // Pastikan kita punya ID tender sebelum menyimpan
-    const tenderId = this.tender?.id;
-    if (!tenderId) {
+    if (!this.tender?.id) {
         this.presentAlert('Error', 'Tidak bisa menyimpan jadwal karena ID Tender tidak valid.');
         return;
     }
 
-    this.adminService.scheduleAanwijzing(tenderId, this.aanwijzingData).subscribe({
+    this.adminService.scheduleAanwijzing(this.tender.id, this.aanwijzingData).subscribe({
       next: async (res: any) => {
         await this.presentAlert('Sukses', 'Jadwal Aanwijzing berhasil disimpan!');
-        this.loadTenderDetails(); // Muat ulang untuk menampilkan data terbaru
+        this.loadTenderDetails();
       },
       error: (err: any) => {
         this.presentAlert('Gagal', err.error?.message || 'Gagal menyimpan jadwal.');
+      }
+    });
+  }
+
+  openDocument(path: string | null) {
+    if (!path) {
+      this.presentAlert('Informasi', 'Vendor ini belum mengunggah dokumen tersebut.');
+      return;
+    }
+    const baseUrl = 'http://localhost:8000/storage/';
+    window.open(baseUrl + path, '_blank');
+  }
+
+  async confirmSetWinner(bid: any) {
+    const alert = await this.alertCtrl.create({
+      header: 'Konfirmasi Pemenang',
+      message: `Anda yakin ingin menetapkan <strong>${bid.vendor?.company_name}</strong> sebagai pemenang?`,
+      buttons: [
+        { text: 'Batal', role: 'cancel' },
+        { text: 'Ya, Tetapkan', handler: () => this.setWinner(bid.id) }
+      ]
+    });
+    await alert.present();
+  }
+
+  async setWinner(bidId: number) {
+    if (!this.tender?.id) return;
+    this.adminService.setWinner(this.tender.id, bidId).subscribe({
+      next: async (res: any) => {
+        await this.presentAlert('Sukses', res.message);
+        this.loadTenderDetails();
+      },
+      error: (err: any) => {
+        this.presentAlert('Gagal', err.error?.message || 'Gagal menetapkan pemenang.');
       }
     });
   }

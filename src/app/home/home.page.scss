@@ -1,34 +1,113 @@
-.page-container {
+:host {
+  --ion-background-color: #FAF5EE; // Warna Cream Latar Belakang
+  --primary-green: #1D503A;        // Warna Hijau Tua
+  --text-color: #3a3a3a;
+  --subtle-text-color: #757575;
+}
+
+.welcome-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
-  background: linear-gradient(145deg, #e0eaff, #f7f9ff);
-}
-
-.card {
-  background: #ffffff;
-  padding: 2rem;
-  border-radius: 20px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  width: 90%;
-  max-width: 400px;
   text-align: center;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden; // Mencegah shape keluar dari container
 }
 
-.title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #1a1a1a;
-  margin-bottom: 0.5rem;
+// Elemen grafis abstrak
+.shape {
+  position: absolute;
+  border-radius: 50%;
+  background-color: var(--primary-green);
+  opacity: 0.05;
+  z-index: 0;
 }
 
-.subtitle {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 1.5rem;
+.shape-1 {
+  width: 300px;
+  height: 300px;
+  top: -100px;
+  left: -150px;
 }
 
-ion-button {
-  margin-top: 0.5rem;
+.shape-2 {
+  width: 400px;
+  height: 400px;
+  bottom: -200px;
+  right: -180px;
+}
+
+.content-wrapper {
+  z-index: 1;
+  position: relative;
+}
+
+.header-text {
+  margin-bottom: 4rem;
+
+  h1 {
+    font-size: 3rem; // Lebih besar untuk kesan pertama
+    font-weight: 800;
+    color: var(--primary-green);
+    margin: 0;
+    letter-spacing: -1px;
+  }
+
+  p {
+    font-size: 1rem;
+    color: var(--subtle-text-color);
+    max-width: 300px;
+    margin: 0.5rem auto 0;
+    line-height: 1.5;
+  }
+}
+
+.start-button {
+  --background: var(--primary-green);
+  --background-activated: #2a7556;
+  --color: white;
+  --padding-start: 3rem;
+  --padding-end: 3rem;
+  --box-shadow: 0 8px 16px rgba(29, 80, 58, 0.2);
+  height: 55px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: none; // Menggunakan huruf normal, bukan kapital
+}
+
+// Animasi
+.fade-in-down {
+  animation: fadeInDown 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  opacity: 0;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: 0.2s; // Muncul setelah judul
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

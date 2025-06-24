@@ -1,69 +1,135 @@
-.login-container {
+// Kode ini bisa digunakan untuk login.page.scss dan register.page.scss
+
+:host {
+  --ion-background-color: #FAF5EE; // Warna Cream Latar Belakang
+  --primary-green: #1D503A;        // Warna Hijau Tua
+  --text-color: #3a3a3a;
+  --subtle-text-color: #757575;
+  --input-border-color: #e0e0e0;
+  --input-background: #ffffff;
+}
+
+.auth-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   height: 100%;
-  // Anda bisa mengganti warna gradasi sesuai selera
-  background: linear-gradient(to right, #e0e7ff, #c7d2fe); 
+  padding: 24px;
+  justify-content: center;
 }
 
-.login-card {
-  width: 90%;
-  max-width: 380px; // Sedikit lebih lebar untuk form register
-  background-color: #ffffff;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+.auth-header {
   text-align: center;
-}
+  margin-bottom: 32px;
 
-.tab-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  // Logo sudah dihapus dari HTML, class ini bisa dihapus atau dibiarkan
+  .logo {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 16px;
+  }
 
-  ion-button {
-    flex: 1;
-    margin: 0 4px;
-    --border-radius: 20px; // Gunakan --border-radius untuk Ionic
-    font-weight: 600;
+  h2 {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin: 0 0 4px 0;
+  }
+
+  p {
+    color: var(--subtle-text-color);
+    margin: 0;
   }
 }
 
-.logo img {
-  width: 70px; // Ukuran logo disesuaikan
-  margin-bottom: 15px;
-}
-
-h2 {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #1e293b;
-  margin-top: 0;
-}
-
-p {
-  font-size: 0.9rem;
-  color: #64748b;
-  margin-bottom: 25px;
-}
-
-// Mengatur style untuk ion-input dan ion-select
-ion-input, ion-select {
-  margin-bottom: 15px;
+.auth-segment {
+  --background: #EAE5E0;
   border-radius: 12px;
-  --background: #f1f5f9;
-  --padding-start: 15px;
-  --placeholder-color: #94a3b8;
-  text-align: left; // Agar placeholder tidak di tengah
+  margin-bottom: 24px;
   
-  // PERBAIKAN: Membuat warna teks input menjadi hitam
-  --color: #000000; 
+  ion-segment-button {
+    --color: var(--subtle-text-color);
+    --color-checked: white;
+    --indicator-color: var(--primary-green);
+    --indicator-height: 100%;
+    --indicator-border-radius: 10px;
+    text-transform: none;
+    font-weight: 600;
+    margin: 4px;
+  }
 }
 
-// Mengatur style khusus untuk tombol utama
-ion-button[expand="block"] {
-    height: 48px;
-    font-size: 1.1rem;
+.form-container {
+  ion-item {
+    --background: var(--input-background);
+    --padding-start: 16px;
+    --highlight-height: 0;
     --border-radius: 12px;
+    --border-color: var(--input-border-color);
+    --border-width: 1px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+
+    // --- PERBAIKAN DI SINI ---
+    // Memastikan teks yang diketik terlihat
+    ion-input {
+      color: var(--text-color);
+    }
+  }
+
+  ion-label[position="stacked"] {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--subtle-text-color);
+    margin-bottom: 4px;
+    margin-left: 4px;
+  }
+
+  ion-select {
+    width: 100%;
+  }
+}
+
+.main-button {
+  --background: var(--primary-green);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(29, 80, 58, 0.3);
+  font-weight: 600;
+  height: 50px;
+  text-transform: uppercase;
+  margin-top: 24px;
+  letter-spacing: 1px;
+}
+
+
+// Animasi
+.fade-in-down {
+  animation: fadeInDown 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

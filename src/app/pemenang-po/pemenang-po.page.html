@@ -8,44 +8,42 @@
 </ion-header>
 
 <ion-content class="ion-padding" [fullscreen]="true">
-  <!-- Tampilkan spinner saat loading -->
+  <!-- Spinner loading tidak perlu diubah -->
   <div *ngIf="isLoading" class="ion-text-center ion-padding">
     <ion-spinner name="crescent"></ion-spinner>
-    <p>Memuat hasil...</p>
   </div>
 
-  <!-- Tampilkan konten hanya jika tidak loading -->
   <div *ngIf="!isLoading">
-    <!-- Cek jika ada hasil -->
     <div *ngIf="results.length > 0; else noResults">
       
-      <!-- Loop melalui setiap 'tender' dalam array 'results' -->
-      <ion-card *ngFor="let tender of results" 
-                [class.winner-card]="tender.bids[0].status === 'Menang'" 
-                [class.loser-card]="tender.bids[0].status === 'Kalah'">
+      <!-- PERBAIKAN FINAL DI SINI -->
+      <!-- 'result' sekarang adalah sebuah objek BID -->
+      <ion-card *ngFor="let result of results" 
+                [class.winner-card]="result.status === 'Menang'" 
+                [class.loser-card]="result.status === 'Kalah'">
         
         <ion-card-header>
-          <!-- Akses title langsung dari objek tender -->
-          <ion-card-subtitle>Tender: {{ tender.title }}</ion-card-subtitle>
-          <!-- Ambil status Menang/Kalah dari objek 'bid' di dalamnya -->
-          <ion-card-title [color]="tender.bids[0].status === 'Menang' ? 'success' : 'danger'">
-            Status Penawaran Anda: {{ tender.bids[0].status }}
+          <!-- Ambil judul dari relasi 'tender' di dalam objek bid -->
+          <ion-card-subtitle>Tender: {{ result.tender?.title }}</ion-card-subtitle>
+          <!-- Status (Menang/Kalah) ada langsung di objek bid -->
+          <ion-card-title [color]="result.status === 'Menang' ? 'success' : 'danger'">
+            Status Penawaran Anda: {{ result.status }}
           </ion-card-title>
         </ion-card-header>
         
-        <ion-card-content *ngIf="tender.bids[0].status === 'Menang'">
+        <ion-card-content *ngIf="result.status === 'Menang'">
           <ion-icon name="trophy" color="success" slot="start"></ion-icon>
           Selamat! Anda telah memenangkan tender ini. Purchase Order akan segera dikirimkan.
         </ion-card-content>
         
-        <ion-card-content *ngIf="tender.bids[0].status === 'Kalah'">
+        <ion-card-content *ngIf="result.status === 'Kalah'">
           <ion-icon name="close-circle-outline" color="danger" slot="start"></ion-icon>
           Terima kasih atas partisipasi Anda. Mohon maaf, Anda belum berhasil pada tender kali ini.
         </ion-card-content>
       </ion-card>
     </div>
 
-    <!-- Template ini akan ditampilkan jika array 'results' kosong -->
+    <!-- Template jika tidak ada hasil -->
     <ng-template #noResults>
       <div class="ion-text-center ion-padding">
         <ion-icon name="file-tray-outline" size="large" color="medium"></ion-icon>

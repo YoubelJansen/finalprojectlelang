@@ -1,51 +1,53 @@
 <ion-content>
-  <div class="container">
-    <div class="header-segment">
-      <ion-segment value="register">
-        <ion-segment-button value="login" (click)="goToLogin()">
-          <ion-label>LOGIN</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="register">
-          <ion-label>REGISTER</ion-label>
-        </ion-segment-button>
-      </ion-segment>
+  <div class="auth-container">
+    
+    <div class="auth-header fade-in-down">
+      <h2>Buat Akun Baru</h2>
+      <p>Daftar untuk memulai proses pengadaan.</p>
     </div>
 
-    <div class="form-title">
-      <ion-icon name="person-add-outline" color="primary"></ion-icon>
-      <h2>REGISTER A NEW ACCOUNT</h2>
-      <p>Sign up by filling the fields below</p>
+    <ion-segment value="register" class="auth-segment fade-in-down" style="animation-delay: 0.1s;">
+      <ion-segment-button value="login" (click)="goToLogin()">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Register</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div class="form-container fade-in-up" style="animation-delay: 0.2s;">
+      <ion-item lines="none">
+        <ion-label position="stacked">Nama Lengkap / Perusahaan</ion-label>
+        <ion-input [(ngModel)]="regData.name" placeholder="Masukkan nama Anda"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+        <ion-label position="stacked">Alamat E-mail</ion-label>
+        <ion-input [(ngModel)]="regData.email" type="email" placeholder="contoh@email.com"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input [(ngModel)]="regData.password" type="password" placeholder="Minimal 8 karakter"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Konfirmasi Password</ion-label>
+        <ion-input [(ngModel)]="regData.password_confirmation" type="password" placeholder="Ulangi password"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+         <ion-label position="stacked">Daftar Sebagai</ion-label>
+         <ion-select [(ngModel)]="regData.role" placeholder="Pilih Peran">
+           <ion-select-option value="employee">Karyawan</ion-select-option>
+           <ion-select-option value="vendor">Vendor</ion-select-option>
+         </ion-select>
+      </ion-item>
     </div>
 
-    <div class="form-inputs">
-        <!-- Pilihan Peran -->
-        <ion-segment [(ngModel)]="regData.role" value="employee" class="role-segment">
-            <ion-segment-button value="employee">
-                <ion-label>Karyawan</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value="vendor">
-                <ion-label>Vendor</ion-label>
-            </ion-segment-button>
-        </ion-segment>
+    <ion-button class="main-button fade-in-up" expand="block" (click)="register()" style="animation-delay: 0.3s;">
+      Register
+    </ion-button>
 
-      <ion-item class="input-item" lines="none">
-        <ion-icon name="person-outline" slot="start"></ion-icon>
-        <ion-input [(ngModel)]="regData.name" placeholder="Nama Lengkap / Perusahaan"></ion-input>
-      </ion-item>
-      <ion-item class="input-item" lines="none">
-        <ion-icon name="mail-outline" slot="start"></ion-icon>
-        <ion-input [(ngModel)]="regData.email" type="email" placeholder="E-mail Address"></ion-input>
-      </ion-item>
-      <ion-item class="input-item" lines="none">
-        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input [(ngModel)]="regData.password" type="password" placeholder="Password"></ion-input>
-      </ion-item>
-      <ion-item class="input-item" lines="none">
-        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
-        <ion-input [(ngModel)]="regData.password_confirmation" type="password" placeholder="Confirm Password"></ion-input>
-      </ion-item>
-    </div>
-
-    <ion-button class="main-button" expand="block" (click)="register()">REGISTER</ion-button>
   </div>
 </ion-content>
