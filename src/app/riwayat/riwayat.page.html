@@ -1,24 +1,47 @@
-<!-- Tampilkan daftar tender -->
-<div *ngIf="!isLoading">
-  <ion-list *ngIf="tenders.length > 0; else noTenders" class="ion-no-padding">
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  
+  <!-- Tombol kembali manual ke dashboard admin -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halamanutama" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="history-frame">
     
-    <!-- Memastikan (click) memanggil fungsi goToDetail -->
-    <ion-item *ngFor="let tender of tenders" (click)="goToDetail(tender)" detail="true" button>
-      <ion-icon name="document-text-outline" slot="start" color="primary"></ion-icon>
-      <ion-label>
-        <h2>{{ tender.title }}</h2>
-        <p>Deadline: {{ tender.submission_deadline | date:'mediumDate' }}</p>
-      </ion-label>
-    </ion-item>
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Riwayat Tender</h1>
 
-  </ion-list>
-
-  <!-- Tampilan jika tidak ada tender -->
-  <ng-template #noTenders>
-    <div class="empty-state">
-        <ion-icon name="file-tray-outline"></ion-icon>
-        <h3>Belum Ada Tender</h3>
-        <p>Tender yang Anda buat akan muncul di sini.</p>
+    <!-- Tampilan Loading (Opsional, tapi direkomendasikan) -->
+    <div *ngIf="isLoading" class="list-container">
+        <div *ngFor="let i of [1,2,3]" class="history-card skeleton-card">
+            <ion-skeleton-text animated style="width: 70%; height: 22px; margin-bottom: 8px;"></ion-skeleton-text>
+            <ion-skeleton-text animated style="width: 50%; height: 16px;"></ion-skeleton-text>
+        </div>
     </div>
-  </ng-template>
-</div>
+
+    <!-- Tampilkan daftar tender jika tidak loading -->
+    <div *ngIf="!isLoading">
+      <!-- Container untuk daftar -->
+      <div *ngIf="tenders.length > 0; else noTenders" class="list-container">
+        <!-- Menggunakan *ngFor dari kode asli Anda pada div -->
+        <div *ngFor="let tender of tenders" class="history-card" (click)="goToDetail(tender)" button>
+          <h2 class="tender-title">{{ tender.title }}</h2>
+          <p class="tender-deadline">Selesai: {{ tender.submission_deadline | date:'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+
+      <!-- Tampilan jika tidak ada tender, menggunakan #noTenders dari kode asli Anda -->
+      <ng-template #noTenders>
+        <div class="empty-state">
+            <ion-icon name="file-tray-outline"></ion-icon>
+            <h3>Belum Ada Riwayat</h3>
+            <p>Tender yang telah selesai akan muncul di sini.</p>
+        </div>
+      </ng-template>
+    </div>
+
+  </div>
+</ion-content>

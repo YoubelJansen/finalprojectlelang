@@ -1,49 +1,92 @@
-.login-container {
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+}
+
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+
+  ion-back-button {
+    --color: var(--text-green-color);
+  }
+}
+
+/* Kontainer utama untuk konten */
+.history-frame {
+  padding: 24px;
+}
+
+/* Judul utama halaman */
+.main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-green-color);
+  text-align: center;
+  margin: 32px 0;
+}
+
+/* Container untuk daftar kartu */
+.list-container {
+  width: 100%;
+}
+
+/* Setiap kartu riwayat */
+.history-card {
+  background-color: var(--card-white-color);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+}
+
+.tender-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-green-color);
+  margin: 0 0 4px 0;
+}
+
+.tender-deadline {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0;
+}
+
+/* Tampilan jika tidak ada data */
+.empty-state {
+  margin-top: 80px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background: linear-gradient(to right, #dbeafe, #93c5fd);
-}
-
-.login-card {
-  width: 90%;
-  max-width: 380px;
-  background-color: #fff;
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
   text-align: center;
+  color: var(--text-green-color);
+  opacity: 0.6;
+
+  ion-icon {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-weight: 600;
+  }
 }
 
-h2 {
-  font-weight: bold;
-  font-size: 1.2rem;
-  margin-bottom: 5px;
-}
-
-p {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.tender-card {
-  background-color: #f1f5f9;
-  border-radius: 12px;
-  padding: 15px;
-  text-align: left;
-  margin-bottom: 15px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
-}
-
-.tender-card p {
-  margin: 4px 0;
-  font-size: 0.85rem;
-  color: #374151;
-}
-
-ion-button {
-  margin-top: 8px;
-  font-size: 0.8rem;
+/* Styling untuk skeleton card */
+.skeleton-card {
+  padding: 20px;
+  background-color: var(--card-white-color);
 }

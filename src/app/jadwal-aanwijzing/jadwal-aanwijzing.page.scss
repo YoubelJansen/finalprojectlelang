@@ -1,49 +1,115 @@
+/* Mengatur warna global sesuai permintaan Anda */
 :host {
-  --ion-background-color: #f4f5f8;
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+  --border-color: #e0dacd;       // Warna border
 }
 
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
+}
+
+/* Kontainer utama untuk konten */
+.schedule-frame {
+  padding: 24px;
+}
+
+/* Judul utama halaman */
+.main-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: serif; // Font yang lebih formal untuk judul
+  color: var(--text-green-color);
+  text-align: center;
+  margin: 32px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Setiap kartu jadwal */
 .schedule-card {
+  background-color: var(--card-white-color);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.card-icon {
+  font-size: 3.5rem;
+  color: var(--text-green-color);
   margin-bottom: 16px;
-  --background: #ffffff;
-  border-left: 4px solid var(--ion-color-primary);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
-.schedule-card ion-item {
-  --background: transparent;
-  --padding-start: 0;
-  
-  h3 {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #666;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #333;
-  }
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #444;
+  margin: 0;
 }
 
+.card-subtitle {
+  font-size: 1rem;
+  color: #666;
+  margin: 4px 0 24px 0;
+}
+
+.datetime-info {
+    margin-bottom: 24px;
+    .date {
+        font-size: 1.1rem;
+        font-weight: 500;
+        color: #333;
+        margin: 0;
+    }
+    .time {
+        font-size: 1rem;
+        color: #555;
+        margin: 4px 0 0 0;
+    }
+}
+
+/* Tombol untuk gabung meeting */
 .join-button {
-  margin-top: 16px;
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: none;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: none;
+  width: 100%;
+  max-width: 300px; // Batasi lebar tombol agar tidak terlalu besar
 }
 
-.empty-state {
+/* Tampilan jika tidak ada data atau sedang loading */
+.empty-state, .ion-text-center {
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 70vh;
-  color: #999;
+  text-align: center;
+  color: var(--text-green-color);
+  opacity: 0.7;
 
   ion-icon {
-    font-size: 80px;
-    margin-bottom: 16px;
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
   }
-  
   h3 {
-    font-size: 1.2rem;
     font-weight: 600;
   }
 }

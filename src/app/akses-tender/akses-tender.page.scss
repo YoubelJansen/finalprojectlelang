@@ -1,125 +1,87 @@
 /* Mengatur warna global sesuai permintaan Anda */
 :host {
-  --ion-background-color: #ffffff; // Latar belakang halaman putih
-  --text-green-color: #1D503A;    // Warna teks hijau tua
-  --frame-cream-color: #FAF5EE;   // Warna kontainer cream
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
 }
 
-/* Tombol kembali yang ditempatkan secara manual */
+/* Tombol kembali manual */
 .back-button-area {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  z-index: 10;
-
-  ion-back-button {
-    --color: var(--text-green-color);
-    background-color: rgba(255, 255, 255, 0.5);
-    backdrop-filter: blur(4px);
-    border-radius: 50%;
-  }
+  position: absolute; top: 20px; left: 20px; z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
 }
 
-/* Kontainer utama "Mobile Frame" */
-.mobile-frame {
-  background-color: var(--frame-cream-color);
-  margin: 20px;
+/* Kontainer utama */
+.tender-frame {
   padding: 24px;
-  border-radius: 24px;
-  min-height: calc(100vh - 40px); // Memastikan tinggi kontainer
-  display: flex;
-  flex-direction: column;
 }
 
 /* Judul utama dan sub-judul */
 .main-title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-green-color);
-  margin: 24px 0 8px 0;
+  font-size: 2rem; font-weight: 700; color: var(--text-green-color);
+  margin: 32px 0 8px 0; padding: 0 8px;
 }
 
-.section-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-green-color);
-  margin-bottom: 24px;
-  opacity: 0.8;
+.section-subtitle {
+  font-size: 1rem; color: #555; margin-bottom: 32px; padding: 0 8px;
 }
 
-/* Daftar tender */
-.tender-list-container {
-  width: 100%;
+/* Styling untuk setiap kartu tender */
+.tender-card {
+  --background: var(--card-white-color);
+  margin: 0 0 20px 0;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  border-left: 5px solid var(--text-green-color);
 }
 
-/* Setiap kartu item tender */
-.tender-item-card {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background-color: #ffffff;
-  padding: 16px;
-  border-radius: 14px;
-  margin-bottom: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-  transition: transform 0.2s ease;
+ion-card-header {
+  padding-bottom: 8px;
+  ion-card-title { font-weight: 600; font-size: 1.3rem; color: #333; }
+  ion-card-subtitle { font-size: 0.85rem; color: #888; }
+}
 
-  &:hover {
-    transform: translateY(-3px);
+ion-card-content {
+  .description {
+    color: #555;
+    margin-bottom: 1.5rem;
+    padding-top: 0;
+    -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    display: -webkit-box; overflow: hidden; text-overflow: ellipsis;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1rem;
   }
 }
 
-.item-icon {
-  font-size: 1.8rem;
-  color: var(--text-green-color);
-}
-
-.tender-title-group {
-  flex: 1; // Mengambil sisa ruang agar panah terdorong ke kanan
-}
-
-.tender-label {
+.deadline-chip {
+  --color: #333;
+  --border-color: #e0e0e0;
   font-size: 0.8rem;
+}
+
+.action-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+/* Styling untuk empty state & skeleton */
+.empty-state, .skeleton-card {
+  text-align: center;
+  margin-top: 50px;
   color: var(--text-green-color);
   opacity: 0.7;
+  ion-icon { font-size: 4rem; margin-bottom: 1rem; }
+  h3 { font-weight: 600; }
 }
-
-.tender-title {
-  font-size: 1.2rem;
-  font-weight: 700;
-  color: var(--text-green-color);
-  margin: 2px 0;
-}
-
-.tender-deadline {
-  font-size: 0.85rem;
-  color: var(--text-green-color);
-  opacity: 0.9;
-  margin: 4px 0 0 0;
-}
-
-.chevron-icon {
-  font-size: 1.4rem;
-  color: #c7c7c7;
-}
-
-/* Penyesuaian untuk tampilan empty state */
-.empty-state {
-  flex: 1; // Memenuhi sisa ruang di dalam mobile-frame
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: var(--text-green-color);
-  opacity: 0.6;
-
-  ion-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-  }
-  h3 {
-    font-weight: 600;
-  }
-}
+.skeleton-card .footer { border: none; }

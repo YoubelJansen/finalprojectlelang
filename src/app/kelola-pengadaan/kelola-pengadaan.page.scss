@@ -1,73 +1,127 @@
-/* kelola-pengadaan.page.scss */
-
-// Mengatur warna latar belakang utama halaman menjadi abu-abu muda
-ion-content {
-  --background: #f4f5f8;
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
 }
 
-.judul-section {
-  text-align: center;
-  margin-top: 20px;
-  margin-bottom: 24px;
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
 
-  h2 {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: #1e2023;
-    margin-bottom: 4px;
-  }
-
-  p {
-    font-size: 1rem;
-    color: #666;
+  ion-back-button {
+    --color: var(--text-green-color);
+    background-color: rgba(250, 245, 238, 0.7); // Latar cream transparan
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
   }
 }
 
-.card-container {
+/* Kontainer utama untuk semua konten */
+.procurement-frame {
+  padding: 24px;
+}
+
+/* Judul utama dan sub-judul */
+.main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-green-color);
+  margin: 32px 0 8px 0;
+  padding: 0 8px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--text-green-color);
+  opacity: 0.8;
+  margin-bottom: 32px;
+  padding: 0 8px;
+  max-width: 600px;
+}
+
+/* Daftar permintaan */
+.request-list-container {
+  width: 100%;
+}
+
+/* Setiap kartu permintaan */
+.request-card {
+  background-color: var(--card-white-color);
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  overflow: hidden; // Memastikan sudut tombol mengikuti sudut kartu
   display: flex;
   flex-direction: column;
-  gap: 16px; // Jarak antar kartu
 }
 
-.custom-card {
-  // Desain kartu utama
-  background: #ffffff;
-  border-radius: 16px; // Sudut lebih bulat
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-  margin: 0; // Hapus margin default
-  padding: 16px;
-  --inner-padding-end: 16px; // Perbaikan padding internal ionic
+.card-header {
+  padding: 20px 20px 16px 20px;
 }
 
-.card-content-wrapper {
+.request-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.request-info {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 4px 0;
+}
+
+.card-footer {
+  padding: 0; // Hapus padding agar tombol menempel sempurna
+}
+
+.process-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 0 0 16px 16px; // Sudut membulat hanya di bawah
+  --box-shadow: none;
+  --padding-top: 20px;
+  --padding-bottom: 20px;
+  height: auto;
+  min-height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0;
+  text-transform: none;
+}
+
+/* Penyesuaian untuk tampilan empty state */
+.empty-state {
+  margin-top: 50px;
   display: flex;
-  align-items: center; // Menjajarkan ikon dan teks di tengah secara vertikal
-  width: 100%;
-  gap: 16px; // Jarak antara ikon dan teks
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-green-color);
+  opacity: 0.6;
 
   ion-icon {
-    font-size: 2.5rem; // Ukuran ikon
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-weight: 600;
   }
 }
 
-.text-content {
-  flex: 1; // Agar teks mengisi sisa ruang
-
-  ion-card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-  }
-
-  ion-card-subtitle {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 2px;
-  }
-
-  .details {
-    font-size: 0.9rem;
-    color: #555;
-    margin-top: 8px;
+// Styling untuk skeleton loading
+.skeleton-card {
+  .card-footer {
+    padding: 0;
+    ion-skeleton-text {
+      border-radius: 0 0 16px 16px;
+    }
   }
 }

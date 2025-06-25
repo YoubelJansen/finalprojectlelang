@@ -1,88 +1,153 @@
-ion-content {
-  --background: #f8fafc; // Latar belakang abu-abu sangat muda
+/* Menghilangkan padding default dari ion-content agar layout pas */
+:host {
+  ion-content {
+    --padding-start: 0;
+    --padding-end: 0;
+    --padding-top: 0;
+    --padding-bottom: 0;
+  }
 }
 
-// Bagian header di bawah toolbar
-.dashboard-header {
+/* Kontainer utama dengan layout flex untuk dua kolom */
+.dashboard-container {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 24px;
-  padding: 8px 4px;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
 
+/* Kolom Kiri: Sidebar Navigasi */
+.sidebar {
+  width: 260px;
+  background-color: #1D503A; // Warna hijau tua
+  color: #ffffff;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 16px 0 40px 0;
+  text-align: center;
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  ion-icon {
+    font-size: 1.4rem;
+  }
+
+  /* Style untuk item yang aktif atau saat di-hover */
+  &.active, &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  
+  &:hover {
+    background-color: rgba(239, 68, 68, 0.2); // Efek hover merah transparan
+  }
+}
+
+/* Kolom Kanan: Konten Utama */
+.main-content {
+  flex: 1; // Mengambil sisa ruang layar
+  background-color: #FAF5EE; // Warna cream
+  padding: 40px 50px;
+  overflow-y: auto; // Bisa di-scroll jika kontennya sangat banyak
+}
+
+.welcome-header {
+  margin-bottom: 32px;
   h1 {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: #1e293b;
+    color: #333;
     margin: 0;
   }
-  
   p {
-    font-size: 1rem;
-    color: #64748b;
-    margin: 4px 0 0 0;
+    font-size: 1.1rem;
+    color: #666;
+    margin-top: 4px;
   }
 }
 
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: #fff;
-  padding: 8px 12px;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  border: 1px solid #e2e8f0;
-}
-
-// Grid untuk kartu menu
-.menu-grid {
+/* Kontainer untuk semua kartu menu */
+.cards-container {
   display: grid;
-  // Grid akan otomatis menyesuaikan jumlah kolom
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-  gap: 20px;
+  /* Membuat 3 kolom, dan akan otomatis menyesuaikan jika layar kecil */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
 }
 
-// Styling untuk setiap kartu menu
-.menu-card {
+/* Styling untuk setiap kartu menu */
+.action-card {
   background: #ffffff;
   padding: 24px;
-  border-radius: 16px;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   &:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
   }
+}
 
-  .card-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // Menggunakan variabel warna dari HTML
-    background-color: var(--card-color, #e2e8f0); 
-    margin-bottom: 16px;
-    
-    ion-icon {
-      font-size: 24px;
-      color: #fff;
-    }
-  }
+.card-icon-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background-color: var(--icon-bg); // Mengambil warna dari style inline HTML
 
-  .card-title {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1e293b;
+  ion-icon {
+    font-size: 26px;
+    color: #ffffff;
   }
-  
-  .card-subtitle {
-    font-size: 0.85rem;
-    color: #64748b;
-  }
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 4px 0;
+  color: #333;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #777;
+  margin: 0;
 }

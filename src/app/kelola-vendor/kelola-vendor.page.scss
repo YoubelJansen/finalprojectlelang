@@ -1,19 +1,149 @@
+/* Mengatur warna global sesuai tema */
 :host {
-  --ion-background-color: #f4f5f8;
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+  --border-color: #e0dacd;       // Warna border
+  --input-bg-color: #fdfaf6;      // Warna input sedikit beda
+  --ion-color-primary: #1D503A;    // Mengatur warna utama komponen Ionic
+  --ion-color-primary-contrast: #ffffff;
 }
 
-.tender-info-card, .bid-card {
-  margin-bottom: 16px;
+ion-content {
+  --padding-start: 16px;
+  --padding-end: 16px;
 }
 
-.instruction {
-  font-size: 0.9rem;
-  color: #666;
-  margin-bottom: 16px;
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
 }
 
-ion-list-header {
+/* Header Halaman */
+.page-header {
+  padding: 32px 0 16px 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+
+.main-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-green-color);
+  margin: 0 0 8px 0;
+}
+
+.tender-status {
+  --background: rgba(29, 80, 58, 0.1);
+  --color: var(--text-green-color);
+  font-weight: 500;
+}
+
+/* Judul untuk setiap seksi */
+.section-title {
+  font-size: 1.3rem;
   font-weight: 600;
+  color: var(--text-green-color);
+  margin: 32px 0 16px 0;
+}
+
+/* Styling untuk Form (Aanwijzing) */
+.form-section {
+  background: var(--card-white-color);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  margin-bottom: 32px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  .form-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 8px;
+    display: block;
+  }
+  ion-input, ion-textarea, ion-datetime-button {
+    --background: var(--input-bg-color);
+    --padding-start: 16px;
+    --padding-end: 16px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    --color: #333;
+  }
+  ion-textarea {
+    min-height: 80px;
+  }
+}
+
+/* Styling untuk Daftar Vendor */
+.vendor-card {
+  --background: var(--card-white-color);
+  border-radius: 12px;
+  box-shadow: none;
+  border: 1px solid var(--border-color);
+  margin-bottom: 16px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  ion-radio {
+    --color-checked: var(--text-green-color);
+    margin-right: 4px;
+  }
+}
+
+.vendor-info {
+  flex: 1;
+  h3 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+  }
+  p {
+    font-size: 0.85rem;
+    color: #777;
+    margin: 2px 0;
+  }
+  .price {
+    font-weight: 700;
+    color: var(--text-green-color);
+  }
+}
+
+.vendor-actions {
+  text-align: right;
+  a {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-green-color);
+    text-decoration: none;
+    display: block;
+    margin-top: 8px;
+  }
+}
+
+/* Tombol Aksi Utama di Footer */
+ion-footer {
+  &::before { display: none; } // Hilangkan garis atas footer
+}
+.footer-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 0; // Tombol memenuhi footer
+  height: 55px;
   font-size: 1.1rem;
-  margin-top: 16px;
+  font-weight: 700;
+  text-transform: none;
+  margin: 0;
 }

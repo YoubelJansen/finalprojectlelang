@@ -1,60 +1,60 @@
-<ion-header>
-  <ion-toolbar color="dark">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/halamanutama"></ion-back-button>
-    </ion-buttons>
-    <ion-title>Kelola Pengadaan</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
 
-<ion-content [fullscreen]="true">
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
   <ion-refresher slot="fixed" (ionRefresh)="loadRequests($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div class="ion-padding">
-    <div class="judul-section">
-      <h2>Permintaan Disetujui Atasan</h2>
-      <p>Pilih pengajuan untuk diproses menjadi tender.</p>
-    </div>
+  <!-- Tombol kembali manual agar navigasi tetap ada -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halamanutama" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
 
-    <!-- Tampilan saat tidak ada data -->
-    <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
-      <h3>Tidak Ada Data</h3>
-      <p>Belum ada pengajuan yang disetujui untuk diproses.</p>
-    </div>
-
-    <!-- Daftar Kartu Pengajuan -->
-    <div class="card-container" *ngIf="requests.length > 0">
-      <ion-card *ngFor="let req of requests" class="custom-card">
-        <div class="card-content-wrapper">
-          <ion-icon name="archive-outline" color="primary"></ion-icon>
-          <div class="text-content">
-            <ion-card-title>{{ req.title }}</ion-card-title>
-            <ion-card-subtitle>Oleh: {{ req.requester.name }}</ion-card-subtitle>
-            <p class="details">Disetujui pada: {{ req.updated_at | date:'fullDate' }}</p>
-          </div>
-        </div>
-        <ion-button expand="block" fill="solid" class="action-button" (click)="buatTender(req)">
-          <ion-icon name="hammer-outline" slot="start"></ion-icon>
-          Proses & Buat Tender
-        </ion-button>
-      </ion-card>
-    </div>
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="procurement-frame">
     
-    <!-- Tampilan Loading -->
-    <div class="card-container" *ngIf="isLoading">
-        <ion-card class="custom-card" *ngFor="let i of [1,2]">
-            <div class="card-content-wrapper">
-                <ion-skeleton-text animated class="skeleton-icon"></ion-skeleton-text>
-                <div class="text-content">
-                    <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
-                    <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                    <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
-                </div>
-            </div>
-            <ion-skeleton-text animated class="skeleton-button"></ion-skeleton-text>
-        </ion-card>
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Kelola Pengadaan</h1>
+    <p class="section-subtitle">Permintaan yang telah disetujui atasan dan siap untuk diproses menjadi tender.</p>
+
+    <!-- Tampilan saat tidak ada permintaan, menggunakan variabel 'requests' dari kode asli Anda -->
+    <div *ngIf="!isLoading && requests.length === 0" class="empty-state">
+      <ion-icon name="file-tray-stacked-outline"></ion-icon>
+      <h3>Tidak Ada Permintaan</h3>
+      <p>Belum ada permintaan yang disetujui.</p>
+    </div>
+
+    <!-- Tampilan Loading Skeleton -->
+    <div class="request-list-container" *ngIf="isLoading">
+      <div *ngFor="let i of [1,2,3]" class="request-card skeleton-card">
+        <div class="card-header">
+           <ion-skeleton-text animated style="width: 80%; height: 28px; margin-bottom: 12px;"></ion-skeleton-text>
+           <ion-skeleton-text animated style="width: 50%; height: 18px;"></ion-skeleton-text>
+           <ion-skeleton-text animated style="width: 60%; height: 18px;"></ion-skeleton-text>
+        </div>
+        <div class="card-footer">
+          <ion-skeleton-text animated style="width: 100%; height: 44px; margin:0;"></ion-skeleton-text>
+        </div>
+      </div>
+    </div>
+
+    <!-- Daftar permintaan yang disetujui. Menggunakan *ngFor dari kode asli Anda -->
+    <div class="request-list-container" *ngIf="!isLoading && requests.length > 0">
+      <div *ngFor="let req of requests" class="request-card">
+        <div class="card-header">
+          <h2 class="request-title">{{ req.title }}</h2>
+          <p class="request-info">Oleh: <strong>{{ req.requester.name }}</strong></p>
+          <p class="request-info">Disetujui pada: {{ req.updated_at | date:'fullDate' }}</p>
+        </div>
+        <div class="card-footer">
+          <!-- Tombol proses tender, menggunakan fungsi 'buatTender' dari kode asli Anda -->
+          <ion-button expand="block" class="process-button" (click)="buatTender(req)">
+            <ion-icon name="construct-outline" slot="start"></ion-icon>
+            Proses & Buat Tender
+          </ion-button>
+        </div>
+      </div>
     </div>
   </div>
 </ion-content>

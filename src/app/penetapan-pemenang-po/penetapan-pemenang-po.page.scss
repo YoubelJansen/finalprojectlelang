@@ -1,58 +1,136 @@
+/* Mengatur warna global sesuai tema */
 :host {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background: linear-gradient(to bottom right, #c6e2ff, #78aaff);
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+  --border-color: #e0dacd;       // Warna border
+  --winner-color: #f9c74f;       // Warna emas untuk pemenang
 }
 
 ion-content {
-  --background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    --padding-bottom: 70px; // Beri ruang untuk footer
 }
 
-.po-card {
-  background: #ffffff;
-  border-radius: 20px;
-  padding: 2rem;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 16px;
+  z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
+}
+
+/* Kontainer utama halaman */
+.page-frame {
+  padding: 24px;
+}
+
+/* Header Halaman */
+.page-header {
   text-align: center;
-}
+  margin-top: 32px;
+  margin-bottom: 32px;
 
-.title {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.info-section {
-  text-align: left;
-  margin-bottom: 1.5rem;
-
-  h3 {
-    margin-bottom: 0.5rem;
-    color: #2c3e50;
+  .main-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-green-color);
   }
-
-  p {
-    margin: 0.3rem 0;
+  .section-subtitle {
+    font-size: 1rem;
     color: #555;
   }
+  .instruction {
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 16px;
+  }
 }
 
-.issued {
-  border-top: 1px solid #eee;
-  padding-top: 1rem;
+/* Daftar penawaran */
+.bids-list {
+  width: 100%;
 }
 
-ion-button {
-  --border-radius: 12px;
-  --padding-start: 1rem;
-  --padding-end: 1rem;
-  font-weight: bold;
+/* Setiap kartu penawaran */
+.bid-card {
+  background-color: var(--card-white-color);
+  border-radius: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid transparent; // Border transparan untuk efek saat dipilih
+  position: relative;
+
+  ion-radio {
+    --color-checked: var(--text-green-color);
+  }
+}
+
+.bid-info {
+  flex: 1;
+  h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 4px 0;
+  }
+  p {
+    font-size: 1rem;
+    color: var(--text-green-color);
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+/* Styling untuk kartu pemenang */
+.winner-card {
+  border-color: var(--winner-color);
+  background-color: #fffbeb;
+}
+
+.winner-icon {
+    font-size: 1.5rem;
+    color: var(--winner-color);
+}
+
+
+/* Tombol Aksi Utama di Footer */
+ion-footer {
+  &::before { display: none; }
+}
+.footer-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 0;
+  height: 55px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: none;
+  margin: 0;
+}
+
+/* Styling untuk loading dan pesan kosong */
+.loading-container, .empty-state {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-green-color);
+  opacity: 0.7;
+
+  ion-icon {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+  }
+  p {
+    font-weight: 500;
+  }
 }

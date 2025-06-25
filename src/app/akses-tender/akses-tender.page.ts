@@ -62,7 +62,7 @@ export class AksesTenderPage {
     
     // Perintah ini akan mengarahkan ke halaman detail.
     // Pastikan Anda punya halaman untuk 'detail-tender' di routing Anda.
-    this.router.navigate(['/detail-tender', tender.id]); 
+    this.router.navigate(['/registrasi-vendor', tender.id]); 
     // CATATAN PENTING: Jika ID unik tender Anda bukan 'tender.id', 
     // ganti dengan properti yang benar, misalnya 'tender.tender_number'.
   }

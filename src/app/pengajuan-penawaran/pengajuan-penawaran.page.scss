@@ -1,157 +1,178 @@
-// Variabel warna untuk tema yang konsisten
+/* Mengatur warna global sesuai permintaan Anda */
 :host {
-  --ion-background-color: #f4f5f8;
-  --ion-toolbar-background: var(--ion-background-color);
-  --text-color: #333;
-  --light-text-color: #777;
-  --primary-color: #3880ff;
-  --success-color: #2dd36f;
-  --border-color: #e0e0e0;
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --ion-color-primary: #1D503A;    // Warna utama hijau tua
+  --ion-color-primary-contrast: #ffffff;
+  --text-green-color: #1D503A;
+  --card-white-color: #ffffff;
+  --border-color: #e0dacd;
 }
 
-// Progress Stepper di Header
+/* Menghilangkan header dan footer default */
+ion-header, ion-footer {
+  box-shadow: none;
+  &::after {
+    display: none; // Menghilangkan garis bawah pada header/footer
+  }
+}
+
+ion-toolbar {
+    --background: var(--ion-background-color);
+    --border-width: 0;
+}
+
+ion-title {
+    color: var(--text-green-color);
+    font-weight: 700;
+}
+
+ion-back-button {
+    --color: var(--text-green-color);
+}
+
+
+/* Styling Progress Stepper yang ada */
 .progress-stepper {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
   width: 100%;
-  padding: 0 24px;
+  padding: 8px 16px 16px 16px;
+}
 
-  .step {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: var(--light-text-color);
-    transition: all 0.3s ease;
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80px;
+  opacity: 0.5;
+}
 
-    .step-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: #e9ecef;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      margin-bottom: 4px;
-      border: 2px solid #e9ecef;
-    }
-    
-    .step-label {
-      font-size: 12px;
-      text-align: center;
-    }
-
-    &.active, &.complete {
-      .step-icon {
-        background-color: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-      }
-      .step-label {
-        color: var(--primary-color);
-        font-weight: 500;
-      }
-    }
+.step.active {
+  opacity: 1;
+  .step-icon {
+    background-color: var(--text-green-color);
+    color: white;
   }
-
-  .step-line {
-    flex-grow: 1;
-    height: 2px;
-    background: var(--border-color);
-    margin: 0 8px;
-    transform: translateY(-12px);
+  .step-label {
+    font-weight: 700;
   }
 }
 
-// Konten utama
+.step.complete {
+    opacity: 1;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: background-color 0.3s;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--text-green-color);
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+}
+
+/* Styling Konten Utama */
 .content-wrapper {
-  max-width: 700px;
-  margin: 0 auto;
+  padding: 0 8px;
 }
 
 .form-header {
-  margin-bottom: 24px;
   text-align: center;
-  
+  margin-bottom: 24px;
   h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--text-green-color);
+    margin: 0 0 4px 0;
   }
-
   p {
-    color: var(--light-text-color);
-    font-size: 1rem;
-    margin-top: 4px;
+    color: #666;
+    margin: 2px 0;
+  }
+  .instruction {
+    font-size: 0.9rem;
+    color: #888;
   }
 }
 
-// Kotak untuk upload file
+/* Styling untuk kotak upload */
 .upload-box {
-  background: white;
-  border-radius: 12px;
-  border: 2px dashed var(--border-color);
-  margin-bottom: 20px;
+  background: var(--card-white-color);
+  border-radius: 14px;
   padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
   cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+
   &:hover {
-    border-color: var(--primary-color);
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  }
-  
-  &.file-selected {
-    border-style: solid;
-    border-color: var(--success-color);
-  }
-
-  .upload-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    ion-icon {
-      font-size: 48px;
-      margin-bottom: 12px;
-    }
-
-    h4 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text-color);
-      margin: 0;
-    }
-    
-    p {
-      color: var(--light-text-color);
-      margin: 4px 0 0 0;
-    }
-
-    .file-details {
-      p {
-        color: var(--primary-color);
-        font-weight: 500;
-      }
-      ion-note {
-        font-size: 0.8rem;
-      }
-    }
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
   }
 }
 
-// Footer dan Tombol Utama
-ion-footer {
-  ion-toolbar {
-    --background: var(--ion-background-color);
+.upload-content {
+  ion-icon {
+    font-size: 2.5rem;
+    color: var(--text-green-color);
+    margin-bottom: 8px;
   }
-  ion-button {
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-green-color);
+    margin: 0 0 4px 0;
+  }
+  p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+  }
+}
+
+.file-details {
+    p {
+        font-weight: 500;
+        color: #555;
+    }
+    ion-note {
+        font-size: 0.8rem;
+    }
+}
+
+/* Tombol Lanjut di Footer */
+ion-footer ion-button {
+    --background: var(--text-green-color);
+    --background-activated: #153d2c;
+    --color: white;
+    --border-radius: 12px;
+    --box-shadow: none;
     height: 50px;
     font-size: 1rem;
     font-weight: 600;
-    --box-shadow: 0 4px 15px rgba(56, 128, 255, 0.4);
-  }
+    text-transform: none;
 }

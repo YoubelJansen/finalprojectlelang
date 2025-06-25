@@ -11,8 +11,8 @@
 /* Kontainer utama dengan layout flex */
 .dashboard-container {
   display: flex;
-  height: 100vh; // Memenuhi tinggi layar
-  width: 100vw;  // Memenuhi lebar layar
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
 }
 
@@ -24,8 +24,9 @@
   padding: 24px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; // Mendorong logout ke bawah
-  flex-shrink: 0; // Mencegah sidebar menyusut
+  justify-content: space-between;
+  flex-shrink: 0;
+  transition: all 0.3s ease; // Menambahkan transisi
 }
 
 .logo {
@@ -62,7 +63,6 @@
 }
 
 .logout-button {
-  // Styling sama dengan .nav-item
   display: flex;
   align-items: center;
   gap: 16px;
@@ -73,17 +73,17 @@
   transition: background-color 0.2s ease;
   
   &:hover {
-    background-color: rgba(239, 68, 68, 0.2); // Warna merah transparan
+    background-color: rgba(239, 68, 68, 0.2);
   }
 }
 
 
 /* Styling untuk Konten Utama (Kolom Kanan) */
 .main-content {
-  flex: 1; // Mengambil sisa ruang
+  flex: 1;
   background-color: #FAF5EE; // Cream
   padding: 40px 50px;
-  overflow-y: auto; // Bisa di-scroll jika konten panjang
+  overflow-y: auto;
 }
 
 .welcome-header {
@@ -103,12 +103,10 @@
 
 .cards-container {
   display: grid;
-  // Membuat 3 kolom, atau menjadi 1 kolom jika layar terlalu kecil
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 24px;
 }
 
-/* Styling untuk setiap kartu menu */
 .action-card {
   background: #ffffff;
   padding: 24px;
@@ -131,7 +129,7 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  background-color: var(--icon-bg); // Mengambil warna dari style inline
+  background-color: var(--icon-bg);
 
   ion-icon {
     font-size: 26px;
@@ -150,4 +148,28 @@
   font-size: 0.9rem;
   color: #777;
   margin: 0;
+}
+
+
+/* --- PERBAIKAN UNTUK TAMPILAN MOBILE (RESPONSIF) --- */
+@media (max-width: 992px) { // Gunakan breakpoint tablet
+  .sidebar {
+    // Sembunyikan sidebar di layar kecil
+    // Anda bisa menambahkan tombol "hamburger" di sini nanti jika perlu
+    display: none; 
+  }
+
+  .main-content {
+    // Konten utama mengambil lebar penuh dan padding disesuaikan
+    width: 100%;
+    padding: 32px 24px; // Padding disesuaikan untuk mobile
+  }
+
+  .welcome-header h1 {
+    font-size: 1.6rem; // Perkecil ukuran font judul di mobile
+  }
+
+  .welcome-header p {
+    font-size: 1rem; // Perkecil ukuran font subjudul di mobile
+  }
 }

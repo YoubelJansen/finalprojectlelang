@@ -1,76 +1,74 @@
-<ion-header>
-  <ion-toolbar color="light">
-    <ion-title>Admin Dashboard</ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- ion-header dihilangkan untuk diganti dengan layout custom -->
+<ion-content [fullscreen]="true">
+  <!-- Kontainer utama untuk layout flex (sidebar + konten) -->
+  <div class="dashboard-container">
 
-<ion-content class="ion-padding">
-  <div class="dashboard-header">
-    <div class="header-text">
-      <h1>Dashboard e-Procurement</h1>
-      <p>Pilih salah satu menu di bawah untuk memulai.</p>
-    </div>
-    <div class="user-info">
-      <span>👋 Selamat datang, <strong>{{ userName }}</strong></span>
-      <ion-button fill="clear" size="small" color="danger" (click)="logout()">
-        <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
-      </ion-button>
-    </div>
-  </div>
-
-  <div class="menu-grid">
-    <!-- Kartu 1: Kelola Pengadaan -->
-    <div class="menu-card" (click)="goTo('kelola-pengadaan')">
-      <div class="card-icon" style="--card-color: #3b82f6;">
-        <ion-icon name="file-tray-stacked-outline"></ion-icon>
+    <!-- Kolom 1: Sidebar Navigasi (Hijau) -->
+    <div class="sidebar">
+      <div class="sidebar-top">
+        <h1 class="logo">e-Lelangku</h1>
+        <ul class="nav-list">
+          <!-- Item 'Dashboard' dibuat aktif -->
+          <li class="nav-item active">
+            <ion-icon name="grid-outline"></ion-icon>
+            <span>Dashboard</span>
+          </li>
+          <!-- Anda bisa menambahkan item navigasi lain di sini jika perlu -->
+          <!-- 
+          <li class="nav-item" (click)="goTo('laporan-pengadaan')">
+            <ion-icon name="bar-chart-outline"></ion-icon>
+            <span>Laporan</span>
+          </li> 
+          -->
+        </ul>
       </div>
-      <div class="card-title">Kelola Pengadaan</div>
-      <p class="card-subtitle">Proses pengajuan yang disetujui</p>
-    </div>
-
-    <!-- Kartu 2: Kelola Vendor (Menuju halaman daftar vendor) -->
-    <div class="menu-card" (click)="goTo('kelola-vendor-list')">
-      <div class="card-icon" style="--card-color: #16a34a;">
-        <ion-icon name="people-outline"></ion-icon>
+      <div class="sidebar-bottom">
+        <!-- Tombol logout, fungsionalitas (click) tetap sama -->
+        <div class="logout-button" (click)="logout()">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <span>Logout</span>
+        </div>
       </div>
-      <div class="card-title">Kelola Vendor</div>
-      <p class="card-subtitle">Lihat & kelola data vendor</p>
     </div>
 
-    <!-- Kartu 3: Aanwijzing & Tender (Menuju halaman riwayat tender) -->
-    <div class="menu-card" (click)="goTo('riwayat')">
-      <div class="card-icon" style="--card-color: #f97316;">
-        <ion-icon name="megaphone-outline"></ion-icon>
+    <!-- Kolom 2: Konten Utama (Cream) -->
+    <div class="main-content">
+      <!-- Header Selamat Datang -->
+      <div class="welcome-header">
+        <!-- Variabel {{ userName }} tetap digunakan di sini -->
+        <h1>Selamat Datang, {{ userName }}!</h1>
+        <p>Silakan kelola sistem e-Procurement melalui menu di bawah.</p>
       </div>
-      <div class="card-title">Aanwijzing & Tender</div>
-      <p class="card-subtitle">Jadwal & kelola sesi tender</p>
-    </div>
 
-  <!-- Kartu 4: Penetapan Pemenang (SEKARANG SUDAH BENAR) -->
-  <div class="menu-card" (click)="goTo('pilih-tender')">
-    <div class="card-icon" style="--card-color: #7c3aed;">
-      <ion-icon name="trophy-outline"></ion-icon>
-    </div>
-    <div class="card-title">Penetapan Pemenang</div>
-    <p class="card-subtitle">Pilih pemenang & terbitkan PO</p>
-  </div>
+      <!-- Kontainer untuk kartu-kartu menu, saya ganti nama class agar konsisten -->
+      <div class="cards-container">
 
-    <!-- Kartu 5: Laporan -->
-    <div class="menu-card" (click)="goTo('laporan-pengadaan')">
-      <div class="card-icon" style="--card-color: #64748b;">
-        <ion-icon name="bar-chart-outline"></ion-icon>
+        <!-- Kartu-kartu menu dari HTML asli Anda, fungsionalitas (click) tidak berubah -->
+        <div class="action-card" (click)="goTo('kelola-pengadaan')">
+          <div class="card-icon-wrapper" style="--icon-bg: #3b82f6;">
+            <ion-icon name="file-tray-stacked-outline"></ion-icon>
+          </div>
+          <h2 class="card-title">Kelola Pengadaan</h2>
+          <p class="card-subtitle">Proses pengajuan yang disetujui</p>
+        </div>
+
+        <div class="action-card" (click)="goTo('riwayat')">
+          <div class="card-icon-wrapper" style="--icon-bg: #f97316;">
+            <ion-icon name="megaphone-outline"></ion-icon>
+          </div>
+          <h2 class="card-title">Tender & Aanwijzing</h2>
+          <p class="card-subtitle">Tender & Kelola Jadwal Aanwijzing</p>
+        </div>
+
+        <div class="action-card" (click)="goTo('pilih-tender')">
+          <div class="card-icon-wrapper" style="--icon-bg: #7c3aed;">
+            <ion-icon name="trophy-outline"></ion-icon>
+          </div>
+          <h2 class="card-title">Penetapan Pemenang</h2>
+          <p class="card-subtitle">Pilih pemenang & terbitkan PO</p>
+        </div>
+
       </div>
-      <div class="card-title">Laporan</div>
-      <p class="card-subtitle">Analisis & rekap data</p>
-    </div>
-
-    <!-- Kartu 6: Riwayat Tender -->
-    <div class="menu-card" (click)="goTo('riwayat')">
-      <div class="card-icon" style="--card-color: #0891b2;">
-        <ion-icon name="time-outline"></ion-icon>
-      </div>
-      <div class="card-title">Riwayat Tender</div>
-      <p class="card-subtitle">Semua tender yang pernah dibuat</p>
     </div>
   </div>
 </ion-content>
