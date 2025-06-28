@@ -2,5 +2,5 @@
 export const environment = {
   production: false,
   // Tambahkan baris ini!
-  apiUrl: 'http://localhost:8000/api' 
+  apiUrl: 'https://elelang.my.id/' 
 };
