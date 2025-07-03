@@ -2,14 +2,10 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
+  // --- Rute-rute spesifik Anda diletakkan di sini ---
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
   },
   {
     path: 'login',
@@ -20,15 +16,24 @@ const routes: Routes = [
     loadComponent: () => import('./register/register.page').then( m => m.RegisterPage)
   },
   {
+    path: 'forgot-password',
+    loadComponent: () => import('./forgot-password/forgot-password.page').then( m => m.ForgotPasswordPage)
+  },
+  {
+    path: 'reset-password',
+    loadComponent: () => import('./reset-password/reset-password.page').then( m => m.ResetPasswordPage)
+  },
+  {
     path: 'halamanutama',
     loadComponent: () => import('./halamanutama/halamanutama.page').then( m => m.HalamanutamaPage)
   },
+  // ... (semua rute Anda yang lain) ...
   {
     path: 'tender',
     loadChildren: () => import('./tender/tender.module').then( m => m.TenderPageModule)
   },
   {
-    path: 'vendor', // Contoh untuk halaman profil vendor
+    path: 'vendor',
     loadComponent: () => import('./vendor/vendor.page').then(m => m.VendorPage)
   },
   {
@@ -56,7 +61,7 @@ const routes: Routes = [
     loadComponent: () => import('./jadwal-aanwijzing/jadwal-aanwijzing.page').then( m => m.JadwalAanwijzingPage)
   },
   {
-    path: 'pemenang-po', // Halaman vendor tidak butuh ID
+    path: 'pemenang-po',
     loadComponent: () => import('./pemenang-po/pemenang-po.page').then( m => m.PemenangPoPage)
   },
   {
@@ -100,11 +105,11 @@ const routes: Routes = [
     loadComponent: () => import('./kelola-pengadaan/kelola-pengadaan.page').then( m => m.KelolaPengadaanPage)
   },
   {
-    path: 'proses-aanwijzing', // Pastikan path ini sesuai
+    path: 'proses-aanwijzing',
     loadComponent: () => import('./proses-aanwijzing/proses-aanwijzing.page').then( m => m.ProsesAanwijzingPage)
   },
   {
-    path: 'penetapan-pemenang-po/:id', // Halaman admin butuh ID tender
+    path: 'penetapan-pemenang-po/:id',
     loadComponent: () => import('./penetapan-pemenang-po/penetapan-pemenang-po.page').then( m => m.PenetapanPemenangPoPage)
   },
   {
@@ -116,6 +121,12 @@ const routes: Routes = [
     loadComponent: () => import('./pilih-tender/pilih-tender.page').then( m => m.PilihTenderPage)
   },
 
+  // --- Rute Default (WAJIB diletakkan di paling akhir) ---
+  {
+    path: '',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

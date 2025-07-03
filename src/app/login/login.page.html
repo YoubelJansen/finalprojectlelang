@@ -1,7 +1,7 @@
 <ion-content>
   <div class="auth-container">
     
-    <!-- Bagian Header (Logo sudah dihapus) -->
+    <!-- Bagian Header -->
     <div class="auth-header fade-in-down">
       <h2>Selamat Datang Kembali</h2>
       <p>Silakan masuk untuk melanjutkan.</p>
@@ -9,6 +9,7 @@
 
     <!-- Segment untuk Pindah Halaman -->
     <ion-segment value="login" class="auth-segment fade-in-down" style="animation-delay: 0.1s;">
+      <!-- PERBAIKAN: (click) handler dihapus karena tidak diperlukan & menyebabkan error -->
       <ion-segment-button value="login">
         <ion-label>Login</ion-label>
       </ion-segment-button>
@@ -28,6 +29,13 @@
         <ion-label position="stacked">Password</ion-label>
         <ion-input [(ngModel)]="credentials.password" type="password" placeholder="••••••••"></ion-input>
       </ion-item>
+    </div>
+
+    <!-- Opsi Lupa Password -->
+    <div class="extra-options fade-in-up" style="animation-delay: 0.25s;">
+      <ion-text (click)="goToForgotPassword()">
+        Lupa Password?
+      </ion-text>
     </div>
 
     <!-- Tombol Aksi -->
