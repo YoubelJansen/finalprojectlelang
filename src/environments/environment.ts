@@ -1,6 +1,6 @@
 // src/environments/environment.ts
 export const environment = {
-  production: false,
+  production: true,
   // Tambahkan baris ini!
-  apiUrl: 'https://elelang.my.id/' 
+  apiUrl: 'https://elelang.my.id/api' 
 };
