@@ -1,29 +1,41 @@
-// src/app/services/bidding.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// 1. Import 'environment'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class BiddingService {
-  private apiUrl = 'http://localhost:8000/api'; // URL base API Laravel Anda
+  // 2. Gunakan apiUrl dari environment
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
-  submitBid(tenderId: number, priceOffer: number, token: string): Observable<any> {
-    const endpoint = `${this.apiUrl}/tenders/${tenderId}/bids`;
-    
-    // Siapkan header otentikasi
-    const headers = new HttpHeaders({
+  // 3. Tambahkan helper untuk header agar konsisten
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('auth_token');
+    return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Accept': 'application/json'
     });
+  }
+
+  /**
+   * Mengirim penawaran untuk sebuah tender.
+   * @param tenderId ID dari tender yang akan ditawar.
+   * @param priceOffer Jumlah harga penawaran.
+   */
+  submitBid(tenderId: number, priceOffer: number): Observable<any> {
+    // Endpoint sekarang menggunakan apiUrl yang benar
+    const endpoint = `${this.apiUrl}/tenders/${tenderId}/bids`;
     
     const body = {
       price_offer: priceOffer
     };
     
-    return this.http.post(endpoint, body, { headers: headers });
+    // Gunakan helper getAuthHeaders untuk mengirim permintaan
+    return this.http.post(endpoint, body, { headers: this.getAuthHeaders() });
   }
 }

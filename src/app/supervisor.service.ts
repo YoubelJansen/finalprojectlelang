@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+// 1. Import 'environment'
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupervisorService {
-  private apiUrl = 'http://127.0.0.1:8000/api/supervisor'; // URL API Khusus Supervisor
+  // 2. Gunakan apiUrl dari environment dan tambahkan path khusus supervisor
+  private apiUrl = `${environment.apiUrl}/supervisor`; 
 
   constructor(private http: HttpClient) { }
 
@@ -19,6 +22,7 @@ export class SupervisorService {
 
   // Mengambil pengajuan yang butuh verifikasi
   getPendingRequests(): Observable<any> {
+    // URL akan menjadi: https://elelang.my.id/api/supervisor/pending-requests
     return this.http.get(`${this.apiUrl}/pending-requests`, { headers: this.getAuthHeaders() });
   }
 
@@ -31,9 +35,6 @@ export class SupervisorService {
   rejectRequest(requestId: number, data: { notes: string }): Observable<any> {
     return this.http.post(`${this.apiUrl}/requests/${requestId}/reject`, data, { headers: this.getAuthHeaders() });
   }
-    // src/app/supervisor.service.ts
-
-  // ... (tambahkan di bawah method rejectRequest)
 
   // Mengambil seluruh riwayat pengajuan dari bawahan
   getHistory(): Observable<any> {

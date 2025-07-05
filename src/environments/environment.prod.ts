@@ -2,5 +2,5 @@
 export const environment = {
   production: true,
   // Tambahkan baris ini!
-  apiUrl: 'https://elelang.my.id/' 
+  apiUrl: 'https://elelang.my.id/api' 
 };
