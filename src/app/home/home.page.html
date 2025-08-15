@@ -1,0 +1,22 @@
+<ion-content [fullscreen]="true">
+  <div class="welcome-container">
+
+    <!-- Elemen Grafis Abstrak -->
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+
+    <!-- Konten Utama -->
+    <div class="content-wrapper">
+      <div class="header-text fade-in-down">
+        <h1>e-Lelangku</h1>
+        <p>Solusi pengadaan barang dan jasa yang transparan dan efisien.</p>
+      </div>
+
+      <ion-button class="start-button fade-in-up" shape="round" [routerLink]="['/login']">
+        Mulai
+        <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

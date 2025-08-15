@@ -1,0 +1,183 @@
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --ion-color-primary: #1D503A;    // Warna utama hijau tua
+  --ion-color-primary-contrast: #ffffff;
+  --text-green-color: #1D503A;
+  --card-white-color: #ffffff;
+  --input-bg-color: #ffffff;
+  --input-text-color: #333333;
+  --placeholder-color: #999999;
+  --border-color: #e0dacd;
+}
+
+/* Menghilangkan header dan footer default */
+ion-header, ion-footer {
+  box-shadow: none;
+  &::after {
+    display: none;
+  }
+}
+
+ion-toolbar {
+    --background: var(--ion-background-color);
+    --border-width: 0;
+}
+
+ion-title {
+    color: var(--text-green-color);
+    font-weight: 700;
+}
+
+ion-back-button {
+    --color: var(--text-green-color);
+}
+
+/* Styling Progress Stepper yang ada */
+.progress-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 16px 16px 16px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 90px; // Sedikit lebih lebar untuk teks
+  opacity: 0.5;
+}
+
+.step.complete, .step.active {
+    opacity: 1;
+}
+
+.step.active .step-icon {
+    background-color: var(--text-green-color);
+    color: white;
+}
+.step.active .step-label {
+    font-weight: 700;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: background-color 0.3s;
+  ion-icon {
+    font-size: 20px;
+  }
+}
+.step.complete .step-icon {
+    background-color: var(--text-green-color);
+    color: white;
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--text-green-color);
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+  &.complete {
+    background-color: var(--text-green-color);
+  }
+}
+
+/* Styling Konten Utama */
+.content-wrapper {
+  padding: 0 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 32px;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-green-color);
+    margin: 0 0 4px 0;
+  }
+  p {
+    color: #666;
+    margin: 2px 0;
+  }
+  .instruction {
+    font-size: 0.9rem;
+    color: #888;
+  }
+}
+
+/* Styling untuk input harga */
+.input-item {
+  --background: var(--input-bg-color);
+  --padding-start: 0;
+  --padding-end: 0;
+  --inner-padding-end: 0;
+  --border-radius: 12px;
+  --border-color: transparent;
+  --highlight-height: 0px; // Menghilangkan garis bawah saat fokus
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  margin-bottom: 24px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+
+  ion-icon {
+      margin: 0 16px;
+      color: #aaa;
+  }
+
+  ion-input {
+    --color: var(--input-text-color);
+    --placeholder-color: var(--placeholder-color);
+  }
+}
+
+/* Info card untuk bid sebelumnya */
+.info-card {
+    --background: #e9e4dd; // Warna cream yang sedikit beda
+    border-radius: 12px;
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+    ion-card-header {
+        padding-bottom: 8px;
+    }
+    ion-card-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-green-color);
+    }
+    ion-card-content {
+        font-size: 0.9rem;
+        color: #555;
+    }
+}
+
+/* Tombol Kirim di Footer */
+ion-footer .submit-button {
+    --background: var(--text-green-color);
+    --background-activated: #153d2c;
+    --color: white;
+    --border-radius: 12px;
+    --box-shadow: none;
+    height: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: none;
+}

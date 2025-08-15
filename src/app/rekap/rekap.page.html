@@ -1,0 +1,29 @@
+<ion-content class="ion-padding halaman-riwayat">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="history-container">
+    <h1 class="history-title">Riwayat Pengajuan</h1>
+
+    <div *ngIf="!isLoading && history.length === 0" class="empty-state">
+      <p>Belum ada riwayat pengajuan.</p>
+    </div>
+
+    <div class="history-list" *ngIf="history.length > 0">
+      <div *ngFor="let req of history" class="history-item">
+        
+        <div class="item-info">
+          <ion-icon name="cube-outline" class="item-icon"></ion-icon>
+          <span class="item-title">{{ req.title }}</span>
+        </div>
+
+        <ion-chip [color]="getStatusColor(req.status)" class="status-chip">
+          <ion-label>{{ formatStatus(req.status) }}</ion-label>
+        </ion-chip>
+
+      </div>
+    </div>
+  </div>
+
+</ion-content>

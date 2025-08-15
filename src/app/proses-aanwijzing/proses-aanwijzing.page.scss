@@ -1,0 +1,49 @@
+:host {
+  --ion-background-color: #f4f5f8;
+}
+
+.schedule-card {
+  margin-bottom: 16px;
+  --background: #ffffff;
+  border-left: 4px solid var(--ion-color-primary);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.schedule-card ion-item {
+  --background: transparent;
+  --padding-start: 0;
+  
+  h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #666;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #333;
+  }
+}
+
+.join-button {
+  margin-top: 16px;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  color: #999;
+
+  ion-icon {
+    font-size: 80px;
+    margin-bottom: 16px;
+  }
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+}

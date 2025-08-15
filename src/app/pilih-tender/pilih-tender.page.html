@@ -1,0 +1,59 @@
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  
+  <!-- Tombol kembali manual -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halamanutama" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="page-frame">
+    
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Pilih Tender</h1>
+    <p class="section-subtitle">Pilih salah satu tender di bawah ini untuk menetapkan pemenangnya.</p>
+
+    <!-- Tampilan loading spinner -->
+    <div *ngIf="isLoading" class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <!-- Tampilkan daftar jika tidak loading -->
+    <div *ngIf="!isLoading">
+      <!-- Cek jika ada tender aktif, menggunakan *ngFor dari kode asli Anda -->
+      <div *ngIf="activeTenders.length > 0; else noActiveTenders" class="tender-list">
+        <!-- [routerLink] tetap dipertahankan untuk navigasi -->
+        <div *ngFor="let tender of activeTenders" 
+             class="tender-card" 
+             [routerLink]="['/penetapan-pemenang-po', tender.id]" 
+             button>
+          
+          <div class="card-icon-wrapper">
+            <ion-icon name="document-text-outline"></ion-icon>
+          </div>
+
+          <div class="card-info">
+            <h2 class="tender-title">{{ tender.title }}</h2>
+            <p class="tender-details">Status: {{ tender.status }}</p>
+            <p class="tender-details">Batas Akhir: {{ tender.submission_deadline | date:'d MMMM y' }}</p>
+          </div>
+
+          <div class="card-chevron">
+            <ion-icon name="chevron-forward-outline"></ion-icon>
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- Template jika tidak ada tender aktif -->
+      <ng-template #noActiveTenders>
+        <div class="empty-state">
+          <ion-icon name="file-tray-outline"></ion-icon>
+          <h3>Tidak Ada Tender Aktif</h3>
+          <p>Tender yang siap untuk penetapan pemenang akan muncul di sini.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</ion-content>

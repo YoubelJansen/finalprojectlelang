@@ -1,0 +1,178 @@
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --ion-color-primary: #1D503A;    // Warna utama hijau tua
+  --ion-color-primary-contrast: #ffffff;
+  --text-green-color: #1D503A;
+  --card-white-color: #ffffff;
+  --border-color: #e0dacd;
+}
+
+/* Menghilangkan header dan footer default */
+ion-header, ion-footer {
+  box-shadow: none;
+  &::after {
+    display: none; // Menghilangkan garis bawah pada header/footer
+  }
+}
+
+ion-toolbar {
+    --background: var(--ion-background-color);
+    --border-width: 0;
+}
+
+ion-title {
+    color: var(--text-green-color);
+    font-weight: 700;
+}
+
+ion-back-button {
+    --color: var(--text-green-color);
+}
+
+
+/* Styling Progress Stepper yang ada */
+.progress-stepper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+  padding: 8px 16px 16px 16px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 80px;
+  opacity: 0.5;
+}
+
+.step.active {
+  opacity: 1;
+  .step-icon {
+    background-color: var(--text-green-color);
+    color: white;
+  }
+  .step-label {
+    font-weight: 700;
+  }
+}
+
+.step.complete {
+    opacity: 1;
+}
+
+.step-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  transition: background-color 0.3s;
+
+  ion-icon {
+    font-size: 20px;
+  }
+}
+
+.step-label {
+  font-size: 0.75rem;
+  color: var(--text-green-color);
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background-color: #e0e0e0;
+  margin: 20px 0;
+}
+
+/* Styling Konten Utama */
+.content-wrapper {
+  padding: 0 8px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 24px;
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-green-color);
+    margin: 0 0 4px 0;
+  }
+  p {
+    color: #666;
+    margin: 2px 0;
+  }
+  .instruction {
+    font-size: 0.9rem;
+    color: #888;
+  }
+}
+
+/* Styling untuk kotak upload */
+.upload-box {
+  background: var(--card-white-color);
+  border-radius: 14px;
+  padding: 24px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  }
+}
+
+.upload-content {
+  ion-icon {
+    font-size: 2.5rem;
+    color: var(--text-green-color);
+    margin-bottom: 8px;
+  }
+  h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-green-color);
+    margin: 0 0 4px 0;
+  }
+  p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+  }
+}
+
+.file-details {
+    p {
+        font-weight: 500;
+        color: #555;
+    }
+    ion-note {
+        font-size: 0.8rem;
+    }
+}
+
+/* Tombol Lanjut di Footer */
+ion-footer ion-button {
+    --background: var(--text-green-color);
+    --background-activated: #153d2c;
+    --color: white;
+    --border-radius: 12px;
+    --box-shadow: none;
+    height: 50px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: none;
+}

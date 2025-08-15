@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-karyawan"></ion-back-button>
+    </ion-buttons>
+    <!-- Ganti judul sesuai halaman -->
+    <ion-title>Status Pengajuan</ion-title> 
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <div class="page-container">
+    <div *ngIf="!isLoading">
+      <!-- Tampilan jika tidak ada pengajuan -->
+      <div *ngIf="requests.length === 0" class="empty-state">
+        <ion-icon name="file-tray-outline"></ion-icon>
+        <h3>Tidak Ada Pengajuan</h3>
+        <p>Anda belum memiliki pengajuan untuk ditampilkan di sini.</p>
+      </div>
+
+      <!-- Daftar Kartu Pengajuan -->
+      <ion-list *ngIf="requests.length > 0" lines="none">
+        <ion-card *ngFor="let req of requests" class="request-card fade-in-up" button>
+          <ion-item class="card-item" lines="none">
+            <!-- Lingkaran Ikon Status -->
+            <div class="status-icon-wrapper" [ngClass]="req.status" slot="start">
+              <ion-icon [name]="getStatusIcon(req.status)" class="status-icon"></ion-icon>
+            </div>
+            
+            <!-- Konten Teks -->
+            <ion-label>
+              <h3>{{ req.title }}</h3>
+              <p class="date">Diajukan pada: {{ req.created_at | date:'d MMMM y, HH:mm' }}</p>
+              <p class="status-text">Status: 
+                <strong [ngClass]="'status-' + getStatusColor(req.status)">
+                  {{ formatStatus(req.status) }}
+                </strong>
+              </p>
+              <!-- Tampilkan alasan jika ditolak -->
+              <p *ngIf="req.rejection_reason" class="reason-text">
+                Alasan: {{ req.rejection_reason }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </div>
+
+    <!-- Tampilan Loading Skeleton -->
+    <div *ngIf="isLoading">
+      <ion-list lines="none">
+        <ion-card *ngFor="let i of [1,2,3]" class="request-card">
+          <ion-item class="card-item" lines="none">
+            <div class="status-icon-wrapper skeleton" slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </div>
+            <ion-label>
+              <h3><ion-skeleton-text animated style="width: 70%"></ion-skeleton-text></h3>
+              <p><ion-skeleton-text animated style="width: 50%"></ion-skeleton-text></p>
+              <p><ion-skeleton-text animated style="width: 40%"></ion-skeleton-text></p>
+            </ion-label>
+          </ion-item>
+        </ion-card>
+      </ion-list>
+    </div>
+  </div>
+</ion-content>

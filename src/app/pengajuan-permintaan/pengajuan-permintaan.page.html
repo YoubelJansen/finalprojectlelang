@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/halaman-utama-karyawan"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Buat Pengajuan Baru</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="form-container">
+    
+    <div class="form-header">
+      <h2>Detail Pengajuan</h2>
+      <p>Silakan isi informasi utama pengajuan Anda.</p>
+    </div>
+
+    <!-- Informasi Utama Pengajuan -->
+    <ion-item class="input-item" lines="none">
+      <ion-label position="stacked">Judul Pengajuan</ion-label>
+      <ion-input [(ngModel)]="request.title" placeholder="Contoh: Pengadaan ATK Bulan Juli"></ion-input>
+    </ion-item>
+    
+    <ion-item class="input-item" lines="none">
+      <ion-label position="stacked">Alasan Kebutuhan</ion-label>
+      <ion-textarea [(ngModel)]="request.reason" placeholder="Jelaskan tujuan dan urgensi pengajuan ini" [autoGrow]="true"></ion-textarea>
+    </ion-item>
+    
+    <!-- Daftar Barang -->
+    <div class="items-header">
+      <h3>Daftar Barang</h3>
+    </div>
+    
+    <div *ngFor="let item of request.items; let i = index; let isFirst = first" class="item-card fade-in-up">
+      <ion-item class="input-item" lines="none">
+        <ion-label position="stacked">Nama Barang {{ i + 1 }}</ion-label>
+        <ion-input [(ngModel)]="item.item_name" placeholder="Contoh: Kertas HVS A4"></ion-input>
+      </ion-item>
+      
+      <ion-item class="input-item" lines="none">
+        <ion-label position="stacked">Spesifikasi</ion-label>
+        <ion-textarea [(ngModel)]="item.specification" placeholder="Contoh: 80 gram, merk PaperOne" [autoGrow]="true"></ion-textarea>
+      </ion-item>
+      
+      <ion-item class="input-item" lines="none">
+        <ion-label position="stacked">Jumlah</ion-label>
+        <ion-input [(ngModel)]="item.quantity" type="number" placeholder="Contoh: 5"></ion-input>
+      </ion-item>
+
+      <ion-button *ngIf="!isFirst" fill="clear" color="danger" (click)="removeItem(i)" class="remove-button">
+        <ion-icon slot="start" name="trash-outline"></ion-icon>
+        Hapus Barang
+      </ion-button>
+    </div>
+
+    <ion-button expand="block" fill="outline" (click)="addItem()" class="add-button">
+      <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+      Tambah Barang Lain
+    </ion-button>
+
+  </div>
+</ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button class="submit-button" expand="block" size="large" (click)="submitRequest()">
+      Kirim Pengajuan
+      <ion-icon slot="end" name="paper-plane-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

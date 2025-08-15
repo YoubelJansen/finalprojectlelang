@@ -1,0 +1,85 @@
+/* Mengatur variabel global untuk halaman ini */
+:host {
+  --ion-background-color: #f4f5f7; // Warna latar belakang abu-abu muda
+}
+
+.halaman-verifikasi {
+  // Menggunakan flexbox untuk menengahkan konten jika hanya ada sedikit
+  .main-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+
+  /* Styling untuk setiap kartu verifikasi */
+  .verification-card {
+    background: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    padding: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    flex-direction: column;
+    gap: 16px; // Memberi jarak antara konten dan tombol
+  }
+
+  /* Konten di dalam kartu (ikon dan judul) */
+  .card-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .card-icon {
+    font-size: 24px;
+    color: #555;
+    margin-right: 14px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin: 0; // Reset margin default dari paragraf
+    flex: 1;
+  }
+
+  /* Kontainer untuk tombol aksi */
+  .action-buttons {
+    display: flex;
+    gap: 12px; // Jarak antar tombol
+  }
+
+  /* Styling umum untuk kedua tombol */
+  .action-buttons ion-button {
+    flex: 1; // Membuat kedua tombol memiliki lebar yang sama
+    --border-radius: 8px;
+    --box-shadow: none; // Menghilangkan bayangan default tombol ionic
+    height: 44px;
+    font-weight: 600;
+    text-transform: none; // Agar tidak huruf kapital semua
+    --color: #ffffff; // Warna teks putih
+  }
+  
+  /* Tombol Tolak (Merah) */
+  .reject-button {
+    --background: #e74c3c; // Merah
+    --background-activated: #c0392b; // Warna saat ditekan
+  }
+
+  /* Tombol Setujui (Hijau) */
+  .approve-button {
+    --background: #27ae60; // Hijau
+    --background-activated: #229954; // Warna saat ditekan
+  }
+
+  /* Tampilan ketika tidak ada data */
+  .empty-state {
+    text-align: center;
+    color: #888;
+    margin-top: 40px;
+  }
+}

@@ -1,0 +1,69 @@
+<!-- Mengembalikan struktur header asli untuk keamanan -->
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/pilih-tender"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Penetapan Pemenang</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Tampilkan spinner saat loading (tidak diubah) -->
+  <div *ngIf="isLoading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>Memuat data tender...</p>
+  </div>
+
+  <!-- Tampilkan konten utama HANYA JIKA tidak loading DAN data tender ada -->
+  <div *ngIf="!isLoading && tender">
+
+    <!-- Header informasi tender -->
+    <div class="page-header">
+        <h1 class="main-title">{{ tender.title }}</h1>
+        <p class="instruction">Tinjau penawaran di bawah dan pilih satu vendor sebagai pemenang. Tindakan ini tidak dapat diurungkan.</p>
+    </div>
+
+    <!-- Cek jika ada penawaran (bids), menggunakan struktur asli -->
+    <div *ngIf="tender.bids && tender.bids.length > 0; else noBids">
+      <!-- Menggunakan *ngFor pada ion-card seperti aslinya -->
+      <ion-card *ngFor="let bid of tender.bids" class="bid-card" [class.winner-card]="tender.status === 'Selesai' && bid.status === 'Menang'">
+        <ion-item lines="full" class="vendor-header">
+          <ion-icon name="business-outline" slot="start"></ion-icon>
+          <ion-label>
+            <h2>{{ bid.vendor.company_name }}</h2>
+            <p>Harga Penawaran: <strong>Rp {{ bid.price_offer | number }}</strong></p>
+          </ion-label>
+        </ion-item>
+        
+        <!-- Tombol 'Pilih Pemenang' dikembalikan ke dalam setiap kartu -->
+        <ion-footer *ngIf="tender.status !== 'Selesai'">
+           <ion-button expand="block" class="winner-button" (click)="confirmSetWinner(bid)">
+             <ion-icon name="trophy-outline" slot="start"></ion-icon>
+             Pilih sebagai Pemenang
+           </ion-button>
+        </ion-footer>
+        
+        <!-- Badge Pemenang dipertahankan di sini -->
+        <div *ngIf="bid.status === 'Menang'" class="winner-badge">
+          <ion-icon name="checkmark-circle"></ion-icon> PEMENANG
+        </div>
+      </ion-card>
+    </div>
+    
+    <!-- Template #noBids: Tampilkan ini jika tidak ada penawaran -->
+    <ng-template #noBids>
+        <div class="empty-state">
+            <ion-icon name="file-tray-outline"></ion-icon>
+            <p>Belum ada penawaran yang masuk untuk tender ini.</p>
+        </div>
+    </ng-template>
+  </div>
+
+  <!-- Pesan error jika data tender tidak ditemukan (tidak diubah) -->
+  <div *ngIf="!isLoading && !tender" class="empty-state">
+      <ion-icon name="alert-circle-outline"></ion-icon>
+      <p>Gagal memuat data tender atau tender tidak ditemukan.</p>
+      <ion-button fill="outline" (click)="loadTenderDetails()">Coba Lagi</ion-button>
+  </div>
+</ion-content>

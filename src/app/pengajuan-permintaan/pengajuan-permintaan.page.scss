@@ -1,0 +1,132 @@
+:host {
+  --ion-background-color: #FAF5EE; // Warna Cream
+  --primary-green: #1D503A;
+  --text-color: #3a3a3a;
+  --subtle-text-color: #757575;
+  --border-color: #e0e0e0;
+  --input-background: #ffffff;
+}
+
+// Mengatur warna header agar konsisten
+ion-toolbar {
+  --background: var(--primary-green);
+  --color: white;
+}
+
+.form-container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  h2 {
+    font-weight: 700;
+    color: var(--text-color);
+  }
+  p {
+    color: var(--subtle-text-color);
+  }
+}
+
+.items-header {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-green);
+    border-bottom: 2px solid rgba(29, 80, 58, 0.2);
+    padding-bottom: 0.5rem;
+  }
+}
+
+.input-item {
+  --background: var(--input-background);
+  --padding-start: 0; // Hapus padding default
+  --inner-padding-end: 0;
+  --border-radius: 12px;
+  --border-color: var(--border-color);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom: 1.2rem;
+  padding: 8px 16px; // Padding manual
+
+  ion-label[position="stacked"] {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--subtle-text-color);
+    margin-bottom: 4px;
+    transform: none; // Hapus animasi default
+  }
+
+  // --- PERBAIKAN UTAMA DI SINI ---
+  ion-input, ion-textarea {
+    --padding-top: 8px;
+    --padding-bottom: 8px;
+    color: var(--text-color) !important; // Memastikan teks solid
+  }
+}
+
+.item-card {
+  background: var(--input-background);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  border-left: 4px solid var(--primary-green);
+
+  // Mengoverride style item di dalam kartu
+  .input-item {
+    box-shadow: none;
+    border: 1px solid var(--border-color);
+    padding: 4px 12px;
+  }
+}
+
+.remove-button {
+  --padding-start: 0;
+  margin-top: 8px;
+}
+
+.add-button {
+  margin-top: 1rem;
+  --border-color: var(--primary-green);
+  --color: var(--primary-green);
+  --border-radius: 12px;
+}
+
+// Style untuk Footer dan Tombol Kirim
+ion-footer {
+  // Menghilangkan bayangan/garis di atas footer
+  &::before {
+    background-image: none;
+  }
+}
+
+.submit-button {
+  --background: var(--primary-green);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(29, 80, 58, 0.3);
+  margin: 8px;
+  height: 50px;
+}
+
+// Animasi
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

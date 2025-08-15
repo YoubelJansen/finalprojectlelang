@@ -1,0 +1,109 @@
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks & tombol hijau tua
+  --input-bg-color: #ffffff;      // Warna latar input putih
+  --input-text-color: #333333;    // Warna teks di dalam input
+  --placeholder-color: #999999;   // Warna placeholder
+  --border-color: #e0e0e0;       // Warna border input
+}
+
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+
+  ion-back-button {
+    --color: var(--text-green-color);
+  }
+}
+
+/* Kontainer utama untuk form */
+.profile-frame {
+  padding: 24px;
+}
+
+/* Judul utama dan sub-judul */
+.main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-green-color);
+  margin: 32px 0 8px 0;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 32px;
+}
+
+/* Judul untuk setiap seksi form */
+.section-header {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-green-color);
+    margin-top: 32px;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0dacd;
+}
+
+/* Styling untuk setiap grup form (label + input) */
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #444;
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Styling untuk input dan textarea agar konsisten */
+.custom-input, .custom-textarea {
+  --background: var(--input-bg-color);
+  --color: var(--input-text-color);
+  --placeholder-color: var(--placeholder-color);
+  --padding-start: 16px;
+  --padding-end: 16px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.custom-textarea {
+  min-height: 100px;
+}
+
+/* Tombol utama untuk menyimpan perubahan */
+.save-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 12px;
+  --box-shadow: none;
+  height: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: none;
+  margin-top: 32px;
+  margin-bottom: 16px;
+}
+
+/* Styling untuk skeleton loading */
+.skeleton-label {
+    width: 30%;
+    height: 20px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+}
+.skeleton-input-box {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 20px;
+    border-radius: 12px;
+}

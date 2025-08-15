@@ -1,0 +1,102 @@
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna teks hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+  --border-color: #e0dacd;       // Warna border
+  --winner-color: #f9c74f;       // Warna emas untuk pemenang
+  --loser-color: #888;           // Warna abu-abu untuk yang kalah
+}
+
+/* Tombol kembali yang ditempatkan secara manual */
+.back-button-area {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
+}
+
+/* Kontainer utama untuk konten */
+.announcement-frame {
+  padding: 24px;
+}
+
+/* Judul utama halaman */
+.main-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: serif;
+  color: var(--text-green-color);
+  text-align: center;
+  margin: 32px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Setiap kartu pengumuman */
+.announcement-card {
+  background-color: var(--card-white-color);
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 5px solid var(--loser-color); // Border default untuk yang kalah
+  transition: all 0.3s ease;
+}
+
+/* Style khusus untuk kartu pemenang */
+.announcement-card.is-winner {
+    border-top-color: var(--winner-color);
+}
+
+.card-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  &.winner { color: var(--winner-color); }
+  &.loser { color: var(--loser-color); }
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.card-subtitle {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 8px 0 24px 0;
+}
+
+.status-message {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.6;
+    max-width: 400px; // Batasi lebar teks agar mudah dibaca
+}
+
+/* Tampilan jika tidak ada data atau sedang loading */
+.empty-state, .ion-text-center {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: var(--text-green-color);
+  opacity: 0.7;
+
+  ion-icon {
+    font-size: 4.5rem;
+    margin-bottom: 1rem;
+  }
+  h3 {
+    font-weight: 600;
+  }
+}

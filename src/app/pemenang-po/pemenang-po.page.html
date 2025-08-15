@@ -1,0 +1,55 @@
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  
+  <!-- Tombol kembali manual -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halaman-utama-vendor" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="announcement-frame">
+    
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Pengumuman</h1>
+    
+    <!-- Tampilan loading spinner -->
+    <div *ngIf="isLoading" class="ion-text-center ion-padding">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Memuat hasil...</p>
+    </div>
+
+    <!-- Tampilan jika tidak ada hasil -->
+    <div *ngIf="!isLoading && results.length === 0" class="empty-state">
+      <ion-icon name="trophy-outline"></ion-icon>
+      <h3>Belum Ada Hasil</h3>
+      <p>Hasil tender yang Anda ikuti akan muncul di sini.</p>
+    </div>
+
+    <!-- Daftar Hasil Tender -->
+    <div *ngIf="!isLoading && results.length > 0">
+      <!-- Menggunakan *ngFor dari HTML asli Anda -->
+      <div *ngFor="let result of results" class="announcement-card" [class.is-winner]="result.status === 'Menang'">
+        
+        <!-- Ikon berubah sesuai status -->
+        <ion-icon *ngIf="result.status === 'Menang'" name="trophy" class="card-icon winner"></ion-icon>
+        <ion-icon *ngIf="result.status !== 'Menang'" name="sad-outline" class="card-icon loser"></ion-icon>
+
+        <!-- Judul pengumuman -->
+        <h2 class="card-title" *ngIf="result.status === 'Menang'">Anda Pemenang Tender!</h2>
+        <h2 class="card-title" *ngIf="result.status !== 'Menang'">Terima Kasih Atas Partisipasi Anda</h2>
+
+        <!-- Konteks nama tender -->
+        <p class="card-subtitle">Untuk tender: <strong>{{ result.tender?.title }}</strong></p>
+
+        <!-- Pesan spesifik berdasarkan status -->
+        <div class="status-message" *ngIf="result.status === 'Menang'">
+            <p>Selamat! Purchase Order (PO) akan segera dikirimkan. Silakan periksa notifikasi Anda secara berkala.</p>
+        </div>
+        <div class="status-message" *ngIf="result.status !== 'Menang'">
+            <p>Mohon maaf, penawaran Anda belum berhasil kali ini. Kami menantikan partisipasi Anda di tender berikutnya.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

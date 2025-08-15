@@ -1,0 +1,70 @@
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  <ion-refresher slot="fixed" (ionRefresh)="loadTenders($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Tombol kembali manual -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halaman-utama-vendor" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="tender-frame">
+    
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Akses Tender</h1>
+    <p class="section-subtitle">Pilih tender di bawah untuk melihat detail dan mengajukan penawaran.</p>
+
+    <!-- Tampilan saat tidak ada tender -->
+    <div *ngIf="!isLoading && tenders.length === 0" class="empty-state">
+      <ion-icon name="file-tray-outline"></ion-icon>
+      <h3>Tidak Ada Tender</h3>
+      <p>Saat ini belum ada tender yang dibuka.</p>
+    </div>
+    
+    <!-- Tampilan Loading Skeleton -->
+    <div *ngIf="isLoading">
+        <ion-card *ngFor="let i of [1,2]" class="tender-card skeleton-card">
+            <ion-card-header>
+                <ion-skeleton-text animated style="width: 40%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 80%; height: 24px; margin-top: 4px;"></ion-skeleton-text>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                <ion-skeleton-text animated style="width: 100%"></ion-skeleton-text>
+                <div class="footer">
+                    <ion-skeleton-text animated style="width: 50%; height: 32px;"></ion-skeleton-text>
+                    <ion-skeleton-text animated style="width: 40%; height: 32px;"></ion-skeleton-text>
+                </div>
+            </ion-card-content>
+        </ion-card>
+    </div>
+
+    <!-- Daftar Kartu Tender, menggunakan struktur dari HTML Anda -->
+    <div *ngIf="!isLoading && tenders.length > 0">
+      <ion-card *ngFor="let tender of tenders" class="tender-card">
+        <ion-card-header>
+          <ion-card-subtitle>No. Tender: {{ tender.tender_number }}</ion-card-subtitle>
+          <ion-card-title>{{ tender.title }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <p class="description">{{ tender.description }}</p>
+          <div class="footer">
+            <ion-chip class="deadline-chip" outline="true">
+              <ion-icon name="time-outline"></ion-icon>
+              <ion-label>Deadline: {{ tender.submission_deadline | date:'d MMM yyyy' }}</ion-label>
+            </ion-chip>
+            <!-- Tombol ini memanggil fungsi 'ajukanPenawaran' dari TS -->
+            <ion-button size="small" class="action-button" (click)="ajukanPenawaran(tender)">
+              Ajukan Penawaran
+              <ion-icon slot="end" name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+  </div>
+</ion-content>

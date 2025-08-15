@@ -1,0 +1,53 @@
+<ion-content>
+  <div class="auth-container">
+    
+    <div class="auth-header fade-in-down">
+      <h2>Buat Akun Baru</h2>
+      <p>Daftar untuk memulai proses pengadaan.</p>
+    </div>
+
+    <ion-segment value="register" class="auth-segment fade-in-down" style="animation-delay: 0.1s;">
+      <ion-segment-button value="login" (click)="goToLogin()">
+        <ion-label>Login</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="register">
+        <ion-label>Register</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+    <div class="form-container fade-in-up" style="animation-delay: 0.2s;">
+      <ion-item lines="none">
+        <ion-label position="stacked">Nama Lengkap / Perusahaan</ion-label>
+        <ion-input [(ngModel)]="regData.name" placeholder="Masukkan nama Anda"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+        <ion-label position="stacked">Alamat E-mail</ion-label>
+        <ion-input [(ngModel)]="regData.email" type="email" placeholder="contoh@email.com"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Password</ion-label>
+        <ion-input [(ngModel)]="regData.password" type="password" placeholder="Minimal 8 karakter"></ion-input>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label position="stacked">Konfirmasi Password</ion-label>
+        <ion-input [(ngModel)]="regData.password_confirmation" type="password" placeholder="Ulangi password"></ion-input>
+      </ion-item>
+      
+      <ion-item lines="none">
+         <ion-label position="stacked">Daftar Sebagai</ion-label>
+         <ion-select [(ngModel)]="regData.role" placeholder="Pilih Peran">
+           <ion-select-option value="employee">Karyawan</ion-select-option>
+           <ion-select-option value="vendor">Vendor</ion-select-option>
+         </ion-select>
+      </ion-item>
+    </div>
+
+    <ion-button class="main-button fade-in-up" expand="block" (click)="register()" style="animation-delay: 0.3s;">
+      Register
+    </ion-button>
+
+  </div>
+</ion-content>

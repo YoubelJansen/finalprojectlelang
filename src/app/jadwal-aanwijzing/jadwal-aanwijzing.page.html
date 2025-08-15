@@ -1,0 +1,52 @@
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  
+  <!-- Tombol kembali manual -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halaman-utama-vendor" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk semua konten -->
+  <div class="schedule-frame">
+    
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Jadwal</h1>
+    
+    <!-- Tampilan loading spinner -->
+    <div *ngIf="isLoading" class="ion-text-center ion-padding">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Memuat jadwal...</p>
+    </div>
+
+    <!-- Tampilan jika tidak ada jadwal -->
+    <div *ngIf="!isLoading && schedules.length === 0" class="empty-state">
+      <ion-icon name="calendar-clear-outline"></ion-icon>
+      <h3>Belum Ada Jadwal</h3>
+      <p>Jadwal aanwijzing akan muncul di sini.</p>
+    </div>
+
+    <!-- Daftar Jadwal, *ngFor tetap, struktur di dalamnya diubah -->
+    <div *ngIf="!isLoading && schedules.length > 0">
+      <div *ngFor="let schedule of schedules" class="schedule-card">
+        
+        <ion-icon name="calendar-check-outline" class="card-icon"></ion-icon>
+        
+        <h2 class="card-title">Jadwal Aanwijzing</h2>
+        <p class="card-subtitle">{{ schedule.tender?.title || 'Informasi Tender' }}</p>
+        
+        <div class="datetime-info">
+            <p class="date">{{ schedule.schedule_time | date:'EEEE, d MMMM y' }}</p>
+            <p class="time">{{ schedule.schedule_time | date:'HH:mm' }} WIB</p>
+        </div>
+
+        <!-- Tombol Gabung Meeting, [href] tetap terhubung -->
+        <ion-button expand="block" [href]="schedule.meeting_link" target="_blank" class="join-button">
+          <ion-icon name="videocam-outline" slot="start"></ion-icon>
+          Gabung Meeting
+        </ion-button>
+
+      </div>
+    </div>
+  </div>
+</ion-content>

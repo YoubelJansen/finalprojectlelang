@@ -1,0 +1,29 @@
+<ion-content [fullscreen]="true">
+  <div class="page-container">
+    
+    <div class="menu-card-wrapper fade-in-up">
+      <div class="card-header">
+        <h2>Dashboard Atasan</h2>
+        <p>Selamat datang, {{ userName }}</p>
+      </div>
+
+      <div class="button-stack">
+        <ion-button class="menu-button" fill="outline" expand="block" (click)="goTo('/verifikasi')">
+          <ion-icon slot="start" name="checkmark-done-outline"></ion-icon>
+          Verifikasi
+        </ion-button>
+        
+        <ion-button class="menu-button" fill="outline" expand="block" (click)="goTo('/rekap')">
+          <ion-icon slot="start" name="analytics-outline"></ion-icon>
+          Rekap
+        </ion-button>
+      </div>
+
+      <ion-button class="logout-button" expand="block" (click)="logout()">
+        <ion-icon slot="start" name="log-out-outline"></ion-icon>
+        Logout
+      </ion-button>
+    </div>
+
+  </div>
+</ion-content>

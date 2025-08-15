@@ -1,0 +1,26 @@
+<ion-content>
+  <div class="login-container">
+    <div class="login-card">
+      <h2>Daftar Tender</h2>
+      <p>Berikut adalah tender yang telah diajukan:</p>
+
+      <ng-container *ngIf="tenders.length > 0; else kosong">
+        <div class="tender-card" *ngFor="let tender of tenders; let i = index">
+          <h3>{{ tender.nama }}</h3>
+          <p><strong>Deskripsi:</strong> {{ tender.deskripsi }}</p>
+          <p><strong>Kuantitas:</strong> {{ tender.kuantitas }}</p>
+          <p><strong>Alasan:</strong> {{ tender.alasan }}</p>
+          <ion-button fill="clear" color="danger" size="small" (click)="hapusTender(i)">
+            Hapus
+          </ion-button>
+        </div>
+      </ng-container>
+
+      <ng-template #kosong>
+        <ion-text color="medium">
+          <p style="text-align: center;">Belum ada tender</p>
+        </ion-text>
+      </ng-template>
+    </div>
+  </div>
+</ion-content>

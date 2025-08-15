@@ -1,0 +1,147 @@
+// Kode ini bisa digunakan untuk login.page.scss dan register.page.scss
+
+:host {
+  --ion-background-color: #FAF5EE; // Warna Cream Latar Belakang
+  --primary-green: #1D503A;        // Warna Hijau Tua
+  --text-color: #3a3a3a;
+  --subtle-text-color: #757575;
+  --input-border-color: #e0e0e0;
+  --input-background: #ffffff;
+}
+
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  justify-content: center;
+}
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+
+  h2 {
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 1.6rem; // Sedikit diperbesar agar lebih menonjol
+    margin: 0 0
+ 4px 0;
+  }
+
+  p {
+    color: var(--subtle-text-color);
+    margin: 0;
+    font-size: 0.95rem;
+  }
+}
+
+.auth-segment {
+  --background: #EAE5E0;
+  border-radius: 12px;
+  margin-bottom: 24px;
+  
+  ion-segment-button {
+    --color: var(--subtle-text-color);
+    --color-checked: white;
+    --indicator-color: var(--primary-green);
+    --indicator-height: 100%;
+    --indicator-border-radius: 10px;
+    text-transform: none;
+    font-weight: 600;
+    margin: 4px;
+  }
+}
+
+.form-container {
+  ion-item {
+    --background: var(--input-background);
+    --padding-start: 16px;
+    --highlight-height: 0;
+    --border-radius: 12px;
+    --border-color: var(--input-border-color);
+    --border-width: 1px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+
+    // Efek saat input aktif
+    &.item-has-focus {
+      --border-color: var(--primary-green);
+      box-shadow: 0 4px 12px rgba(29, 80, 58, 0.1);
+    }
+    
+    ion-input {
+      color: var(--text-color);
+    }
+  }
+
+  ion-label[position="stacked"] {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--subtle-text-color);
+    margin-bottom: 4px;
+    margin-left: 4px;
+  }
+}
+
+.extra-options {
+  display: flex;
+  justify-content: flex-end;
+  margin: -4px 4px 12px 0;
+  font-size: 0.9em;
+
+  ion-text {
+    cursor: pointer;
+    color: var(--primary-green); 
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.main-button {
+  --background: var(--primary-green);
+  --border-radius: 12px;
+  --box-shadow: 0 4px 12px rgba(29, 80, 58, 0.3);
+  font-weight: 600;
+  height: 50px;
+  text-transform: uppercase;
+  margin-top: 24px;
+  letter-spacing: 1px;
+}
+
+// Animasi (Tidak diubah)
+.fade-in-down {
+  animation: fadeInDown 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

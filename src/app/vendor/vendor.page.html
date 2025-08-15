@@ -1,0 +1,79 @@
+<!-- ion-header dihilangkan untuk digantikan dengan layout custom -->
+<ion-content>
+  <!-- Latar belakang halaman ini akan menjadi cream -->
+  
+  <!-- Tombol kembali manual -->
+  <div class="back-button-area">
+    <ion-back-button defaultHref="/halaman-utama-vendor" text="" icon="arrow-back-outline"></ion-back-button>
+  </div>
+
+  <!-- Kontainer utama untuk form -->
+  <div class="profile-frame">
+    
+    <!-- Judul Utama Halaman -->
+    <h1 class="main-title">Profil Perusahaan</h1>
+    <p class="section-subtitle">Pastikan data di bawah ini selalu akurat dan terbaru.</p>
+
+    <!-- Tampilan loading skeleton -->
+    <div *ngIf="isLoading">
+        <div *ngFor="let i of [1,2,3]">
+            <ion-skeleton-text animated class="skeleton-label"></ion-skeleton-text>
+            <ion-skeleton-text animated class="skeleton-input-box"></ion-skeleton-text>
+        </div>
+    </div>
+
+    <!-- Form utama, ditampilkan jika tidak loading -->
+    <div *ngIf="!isLoading">
+        <!-- SEKSI 1: INFORMASI PERUSAHAAN -->
+        <h2 class="section-header">Informasi Perusahaan</h2>
+        <div class="form-group">
+            <ion-label class="form-label">Nama Perusahaan</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.company_name" placeholder="Masukkan nama perusahaan"></ion-input>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">Alamat Lengkap</ion-label>
+            <ion-textarea class="custom-textarea" [(ngModel)]="profile.address" [autoGrow]="true" placeholder="Masukkan alamat lengkap"></ion-textarea>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">No. Telepon Kantor</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.phone_number" type="tel" placeholder="Masukkan nomor telepon"></ion-input>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">Website</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.website" type="url" placeholder="https://..."></ion-input>
+        </div>
+
+        <!-- SEKSI 2: INFORMASI LEGAL -->
+        <h2 class="section-header">Informasi Legal</h2>
+        <div class="form-group">
+            <ion-label class="form-label">NPWP</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.npwp" placeholder="Masukkan nomor NPWP"></ion-input>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">NIB / SIUP</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.nib" placeholder="Masukkan nomor NIB/SIUP"></ion-input>
+        </div>
+
+        <!-- SEKSI 3: KONTAK PERSONAL (PIC) -->
+        <h2 class="section-header">Kontak Personal (PIC)</h2>
+        <div class="form-group">
+            <ion-label class="form-label">Nama Kontak</ion-label>
+            <ion-input class="custom-input" [(ngModel)]="profile.contact_name" placeholder="Masukkan nama PIC"></ion-input>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">Email Kontak</ion-label>
+            <ion-input class="custom-input" type="email" [(ngModel)]="profile.contact_email" placeholder="Masukkan email PIC"></ion-input>
+        </div>
+        <div class="form-group">
+            <ion-label class="form-label">No. HP Kontak</ion-label>
+            <ion-input class="custom-input" type="tel" [(ngModel)]="profile.contact_phone" placeholder="Masukkan No. HP PIC"></ion-input>
+        </div>
+
+        <!-- Tombol Aksi Simpan -->
+        <ion-button expand="block" (click)="saveProfile()" class="save-button">
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Simpan Perubahan
+        </ion-button>
+    </div>
+  </div>
+</ion-content>

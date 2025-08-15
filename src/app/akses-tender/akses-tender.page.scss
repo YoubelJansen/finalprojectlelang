@@ -1,0 +1,87 @@
+/* Mengatur warna global sesuai permintaan Anda */
+:host {
+  --ion-background-color: #FAF5EE; // Latar belakang halaman cream
+  --text-green-color: #1D503A;    // Warna hijau tua
+  --card-white-color: #ffffff;   // Warna kartu putih
+}
+
+/* Tombol kembali manual */
+.back-button-area {
+  position: absolute; top: 20px; left: 20px; z-index: 10;
+  ion-back-button { --color: var(--text-green-color); }
+}
+
+/* Kontainer utama */
+.tender-frame {
+  padding: 24px;
+}
+
+/* Judul utama dan sub-judul */
+.main-title {
+  font-size: 2rem; font-weight: 700; color: var(--text-green-color);
+  margin: 32px 0 8px 0; padding: 0 8px;
+}
+
+.section-subtitle {
+  font-size: 1rem; color: #555; margin-bottom: 32px; padding: 0 8px;
+}
+
+/* Styling untuk setiap kartu tender */
+.tender-card {
+  --background: var(--card-white-color);
+  margin: 0 0 20px 0;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+  border-left: 5px solid var(--text-green-color);
+}
+
+ion-card-header {
+  padding-bottom: 8px;
+  ion-card-title { font-weight: 600; font-size: 1.3rem; color: #333; }
+  ion-card-subtitle { font-size: 0.85rem; color: #888; }
+}
+
+ion-card-content {
+  .description {
+    color: #555;
+    margin-bottom: 1.5rem;
+    padding-top: 0;
+    -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+    display: -webkit-box; overflow: hidden; text-overflow: ellipsis;
+  }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 1rem;
+  }
+}
+
+.deadline-chip {
+  --color: #333;
+  --border-color: #e0e0e0;
+  font-size: 0.8rem;
+}
+
+.action-button {
+  --background: var(--text-green-color);
+  --background-activated: #153d2c;
+  --color: white;
+  --border-radius: 8px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+/* Styling untuk empty state & skeleton */
+.empty-state, .skeleton-card {
+  text-align: center;
+  margin-top: 50px;
+  color: var(--text-green-color);
+  opacity: 0.7;
+  ion-icon { font-size: 4rem; margin-bottom: 1rem; }
+  h3 { font-weight: 600; }
+}
+.skeleton-card .footer { border: none; }
